@@ -30,7 +30,7 @@ def call_ai(prompt):
             },
             {"role": "user", "content": prompt}
         ],
-        "temperature": 0.0
+        "temperature": 0.1  # Groq throws 400 errors if this is exactly 0.0
     }
 
     for attempt in range(3):
@@ -42,8 +42,11 @@ def call_ai(prompt):
                 if choices and "message" in choices[0]:
                     return choices[0]["message"].get("content", "").strip()
             elif resp.status_code == 429:
+                print("Rate limited by Groq, waiting 10s...")
                 time.sleep(10)
             else:
+                # Crucial Fix: Print the exact API error so it doesn't fail silently
+                print(f"Groq API Error {resp.status_code}: {resp.text}")
                 time.sleep(3)
         except Exception as e:
             print(f"AI call exception: {e}")
