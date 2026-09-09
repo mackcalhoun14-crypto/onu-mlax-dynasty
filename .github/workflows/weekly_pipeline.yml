@@ -2,15 +2,21 @@ name: Weekly Matchup & Trade Automation
 
 on:
   schedule:
-    # 14:15 UTC = 10:15 AM EDT every Wednesday
     - cron: '15 14 * * 3'
   workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -29,11 +35,14 @@ jobs:
           SLEEPER_LEAGUE_ID: "1312162066798231552"
         run: python scripts/generate_previews.py
 
-      - name: Commit and Push Updated Data
-        run: |
-          git config --global user.name "Dynasty Bot"
-          git config --global user.email "bot@users.noreply.github.com"
-          git pull --rebase origin main || true
-          git add data/
-          git commit -m "Auto-update weekly matchups, AI previews & trade grades" || exit 0
-          git push origin main
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
