@@ -26,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts or team names."
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Always refer to fantasy franchises by their actual team names, never as generic placeholders like Team A or Team B."
             },
             {"role": "user", "content": prompt}
         ],
@@ -42,10 +42,13 @@ def call_ai(prompt):
                 if choices and "message" in choices[0]:
                     return choices[0]["message"].get("content", "").strip()
             elif resp.status_code == 429:
+                print("Rate limited by Groq, waiting 10s...")
                 time.sleep(10)
             else:
+                print(f"Groq API Error {resp.status_code}: {resp.text}")
                 time.sleep(3)
-        except Exception:
+        except Exception as e:
+            print(f"AI call exception: {e}")
             time.sleep(3)
     return None
 
@@ -125,6 +128,7 @@ def run():
 
         if not isinstance(matchups, list): matchups = []
 
+        print("3. Fetching Detailed Player News via RotoWire & ESPN RSS...")
         global_news = []
         try:
             rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
@@ -136,8 +140,8 @@ def run():
                     title = item.find('title').text if item.find('title') is not None else ""
                     desc = item.find('description').text if item.find('description') is not None else ""
                     global_news.append(f"{title}: {re.sub(r'<[^>]+>', '', desc)}")
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Failed to fetch RSS: {e}")
 
         user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
         roster_map = {}
@@ -153,11 +157,15 @@ def run():
                 ties = settings.get("ties", 0)
                 fpts = (settings.get("fpts", 0) or 0) + ((settings.get("fpts_decimal", 0) or 0) / 100.0)
                 
-                roster_map[r_id] = {"name": name, "wins": wins, "losses": losses, "fpts": fpts}
+                roster_map[r_id] = {
+                    "name": name, 
+                    "wins": wins, 
+                    "losses": losses, 
+                    "fpts": fpts,
+                    "players": r.get("players", [])
+                }
                 
-                # Power Score Calculation: Record weight + Point weighting
                 power_score = round((wins * 2) + (fpts / 20.0), 1)
-                
                 power_standings.append({
                     "roster_id": r_id,
                     "name": name,
@@ -166,17 +174,11 @@ def run():
                     "power_score": power_score
                 })
 
-        # Sort standings by Power Score descending
         power_standings.sort(key=lambda x: x["power_score"], reverse=True)
         
-        # Calculate Playoff Magic Numbers (Top 6 make playoffs out of total teams)
-        total_teams = len(power_standings)
         for idx, team in enumerate(power_standings):
-            # Magic number estimation: Max possible wins remaining minus current pace
-            games_played = int(team["record"].split("-")[0]) + int(team["record"].split("-")[1])
-            games_left = max(0, 14 - games_played)
             team["playoff_status"] = "In The Hunt" if idx < 6 else "Chasing"
-            team["magic_number"] = max(0, 9 - int(team["record"].split("-")[0])) # Assuming 9 wins locks a playoff spot
+            team["magic_number"] = max(0, 9 - int(team["record"].split("-")[0]))
 
         os.makedirs("data", exist_ok=True)
         with open("data/standings.json", "w") as f:
@@ -191,13 +193,18 @@ def run():
                 if m_id not in games: games[m_id] = []
                 starter_ids = m.get("starters", [])
                 starters = format_starters(starter_ids, players)
-                t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
+
+                r_data = roster_map.get(m["roster_id"], {})
+                t_name = r_data.get("name", f"Team {m['roster_id']}")
+                r_players = r_data.get("players", [])
+
                 games[m_id].append({
                     "roster_id": m["roster_id"],
-                    "team_name": t_info["name"],
-                    "record": f"{t_info['wins']}-{t_info['losses']}",
+                    "team_name": t_name,
+                    "record": f"{r_data.get('wins', 0)}-{r_data.get('losses', 0)}",
                     "starters": starters,
-                    "starter_ids": starter_ids
+                    "starter_ids": starter_ids,
+                    "roster_player_ids": r_players
                 })
 
         final_matchups = []
@@ -210,16 +217,42 @@ def run():
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
+            # Aggregate all players on both rosters (Starters + Bench) to scan for news
+            all_matchup_pids = t_a["roster_player_ids"] + t_b["roster_player_ids"]
+            matchup_news = []
+            
+            for pid in all_matchup_pids:
+                p_obj = players.get(str(pid), {})
+                p_full_name = p_obj.get("full_name", "")
+                if not p_full_name: continue
+                
+                parts = p_full_name.split()
+                last_name = parts[-1] if parts else p_full_name
+
+                for news in global_news:
+                    if (p_full_name.lower() in news.lower() or (len(last_name) > 3 and last_name.lower() in news.lower())) and news not in matchup_news:
+                        matchup_news.append(f"[{p_full_name}]: {news}")
+
+            news_block = ""
+            if matchup_news:
+                news_block = "\n[CRITICAL REAL-WORLD INJURY/NEWS ALERTS FOR THESE ROSTERS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:5]]) + "\n"
+
             prompt = f"""You are lead analyst for 'ONU MLax Dynasty League'. Write Week {week} preview:
-- '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts
-- '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts
+- '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
+- '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
+{news_block}
+CRITICAL INSTRUCTION:
+If any real-world news or injury alerts are listed above for either franchise, you MUST explicitly discuss them in the preview text or X-Factors.
+
 Rules: Never use Team A/B. Reference projected scores.
 Format:
 **🥊 Tale of the Tape:**
-[1-2 sentences]
+[1-2 sentences weaving in any active player news/injuries]
+
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Analysis]
-- {t_b['team_name']}: [Analysis]
+- {t_a['team_name']}: [Analysis including any injury/news updates]
+- {t_b['team_name']}: [Analysis including any injury/news updates]
+
 **🔮 The Verdict:**
 [Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}."""
 
