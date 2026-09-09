@@ -110,7 +110,9 @@ def run():
             "starters": starters
         })
 
+    # Fallback: If Sleeper has no official matchups yet, pair up rosters sequentially so the UI populates
     if not games and rosters:
+        print("Sleeper returned 0 matchups. Generating default head-to-head pairings from rosters...")
         sorted_rosters = list(roster_map.items())
         for i in range(0, len(sorted_rosters), 2):
             if i + 1 < len(sorted_rosters):
@@ -214,6 +216,16 @@ GRADE_{t2_name}: [Grade]
 WINNER: [Winner Team Name]
 ANALYSIS:
 [1 short paragraph evaluation]"""
+
+                audit_text = call_ai(trade_prompt) or f"GRADE_{t1_name}: B\nGRADE_{t2_name}: B\nWINNER: Even Trade\nANALYSIS:\nEvaluation pending."
+                executed_trades.append({
+                    "transaction_id": tx_id,
+                    "week": w,
+                    "team_1": {"name": t1_name, "receives": t1_receives},
+                    "team_2": {"name": t2_name, "receives": t2_receives},
+                    "audit": audit_text
+                })
+                time.sleep(1)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
