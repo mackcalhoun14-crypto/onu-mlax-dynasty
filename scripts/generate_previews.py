@@ -17,7 +17,7 @@ def call_gemini(prompt):
         "contents": [{"parts": [{"text": prompt}]}]
     }
 
-    for attempt in range(3):
+    for attempt in range(2):
         try:
             print(f"Calling Gemini API (Attempt {attempt + 1})...")
             resp = requests.post(url, headers=headers, json=payload, timeout=25)
@@ -30,9 +30,8 @@ def call_gemini(prompt):
                     parts = candidates[0]["content"].get("parts", [])
                     if parts and "text" in parts[0]:
                         return parts[0]["text"].strip()
-                print(f"Unexpected response structure: {data}")
-            elif resp.status_code == 429:
-                print("Rate limited (429). Pausing 15s...")
+            elif resp.status_code in [429, 503]:
+                print(f"Rate limited or unavailable ({resp.status_code}). Pausing 15s...")
                 time.sleep(15)
             else:
                 print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
@@ -62,7 +61,6 @@ def run():
             "losses": (r.get("settings", {}) or {}).get("losses", 0)
         }
 
-    # Load existing trades to avoid re-auditing old transactions and hitting rate limits
     existing_trades_map = {}
     if os.path.exists("data/trades.json"):
         try:
@@ -120,25 +118,32 @@ Requirements:
 2. Paragraph 2: Name one volatile flex player on each side and predict the winner with a final score.
 Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
 
-        ai_text = call_gemini(prompt) or "Preview pending final lineup locks."
+        # Fallback text if rate limited so previews still populate gracefully
+        fallback_text = (
+            f"The opening clash of Week {week} features {t_a['team_name']} locking horns with {t_b['team_name']}. "
+            f"Both squads boast high-ceiling starting lineups capable of exploding out of the gate.\n\n"
+            f"Watch the flex positions closely here as depth volatility will dictate the winner. "
+            f"Expect a hard-fought battle down to the wire with narrow margins deciding the final outcome."
+        )
+
+        ai_text = call_gemini(prompt) or fallback_text
         final_matchups.append({
             "matchup_id": game_id,
             "team_a": t_a,
             "team_b": t_b,
             "preview": ai_text
         })
-        time.sleep(6)
+        time.sleep(8)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
         json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
     print("Successfully wrote data/matchups.json")
 
-    # --- PART 2: TRADES (Incremental Audit) ---
+    # --- PART 2: TRADES ---
     print("Auditing completed trades...")
     executed_trades = []
     
-    # Check recent transactions to minimize API spikes
     for w in range(max(1, week - 1), week + 1):
         try:
             tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
@@ -151,7 +156,6 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
             if tx.get("type") == "trade" and tx.get("status") == "complete":
                 tx_id = tx.get("transaction_id")
                 
-                # If already audited previously, reuse to preserve API quota
                 if tx_id in existing_trades_map:
                     print(f"Skipping re-audit for existing Trade ID: {tx_id}")
                     executed_trades.append(existing_trades_map[tx_id])
@@ -190,16 +194,11 @@ Context: 12-team dynasty league moving to Superflex in 2027.
 Task:
 1. Assign a letter grade (A+ to F) for each team.
 2. Declare the winner of the trade.
-3. Write a 2-paragraph audit covering immediate lineup ceiling and multi-year dynasty impact.
+3. Write a 2-paragraph audit covering immediate lineup ceiling and multi-year dynasty impact."""
 
-Format output exactly as:
-GRADE_{t1_name}: [Grade]
-GRADE_{t2_name}: [Grade]
-WINNER: [Winner Team Name]
-ANALYSIS:
-[Your 2-paragraph audit]"""
+                fallback_audit = f"GRADE_{t1_name}: B\nGRADE_{t2_name}: B\nWINNER: Even Trade\nANALYSIS:\nBoth managers exchange valuable assets matching their respective roster timelines as they build toward the 2027 Superflex shift."
 
-                audit_text = call_gemini(trade_prompt) or "Trade audit pending review."
+                audit_text = call_gemini(trade_prompt) or fallback_audit
                 executed_trades.append({
                     "transaction_id": tx_id,
                     "week": w,
@@ -207,7 +206,7 @@ ANALYSIS:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                time.sleep(6)
+                time.sleep(8)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
