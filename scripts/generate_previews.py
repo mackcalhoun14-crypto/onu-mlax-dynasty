@@ -11,7 +11,6 @@ def call_gemini(prompt):
         print("CRITICAL ERROR: GEMINI_API_KEY environment variable is not set.")
         return None
 
-    # Using the active model identifier
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={GEMINI_KEY.strip()}"
     headers = {"Content-Type": "application/json"}
     payload = {
@@ -33,8 +32,8 @@ def call_gemini(prompt):
                         return parts[0]["text"].strip()
                 print(f"Unexpected response structure: {data}")
             elif resp.status_code == 429:
-                print("Rate limited (429). Pausing 12s...")
-                time.sleep(12)
+                print("Rate limited (429). Pausing 15s...")
+                time.sleep(15)
             else:
                 print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
         except Exception as e:
@@ -62,6 +61,17 @@ def run():
             "wins": (r.get("settings", {}) or {}).get("wins", 0),
             "losses": (r.get("settings", {}) or {}).get("losses", 0)
         }
+
+    # Load existing trades to avoid re-auditing old transactions and hitting rate limits
+    existing_trades_map = {}
+    if os.path.exists("data/trades.json"):
+        try:
+            with open("data/trades.json", "r") as f:
+                old_data = json.load(f)
+                for t in old_data.get("trades", []):
+                    existing_trades_map[t["transaction_id"]] = t
+        except Exception:
+            pass
 
     # --- PART 1: MATCHUPS ---
     games = {}
@@ -117,18 +127,19 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
             "team_b": t_b,
             "preview": ai_text
         })
-        # Increased sleep buffer to prevent rate-limiting (429)
-        time.sleep(5)
+        time.sleep(6)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
         json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
     print("Successfully wrote data/matchups.json")
 
-    # --- PART 2: TRADES ---
+    # --- PART 2: TRADES (Incremental Audit) ---
     print("Auditing completed trades...")
     executed_trades = []
-    for w in range(1, week + 1):
+    
+    # Only pull transactions for the current week or check recent weeks to minimize API spikes
+    for w in range(max(1, week - 1), week + 1):
         try:
             tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
             if not isinstance(tx_data, list):
@@ -139,6 +150,13 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
         for tx in tx_data:
             if tx.get("type") == "trade" and tx.get("status") == "complete":
                 tx_id = tx.get("transaction_id")
+                
+                # If we already audited this trade previously, keep the old audit to save API quota!
+                if tx_id in existing_trades_map:
+                    print(f"Skipping re-audit for existing Trade ID: {tx_id}")
+                    executed_trades.append(existing_trades_map[tx_id])
+                    continue
+
                 r_ids = tx.get("roster_ids", [])
                 if len(r_ids) != 2:
                     continue
@@ -148,8 +166,8 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
                 t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
 
                 adds = tx.get("adds") or {}
-                t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
-                t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
+                t1_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
+                t2_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
 
                 for pick in tx.get("draft_picks", []):
                     pick_desc = f"{pick.get('season')} Round {pick.get('round')}"
@@ -158,7 +176,7 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
                     elif pick.get("owner_id") == r2:
                         t2_receives.append(pick_desc)
 
-                print(f"Auditing Trade ID: {tx_id} ({t1_name} <-> {t2_name})")
+                print(f"Auditing New Trade ID: {tx_id} ({t1_name} <-> {t2_name})")
                 trade_prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
 Audit this trade executed in Week {w}:
 
@@ -189,8 +207,7 @@ ANALYSIS:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                # Increased sleep buffer to prevent rate-limiting (429)
-                time.sleep(5)
+                time.sleep(6)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
