@@ -64,17 +64,6 @@ def run():
             "losses": (r.get("settings", {}) or {}).get("losses", 0)
         }
 
-    existing_matchups_map = {}
-    if os.path.exists("data/matchups.json"):
-        try:
-            with open("data/matchups.json", "r") as f:
-                old_m_data = json.load(f)
-                if old_m_data.get("week") == week:
-                    for m in old_m_data.get("matchups", []):
-                        existing_matchups_map[m["matchup_id"]] = m["preview"]
-        except Exception:
-            pass
-
     existing_trades_map = {}
     if os.path.exists("data/trades.json"):
         try:
@@ -110,51 +99,43 @@ def run():
             "starters": starters
         })
 
-    print(f"Found {len(games)} head-to-head matchups. Generating AI previews via Groq...")
+    print(f"Found {len(games)} head-to-head matchups. Generating unique AI previews via Groq...")
     final_matchups = []
     for game_id, teams in games.items():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
-
-        if game_id in existing_matchups_map and not existing_matchups_map[game_id].startswith("The opening clash"):
-            print(f"Using cached preview for Matchup #{game_id}")
-            final_matchups.append({
-                "matchup_id": game_id,
-                "team_a": t_a,
-                "team_b": t_b,
-                "preview": existing_matchups_map[game_id]
-            })
-            continue
-
         print(f"Processing Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}")
+
         prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
-Write a concise, high-energy 2-paragraph matchup preview for Week {week}.
+Write a concise, high-energy 2-paragraph matchup preview for Week {week} featuring these exact teams.
 
 Matchup:
-- {t_a['team_name']} (Record: {t_a['record']})
-  Starters: {', '.join(t_a['starters'][:7])}
-- {t_b['team_name']} (Record: {t_b['record']})
-  Starters: {', '.join(t_b['starters'][:7])}
+- Team 1: {t_a['team_name']} (Record: {t_a['record']})
+  Starters: {', '.join(t_a['starters'][:7]) if t_a['starters'] else 'None set'}
+- Team 2: {t_b['team_name']} (Record: {t_b['record']})
+  Starters: {', '.join(t_b['starters'][:7]) if t_b['starters'] else 'None set'}
 
 Requirements:
-1. Paragraph 1: Break down the primary positional clash.
-2. Paragraph 2: Name one volatile flex player on each side and predict the winner with a final score.
-Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
+1. Paragraph 1: Analyze the specific positional advantages and starter firepower for each side based on their listed players.
+2. Paragraph 2: Highlight a key player matchup or volatility factor and predict who takes home the win.
+Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct and tailored to these exact teams."""
 
-        ai_text = call_ai(prompt) or f"Matchup breakdown for {t_a['team_name']} vs {t_b['team_name']} pending lineup locks."
+        ai_text = call_ai(prompt) or f"Matchup breakdown for {t_a['team_name']} vs {t_b['team_name']} pending lineup confirmation."
+        
         final_matchups.append({
             "matchup_id": game_id,
             "team_a": t_a,
             "team_b": t_b,
             "preview": ai_text
         })
+        # Gentle pacing between Groq calls
         time.sleep(2)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
         json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
-    print("Successfully wrote data/matchups.json")
+    print("Successfully wrote fresh data/matchups.json")
 
     # --- PART 2: TRADES ---
     print("Auditing completed trades...")
