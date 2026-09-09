@@ -398,9 +398,9 @@
       const container = document.getElementById('matchups-container');
       const weekLabel = document.getElementById('current-week-label');
 
-      // Dynamically handle GitHub Pages subpath (e.g. /onu-mlax-dynasty/data/matchups.json)
+      // Dynamically handle GitHub Pages subpath with cache-buster
       const pathPrefix = window.location.pathname.includes('/onu-mlax-dynasty/') ? '/onu-mlax-dynasty' : '';
-      const jsonUrl = `${pathPrefix}/data/matchups.json`;
+      const jsonUrl = `${pathPrefix}/data/matchups.json?v=${Date.now()}`;
 
       try {
         const res = await fetch(jsonUrl);
