@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ONU MLax Dynasty | Official Rulebook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #070a13;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.07) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    .glass { background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.07); }
+    .glass-inner { background: rgba(19, 30, 54, 0.65); border: 1px solid rgba(255, 255, 255, 0.05); }
+  </style>
+</head>
+<body class="text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <header class="sticky top-0 z-50 glass border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="h-11 w-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 p-[1px]">
+          <div class="h-full w-full bg-slate-950 rounded-2xl flex items-center justify-center font-black text-white text-lg">📜</div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-extrabold text-white">ONU MLax Dynasty</h1>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase">Rulebook</span>
+          </div>
+          <p class="text-xs text-slate-400 font-mono">Official League Bylaws</p>
+        </div>
+      </div>
+
+      <nav class="flex items-center gap-1.5 p-1 bg-slate-950/70 rounded-xl border border-slate-800">
+        <a href="index.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Matchup Center</a>
+        <a href="index.html#outlook" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</a>
+        <a href="trades.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Trade Grader</a>
+        <a href="rules.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black">Rulebook</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 flex-1 w-full">
+    
+    <div class="glass rounded-3xl p-8 border border-slate-800 space-y-6">
+      <div>
+        <h2 class="text-2xl font-black text-white flex items-center gap-3"><span>📖</span> ONU MLax Dynasty Fantasy Football League Rulebook</h2>
+        <p class="text-xs text-slate-400 font-mono mt-1">Governing bylaws, roster mandates, and weekly consequence guidelines</p>
+      </div>
+
+      <div class="space-y-6 text-sm text-slate-300 leading-relaxed divide-y divide-slate-800/80">
+
+        <!-- Section 1 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">1. League Overview</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>1.1 Name:</strong> ONU MLax Dynasty Fantasy Football League ("The League").</li>
+            <li><strong>1.3 Format:</strong> League format and team format rules are managed on Sleeper.</li>
+            <li><strong>1.4 Number of Teams:</strong> 12 teams.</li>
+          </ul>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">2. Team Ownership</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>2.1 Responsibilities:</strong> Each team owner is responsible for setting their lineup weekly, managing their roster, participating in drafts, and adhering to the league’s rules.</li>
+            <li><strong>2.2 Ownership Changes:</strong> If a team owner decides to leave the league, a replacement owner will be recruited by the Commissioner.</li>
+            <li><strong>2.3 League Fees:</strong> The annual buy-in is $200, payable before the draft.</li>
+            <li><strong>2.4 Roster Compliance:</strong> Immediately following the conclusion of the annual Rookie Draft, all teams exceeding the active roster limit due to incoming draft picks must cut down to the legal roster limit and finalize Taxi Squad designations before submitting any waiver claims or executing trades. Sleeper platform locks on over-capacity rosters will not be manually overridden by the Commissioner.</li>
+          </ul>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">3. Draft</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>3.3 Draft Order:</strong> Players in the winners bracket have their draft pick decided by how they place in the bracket. Players in the losers bracket will have their draft order decided by the lowest points for the season.</li>
+          </ul>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">4. Transactions</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>4.1 Trading:</strong> Allowed year-round, except during specified blackout periods. If a trade is accepted by accident, the Commissioner must be notified within two minutes of the trade being processed. Trades will not be vetoed unless the trade is league-breaking. In such cases, the Commissioner will decide if it is league-breaking, and the matter will then go to a league vote. Veto will take 9 votes to pass, trading people cannot vote.</li>
+            <li><strong>4.2 Waivers, FAAB, and Free Agency:</strong> The league utilizes a blind bidding FAAB system. Post-Draft Waiver Window (Week 0): Friday, Saturday, and Sunday runs process daily at 10:00 AM EDT. Friday and Saturday runs are Waivers only. Sunday's run processes waivers, then transitions to unrestricted First-Come, First-Served (FCFS) Free Agency. During this weekend only, a temporary 1-day (24-hour) holding period for dropped players is in effect. Preseason FAAB Reset: All bids during the post-draft weekend utilize the preseason budget. On Sunday, immediately following the 10:00 AM EDT waiver run, the Commissioner will manually reset all team FAAB balances to 100% ($100) for the start of the regular season. In-Season Schedule: Commencing NFL Week 1, waivers process Wednesdays at 10:00 AM EDT. Thursday through Sunday (until individual player game kickoffs) operate on an unrestricted FCFS basis.</li>
+          </ul>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">5. League Governance</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>5.1 Commissioner Role:</strong> The Commissioner oversees league operations, resolves disputes, and ensures fair play.</li>
+            <li><strong>5.2 Rule Changes:</strong> Amendments to this rulebook require a 2/3 majority vote.</li>
+          </ul>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">6. Conduct & Weekly Mandates</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>6.1 Sportsmanship:</strong> Owners are expected to engage respectfully with one another.</li>
+            <li><strong>6.2 Collusion:</strong> Any attempt to manipulate outcomes through collusion will result in penalties, including possible expulsion.</li>
+            <li><strong>6.3 Restrictions:</strong> Samuel Neff is never allowed in the league under any circumstances.</li>
+            <li><strong>6.4 Weekly Consequence:</strong> The player with the lowest scoring points each week must shotgun either one beer before 8 AM on Tuesday, two non-alcoholic beers, two Sprites, or a half gallon of milk. During the playoffs, the person with the lowest points in the winners and losers bracket must chug. This only applies to players that are still in the main bracket. Each player that is still in the playoff bracket is eligible to chug that week.</li>
+            <li><strong>6.5 Lineup Requirements:</strong> Starters must be Active (The Weekly Rule): Every starting slot must be filled by a player who is active (not ruled Out, on IR, on a Bye, or Suspended) by kickoff. Rosters must be at Full Capacity by Kickoff (The Max PF Rule): Teams must carry a full roster size (e.g., all 25 active/bench spots filled) by Sunday at 1:00 PM ET to prevent owners from dropping depth to suppress Max PF. Violations will result in being assigned pick 12 in the next draft.</li>
+          </ul>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">7. Prizes and Awards</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>7.1 Champion:</strong> The winner of the playoffs receives $1,400.</li>
+            <li><strong>7.2 Second Place:</strong> The runner-up receives $800.</li>
+            <li><strong>7.3 Third Place:</strong> Third place receives $200.</li>
+            <li><strong>7.4 Last Place Consequence:</strong> The team with the lowest points for the season and the loser of the toilet bowl must each pay $100 toward the winner’s buy-in for the next season.</li>
+          </ul>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="pt-6 space-y-2">
+          <h3 class="text-base font-bold text-cyan-400">8. Appendix</h3>
+          <ul class="list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li><strong>8.1 Key Dates:</strong> Draft Day: TBD. Waiver/FAAB Schedule: Post-Draft Week 0 (Fri/Sat/Sun at 10:00 AM EDT); In-Season (Wednesdays at 10:00 AM EDT for waivers; Thursday-Sunday for FCFS).</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-900 font-mono">
+    ONU MLax Dynasty League • Official Bylaws & Rulebook
+  </footer>
+
+</body>
+</html>
