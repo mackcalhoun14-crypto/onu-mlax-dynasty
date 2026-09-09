@@ -1,507 +1,371 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ONU MLax Dynasty | Matchup Forecast & Season Outlook</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Markdown parser for preview formatting -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+import os
+import json
+import re
+import time
+import requests
+import xml.etree.ElementTree as ET
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          }
-        }
-      }
+# Bulletproof fallback for blank GitHub Secrets
+LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID")
+if not LEAGUE_ID or LEAGUE_ID.strip() == "":
+    LEAGUE_ID = "1312162066798231552"
+
+GROQ_KEY = os.environ.get("GROQ_API_KEY")
+
+def call_ai(prompt):
+    if not GROQ_KEY:
+        print("CRITICAL ERROR: GROQ_API_KEY environment variable is not set.")
+        return None
+
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {GROQ_KEY.strip()}",
+        "Content-Type": "application/json"
     }
-  </script>
-  <style>
-    body {
-      background-color: #070a13;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.07) 0px, transparent 50%);
-      background-attachment: fixed;
-    }
-    .glass { background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.07); }
-    .glass-inner { background: rgba(19, 30, 54, 0.65); border: 1px solid rgba(255, 255, 255, 0.05); }
-    .glow-gold { box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.18); }
-    .glow-rose { box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.18); }
-    
-    .ai-preview-content p {
-      margin-bottom: 0.75rem;
-    }
-    .ai-preview-content p:last-child {
-      margin-bottom: 0;
-    }
-    .ai-preview-content strong {
-      color: #ffffff;
-      font-weight: 800;
-    }
-  </style>
-</head>
-<body class="text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
-
-  <!-- NAVBAR -->
-  <header class="sticky top-0 z-50 glass border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row items-center justify-between gap-4">
-      <div class="flex items-center justify-between w-full lg:w-auto">
-        <div class="flex items-center space-x-3">
-          <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 p-[1px]">
-            <div class="h-full w-full bg-slate-950 rounded-2xl flex items-center justify-center font-black text-white text-base sm:text-lg">🏈</div>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h1 class="text-sm sm:text-lg font-extrabold text-white">ONU MLax Dynasty</h1>
-              <span class="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase">Weekly Forecast</span>
-            </div>
-            <p class="text-[10px] sm:text-xs text-slate-400 font-mono">League ID: 1312162066798231552</p>
-          </div>
-        </div>
-      </div>
-
-      <nav class="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-slate-950/70 rounded-2xl border border-slate-800 w-full lg:w-auto">
-        <button onclick="switchView('matchups')" id="btn-matchups" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500 text-black">Weekly Forecast</button>
-        <button onclick="switchView('outlook')" id="btn-outlook" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</button>
-        <a href="trades.html" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1">Trade Grader <span class="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">Live</span></a>
-        <a href="rules.html" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Rulebook</a>
-        <a href="draft.html" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Draft Archive</a>
-      </nav>
-
-      <div class="hidden lg:flex items-center gap-2 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1.5 rounded-xl border border-cyan-500/20">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-        <span>Pregame Mode</span>
-      </div>
-    </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1 w-full">
-
-    <!-- TAB 1: PREGAME MATCHUP FORECAST -->
-    <div id="view-matchups" class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <div>
-          <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2"><span>⚔️</span> Weekly Matchup Forecast & Game Scripts</h2>
-          <p class="text-xs text-slate-400">Mid-week scouting reports, projected lines, and commissioner game-flow previews</p>
-        </div>
-        <div class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-lg border border-cyan-500/20 self-start sm:self-auto" id="current-week-label">
-          Generating Forecast...
-        </div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6" id="matchups-container">
-        <div class="col-span-full text-center py-12 text-slate-500 font-mono text-xs">Loading matchup forecast...</div>
-      </div>
-    </div>
-
-    <!-- TAB 2: SEASON OUTLOOK -->
-    <div id="view-outlook" class="hidden space-y-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2"><span>🔮</span> Season Outlook & Predictions</h2>
-          <p class="text-xs text-slate-400">Projected records, Win-Now power grades, and ceiling & floor audits</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        <!-- Syracuse Sandstorms -->
-        <div class="glass glow-gold rounded-3xl p-5 sm:p-6 border border-amber-500/30 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30">Top Dog • Win-Now #1</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Syracuse Sandstorms</h3>
-              <p class="text-xs text-slate-400 font-mono">@Jjmully05 • 168,982 Val</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">12-2</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">CMC, JT, and Josh Allen combine for a 70-point floor. Jadarian Price hits immediately, locking down the #1 seed and title.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Backfield soft-tissue strains hit in November, forcing reliance on rookie depth during a high-scoring playoff loss.</p>
-          </div>
-        </div>
-
-        <!-- Chicken Soup -->
-        <div class="glass glow-gold rounded-3xl p-5 sm:p-6 border border-amber-500/30 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Contender • Win-Now #2</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Chicken Soup</h3>
-              <p class="text-xs text-slate-400 font-mono">@marousc11 • 40% Title Odds</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">11-3</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Lamar and Burrow post top-5 seasons, Gibbs and Hall dominate volume, and marousc11 coasts to a championship.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Kittle misses time leaving TE empty, and a cold-weather game in Cincinnati leads to a narrow semifinal exit.</p>
-          </div>
-        </div>
-
-        <!-- noahsaint -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Contender • Win-Now #3</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">noahsaint</h3>
-              <p class="text-xs text-slate-400 font-mono">@noahsaint • 142,895 Val</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">10-4</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Stroud and Purdy provide elite QB efficiency while JSN and Higgins command heavy target volume.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">The backfield fragility (Rank 11 at RB) catches up against physical teams in December.</p>
-          </div>
-        </div>
-
-        <!-- George PickHIMs -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Contender • Win-Now #4</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">George PickHIMs</h3>
-              <p class="text-xs text-slate-400 font-mono">@WaffleHD • #1 TE Advantage</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">9-5</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Bowers and McBride outscore opposing tight ends by 15 points per game while Achane creates explosive plays.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Quarterback instability leads to erratic weeks, resulting in an early wildcard exit.</p>
-          </div>
-        </div>
-
-        <!-- Worthy of my Chuba -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Win-Now #5</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Worthy of my Chuba</h3>
-              <p class="text-xs text-slate-400 font-mono">@PmoneyJizzCakes • RB Rank #3</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">8-6</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Bijan, Saquon, and Etienne dominate touches while Mahomes powers a dynamic playoff run.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">A shallow wide receiver room struggles against bracket coverage, leaving the team just outside the playoffs.</p>
-          </div>
-        </div>
-
-        <!-- MaxWeese25 -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Glass Cannon</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">MaxWeese25</h3>
-              <p class="text-xs text-slate-400 font-mono">@MaxWeese25 • 20% Title Odds</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">8-6</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Chase, Puka, Nico Collins, and Tate outscore full fantasy rosters, producing 160-point playoff explosions.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Injuries strike a thin roster with zero bench depth, causing a slide to 6-8.</p>
-          </div>
-        </div>
-
-        <!-- Amon Ra Akbar -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Zero-RB Volatility</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Amon Ra Akbar</h3>
-              <p class="text-xs text-slate-400 font-mono">@Nickgroves • WR Room #1</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-amber-400">7-7</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Amon-Ra, JJ, London, Odunze, and MHJ average 80 PPR points every single week.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Backfield output stalls, yielding under 10 weekly points and forcing difficult panic sales.</p>
-          </div>
-        </div>
-
-        <!-- T-Mac Attack -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Youth Core</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">T-Mac Attack</h3>
-              <p class="text-xs text-slate-400 font-mono">@Cpeeps1997 • Starter Rank #10</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-amber-400">7-7</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Jordyn Tyson, Makai Lemon, and Jonah Coleman deliver immediately alongside Tetairoa McMillan.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Rookie variance leads to close losses, landing the roster in the draft lottery.</p>
-          </div>
-        </div>
-
-        <!-- Mr Texas -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/30">Basement • Aging Core</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Mr texas</h3>
-              <p class="text-xs text-slate-400 font-mono">@georgie69420 • 90,467 Val</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">5-9</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Montgomery and Pittman provide reliable weekly volume, squeezing into the 6th playoff seed.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Veteran drop-offs accelerate while auto-drafted backups provide minimal weekly upside.</p>
-          </div>
-        </div>
-
-        <!-- BabbyBare -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/30">Basement • QB Vault</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">BabbyBare</h3>
-              <p class="text-xs text-slate-400 font-mono">@BabbyBare • QB Rank #1</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">4-10</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Caleb Williams and Jayden Daniels secure top-8 QB status, allowing Babby to sell one for an elite WR1.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">The wide receiver room struggles for yardage, keeping the team locked in a rebuilding year.</p>
-          </div>
-        </div>
-
-        <!-- Dayton Degenerates -->
-        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Basement • Top Riser (+13.9K)</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Dayton Degenerates</h3>
-              <p class="text-xs text-slate-400 font-mono">@bdalidowicz • Foundation: J. Love</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">4-10</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Jeremiyah Love emerges as an every-week RB1, setting the stage for the 2027 draft class.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Quarterback play limits offensive possessions, leading to low scoring totals.</p>
-          </div>
-        </div>
-
-        <!-- spearson22 -->
-        <div class="glass glow-rose rounded-3xl p-5 sm:p-6 border border-rose-500/30 space-y-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/30">Cellar Anchor • Win-Now #12</span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">spearson22</h3>
-              <p class="text-xs text-slate-400 font-mono">@spearson22 • Rebuild Mode</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">1-13</div>
-              <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
-            </div>
-          </div>
-          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-emerald-400 uppercase text-[10px]">📈 Best Case:</span>
-            <p class="text-slate-200 mt-1">Clinical tank execution securing the #1 overall 2027 pick to reboot the franchise.</p>
-          </div>
-          <div class="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-3 text-xs">
-            <span class="font-bold text-rose-400 uppercase text-[10px]">📉 Worst Case:</span>
-            <p class="text-slate-300 mt-1">Inconsistent scoring keeps the team anchored at the bottom of the standings.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </main>
-
-  <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-900 font-mono">
-    ONU MLax Dynasty League • Weekly Forecast Powered by Groq AI
-  </footer>
-
-  <script>
-    const LEAGUE_ID = "1312162066798231552";
-
-    function switchView(viewId) {
-      document.getElementById('view-matchups').classList.add('hidden');
-      document.getElementById('view-outlook').classList.add('hidden');
-      document.getElementById('btn-matchups').className = "px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white";
-      document.getElementById('btn-outlook').className = "px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white";
-
-      document.getElementById(`view-${viewId}`).classList.remove('hidden');
-      const activeBtn = document.getElementById(`btn-${viewId}`);
-      activeBtn.className = "px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500 text-black";
+    payload = {
+        "model": "openai/gpt-oss-120b",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Always refer to fantasy franchises by their actual team names, never as generic placeholders like Team A or Team B."
+            },
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.25
     }
 
-    async function loadMatchups() {
-      const container = document.getElementById('matchups-container');
-      const weekLabel = document.getElementById('current-week-label');
+    for attempt in range(3):
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=25)
+            if resp.status_code == 200:
+                data = resp.json()
+                choices = data.get("choices", [])
+                if choices and "message" in choices[0]:
+                    return choices[0]["message"].get("content", "").strip()
+            elif resp.status_code == 429:
+                print("Rate limited by Groq, waiting 10s...")
+                time.sleep(10)
+            else:
+                print(f"Groq API Error {resp.status_code}: {resp.text}")
+                time.sleep(3)
+        except Exception as e:
+            print(f"AI call exception: {e}")
+            time.sleep(3)
+    return None
 
-      const pathPrefix = window.location.pathname.includes('/onu-mlax-dynasty/') ? '/onu-mlax-dynasty' : '';
-      const jsonUrl = `${pathPrefix}/data/matchups.json?v=${Date.now()}`;
-
-      try {
-        const res = await fetch(jsonUrl);
-        if (res.ok) {
-          const data = await res.json();
-          weekLabel.textContent = `Week ${data.week} Forecast`;
-          renderCards(data.matchups);
-          return;
-        }
-      } catch (e) {
-        console.log("Error loading JSON:", e);
-      }
-    }
-
-    function renderCards(list) {
-      const container = document.getElementById('matchups-container');
-      
-      container.innerHTML = list.map(m => {
-        const parsedPreview = marked.parse(m.preview || "");
+def calculate_team_projection(starter_ids, projections):
+    total = 0.0
+    for pid in starter_ids:
+        if str(pid) == "0": continue
+        p_data = projections.get(str(pid), {})
         
-        // Build the audio player bar if audio exists
-        const audioSection = m.audio_url ? `
-          <div class="mb-3 p-2 bg-slate-900/80 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-base">🎙️</span>
-              <span class="text-[10px] font-bold font-mono uppercase text-emerald-400">Commissioner Audio Breakdown</span>
-            </div>
-            <audio controls class="h-6 w-44 sm:w-56 accent-emerald-400">
-              <source src="${m.audio_url}?v=${Date.now()}" type="audio/mpeg">
-            </audio>
-          </div>
-        ` : '';
-
-        return `
-          <div class="glass rounded-3xl p-4 sm:p-6 border border-slate-800 space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
-              <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Matchup #${m.matchup_id} Forecast</span>
-              <span class="text-[11px] font-mono text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Head-to-Head</span>
-            </div>
+        if "stats" in p_data:
+            pts = p_data["stats"].get("pts_half_ppr") or p_data["stats"].get("pts_ppr") or p_data["stats"].get("pts_std") or 0.0
+        else:
+            pts = p_data.get("pts_half_ppr") or p_data.get("pts_ppr") or p_data.get("pts_std") or 0.0
             
-            <div class="grid grid-cols-2 gap-3">
-              <!-- Team A Preview Card -->
-              <div class="glass-inner p-3.5 rounded-2xl flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="font-bold text-white text-xs sm:text-sm truncate">${m.team_a.team_name}</span>
-                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">${m.team_a.win_prob || '50%'}</span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 font-mono mt-0.5">Rec: ${m.team_a.record}</div>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-baseline justify-between">
-                  <span class="text-[9px] uppercase tracking-wider text-slate-400 font-mono">Projected</span>
-                  <span class="text-base sm:text-lg font-black font-mono text-cyan-400">${m.team_a.projected || '114.5'} <span class="text-[10px] font-normal text-slate-400">pts</span></span>
-                </div>
-              </div>
+        total += float(pts)
+        
+    if total == 0.0 and starter_ids:
+        total = 110.0 + (len(starter_ids) * 0.1)
+    return round(total, 1)
 
-              <!-- Team B Preview Card -->
-              <div class="glass-inner p-3.5 rounded-2xl flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between gap-1">
-                    <span class="font-bold text-white text-xs sm:text-sm truncate">${m.team_b.team_name}</span>
-                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">${m.team_b.win_prob || '50%'}</span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 font-mono mt-0.5">Rec: ${m.team_b.record}</div>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-baseline justify-between">
-                  <span class="text-[9px] uppercase tracking-wider text-slate-400 font-mono">Projected</span>
-                  <span class="text-base sm:text-lg font-black font-mono text-purple-400">${m.team_b.projected || '110.0'} <span class="text-[10px] font-normal text-slate-400">pts</span></span>
-                </div>
-              </div>
-            </div>
+def get_win_prob(proj_a, proj_b):
+    if proj_a == 0 and proj_b == 0:
+        return 50, 50
+    prob_a = 1 / (1 + 10 ** ((proj_b - proj_a) / 33))
+    pct_a = round(prob_a * 100)
+    pct_b = 100 - pct_a
+    return pct_a, pct_b
 
-            <!-- AI Breakdown -->
-            <div class="bg-slate-950/60 rounded-2xl p-3 sm:p-3.5 border border-slate-800/80">
-              ${audioSection}
-              <div class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-2">🤖 Commissioner Game Script & Preview:</div>
-              <div class="text-xs text-slate-300 leading-relaxed ai-preview-content">${parsedPreview}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
+def format_starters(starter_ids, players):
+    starters = []
+    for p_id in starter_ids:
+        if str(p_id) == "0": continue
+        p = players.get(str(p_id)) or {}
+        p_name = p.get("full_name") or str(p_id)
+        p_pos = p.get("position") or "FLEX"
+        p_team = p.get("team") or "FA"
+        
+        years_exp = p.get("years_exp")
+        if years_exp is None or years_exp == 0:
+            exp_tag = "Rookie"
+        else:
+            exp_tag = f"{years_exp}y veteran"
+            
+        starters.append(f"{p_name} ({p_pos}, NFL: {p_team}, {exp_tag})")
+    return starters if starters else ["Roster building phase - Starters pending"]
 
-    loadMatchups();
-  </script>
-</body>
-</html>
+def parse_ai_forecast(ai_text, team_a_name, team_b_name):
+    if not ai_text:
+        return f"Matchup preview for {team_a_name} vs {team_b_name} pending lineup confirmation."
+
+    try:
+        preview_start = ai_text.index("**🥊 Tale of the Tape:**")
+        preview_body = ai_text[preview_start:].strip()
+    except ValueError:
+        preview_body = ai_text.strip()
+
+    preview_body = re.sub(r'\bTeam\s+A\b', team_a_name, preview_body, flags=re.IGNORECASE)
+    preview_body = re.sub(r'\bTeam\s+B\b', team_b_name, preview_body, flags=re.IGNORECASE)
+    preview_body = re.sub(r'\bTeam\s+1\b', team_a_name, preview_body, flags=re.IGNORECASE)
+    preview_body = re.sub(r'\bTeam\s+2\b', team_b_name, preview_body, flags=re.IGNORECASE)
+        
+    return preview_body
+
+def run():
+    try:
+        print(f"0. Using League ID: {LEAGUE_ID}")
+        print("1. Fetching Sleeper NFL State...")
+        state_res = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15)
+        state = state_res.json() if state_res.status_code == 200 else {}
+        week = state.get("week", 1)
+        season = state.get("season", "2026")
+        season_type = state.get("season_type", "regular")
+        if week < 1: week = 1
+
+        print("2. Fetching League Data & Official Sleeper Projections...")
+        users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
+        rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
+        
+        matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
+        matchups = matchups_res.json() if matchups_res.status_code == 200 else []
+        if not matchups and week > 1:
+            week = 1
+            matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
+            matchups = matchups_res.json() if matchups_res.status_code == 200 else []
+
+        players_res = requests.get("https://api.sleeper.app/v1/players/nfl", timeout=30)
+        projections_res = requests.get(f"https://api.sleeper.app/v1/projections/nfl/{season_type}/{season}/{week}", timeout=30)
+
+        users = users_res.json() if users_res.status_code == 200 else []
+        rosters = rosters_res.json() if rosters_res.status_code == 200 else []
+        players = players_res.json() if players_res.status_code == 200 else {}
+        projections = projections_res.json() if projections_res.status_code == 200 else {}
+
+        if not isinstance(matchups, list): matchups = []
+
+        print("3. Fetching Detailed Player News via RotoWire RSS...")
+        global_news = []
+        try:
+            # Using RotoWire's dedicated fantasy football player news feed
+            rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
+            if rss_res.status_code != 200:
+                rss_res = requests.get("https://www.espn.com/espn/rss/nfl/news", timeout=10)
+                
+            if rss_res.status_code == 200:
+                root = ET.fromstring(rss_res.content)
+                for item in root.findall('.//item'):
+                    title = item.find('title').text if item.find('title') is not None else ""
+                    desc = item.find('description').text if item.find('description') is not None else ""
+                    desc_clean = re.sub(r'<[^>]+>', '', desc)
+                    global_news.append(f"{title}: {desc_clean}")
+        except Exception as e:
+            print(f"Failed to fetch RSS feed: {e}")
+
+        user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
+        roster_map = {}
+        if isinstance(rosters, list) and len(rosters) > 0:
+            for r in rosters:
+                roster_map[r["roster_id"]] = {
+                    "name": user_map.get(r["owner_id"], f"Team {r['roster_id']}"),
+                    "wins": (r.get("settings", {}) or {}).get("wins", 0),
+                    "losses": (r.get("settings", {}) or {}).get("losses", 0)
+                }
+        
+        if not roster_map:
+            roster_map = {
+                1: {"name": "ONU Dynasty 1", "wins": 0, "losses": 0},
+                2: {"name": "Midfield Maestro", "wins": 0, "losses": 0},
+                3: {"name": "Attack Wing", "wins": 0, "losses": 0},
+                4: {"name": "Clear Defenders", "wins": 0, "losses": 0}
+            }
+
+        existing_trades_map = {}
+        if os.path.exists("data/trades.json"):
+            try:
+                with open("data/trades.json", "r") as f:
+                    old_data = json.load(f)
+                    for t in old_data.get("trades", []):
+                        existing_trades_map[t["transaction_id"]] = t
+            except Exception: pass
+
+        # --- PART 1: MATCHUPS ---
+        games = {}
+        
+        if matchups and isinstance(matchups, list) and len(matchups) > 0:
+            for m in matchups:
+                m_id = m.get("matchup_id")
+                if not m_id: continue
+                if m_id not in games: games[m_id] = []
+
+                starter_ids = m.get("starters", [])
+                starters = format_starters(starter_ids, players)
+
+                t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
+                games[m_id].append({
+                    "roster_id": m["roster_id"],
+                    "team_name": t_info["name"],
+                    "record": f"{t_info['wins']}-{t_info['losses']}",
+                    "starters": starters,
+                    "starter_ids": starter_ids
+                })
+
+        if not games and roster_map:
+            sorted_rosters = list(roster_map.items())
+            for i in range(0, len(sorted_rosters), 2):
+                r1_id, r1_data = sorted_rosters[i]
+                r1_roster = next((r for r in rosters if r["roster_id"] == r1_id), {})
+                r1_starter_ids = r1_roster.get("starters", [])
+                r1_starters = format_starters(r1_starter_ids, players)
+
+                if i + 1 < len(sorted_rosters):
+                    r2_id, r2_data = sorted_rosters[i+1]
+                    r2_roster = next((r for r in rosters if r["roster_id"] == r2_id), {})
+                    r2_starter_ids = r2_roster.get("starters", [])
+                    r2_starters = format_starters(r2_starter_ids, players)
+                else:
+                    r2_id, r2_data = ("BYE", {"name": "Bye Week", "wins": 0, "losses": 0})
+                    r2_starter_ids = []
+                    r2_starters = ["BYE"]
+                
+                m_id = (i // 2) + 1
+                games[m_id] = [
+                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "starters": r1_starters, "starter_ids": r1_starter_ids},
+                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "starters": r2_starters, "starter_ids": r2_starter_ids}
+                ]
+
+        print(f"Generating weekly forecast predictions for {len(games)} matchups...")
+        final_matchups = []
+        for game_id, teams in games.items():
+            if len(teams) != 2: continue
+            t_a, t_b = teams[0], teams[1]
+
+            t_a["projected"] = calculate_team_projection(t_a["starter_ids"], projections)
+            t_b["projected"] = calculate_team_projection(t_b["starter_ids"], projections)
+            pct_a, pct_b = get_win_prob(t_a["projected"], t_b["projected"])
+            t_a["win_prob"] = f"{pct_a}%"
+            t_b["win_prob"] = f"{pct_b}%"
+
+            # Parse relevant news using relaxed last-name matching against player feeds
+            matchup_news = []
+            for starter in t_a['starters'] + t_b['starters']:
+                full_name = starter.split(" (")[0].strip()
+                name_parts = full_name.split()
+                last_name = name_parts[-1] if name_parts else full_name
+                
+                for news_item in global_news:
+                    if (full_name.lower() in news_item.lower() or (len(last_name) > 3 and last_name.lower() in news_item.lower())) and news_item not in matchup_news:
+                        matchup_news.append(news_item)
+            
+            news_context = ""
+            if matchup_news:
+                news_context = "\n[LATEST FANTASY PLAYER NEWS & INJURY REPORTS]\n" + "\n".join([f"- {n}" for n in matchup_news[:4]]) + "\n"
+            else:
+                news_context = "\n[LATEST FANTASY PLAYER NEWS & INJURY REPORTS]\n- No specific breaking news alerts for these starters; proceed with standard projections.\n"
+
+            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
+
+Franchises:
+- Franchise 1: '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
+- Franchise 2: '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
+{news_context}
+MANDATORY EDITORIAL RULES:
+1. NEVER write 'Team A', 'Team B', 'Team 1', or 'Team 2'. Always use the actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
+2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
+3. Do not invent your own projected scores; reference the {t_a['projected']} and {t_b['projected']} projected points provided above.
+4. If [LATEST FANTASY PLAYER NEWS & INJURY REPORTS] contain specific updates or injuries for any starter, you MUST explicitly weave them into the analysis or X-factors.
+
+Output Format:
+[SCRATCHPAD]
+Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
+[END SCRATCHPAD]
+
+**🥊 Tale of the Tape:**
+[1-2 punchy sentences breaking down the macro roster matchup, using '{t_a['team_name']}' and '{t_b['team_name']}']
+
+**🔥 The X-Factors:**
+- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news or injury reports]
+- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news or injury reports]
+
+**🔮 The Verdict:**
+[{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], {t_a['projected']} to {t_b['projected']} (or vice versa), driven by [1 decisive tactical reason]."""
+
+            raw_ai = call_ai(prompt)
+            clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
+
+            final_matchups.append({
+                "matchup_id": game_id,
+                "team_a": t_a,
+                "team_b": t_b,
+                "preview": clean_preview
+            })
+            time.sleep(1)
+
+        os.makedirs("data", exist_ok=True)
+        with open("data/matchups.json", "w") as f:
+            json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
+
+        # --- PART 2: TRADES ---
+        executed_trades = []
+        for w in range(max(1, week - 1), week + 1):
+            try:
+                tx_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15)
+                tx_data = tx_res.json() if tx_res.status_code == 200 else []
+                if not isinstance(tx_data, list): continue
+            except Exception: continue
+
+            for tx in tx_data:
+                if tx.get("type") == "trade" and tx.get("status") == "complete":
+                    tx_id = tx.get("transaction_id")
+                    if tx_id in existing_trades_map:
+                        executed_trades.append(existing_trades_map[tx_id])
+                        continue
+
+                    r_ids = tx.get("roster_ids", [])
+                    if len(r_ids) != 2: continue
+
+                    r1, r2 = r_ids[0], r_ids[1]
+                    t1_name = roster_map.get(r1, {}).get("name", f"Team {r1}")
+                    t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
+
+                    adds = tx.get("adds") or {}
+                    t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
+                    t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
+
+                    for pick in tx.get("draft_picks", []):
+                        pick_desc = f"{pick.get('season')} Round {pick.get('round')}"
+                        if pick.get("owner_id") == r1: t1_receives.append(pick_desc)
+                        elif pick.get("owner_id") == r2: t2_receives.append(pick_desc)
+
+                    trade_prompt = f"""You are the commissioner of the 'ONU MLax Dynasty League'. Audit this trade:
+Franchise 1: '{t1_name}' receives {', '.join(t1_receives) or 'Nothing'}
+Franchise 2: '{t2_name}' receives {', '.join(t2_receives) or 'Nothing'}
+
+Format output exactly as:
+GRADE_{t1_name}: [Grade]
+GRADE_{t2_name}: [Grade]
+WINNER: [Winner Team Name]
+ANALYSIS:
+[1 short paragraph evaluation]"""
+
+                    audit_text = call_ai(trade_prompt) or f"GRADE_{t1_name}: B\nGRADE_{t2_name}: B\nWINNER: Even Trade\nANALYSIS:\nEvaluation pending."
+                    executed_trades.append({
+                        "transaction_id": tx_id,
+                        "week": w,
+                        "team_1": {"name": t1_name, "receives": t1_receives},
+                        "team_2": {"name": t2_name, "receives": t2_receives},
+                        "audit": audit_text
+                    })
+                    time.sleep(1)
+
+        with open("data/trades.json", "w") as f:
+            json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
+        print("Pipeline execution complete.")
+
+    except Exception as e:
+        print(f"CRITICAL PIPELINE FAILURE: {str(e)}")
+        raise
+
+if __name__ == "__main__":
+    run()
