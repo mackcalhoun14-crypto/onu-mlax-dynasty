@@ -411,10 +411,10 @@
           return;
         }
       } catch (e) {
-        console.log("Could not load matchups.json from path, falling back to live Sleeper API...", e);
+        console.log("No matchups.json artifact found. Polling live Sleeper...");
       }
 
-      // Fallback to Sleeper API if json fails
+      // Fallback
       try {
         const [state, users, rosters] = await Promise.all([
           fetch('https://api.sleeper.app/v1/state/nfl').then(r => r.json()),
@@ -451,6 +451,34 @@
       } catch (err) {
         container.innerHTML = `<div class="col-span-full text-center py-12 text-rose-400 font-mono text-xs">Error loading Sleeper matchups.</div>`;
       }
+    }
+
+    function renderCards(list) {
+      const container = document.getElementById('matchups-container');
+      container.innerHTML = list.map(m => `
+        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Matchup #${m.matchup_id}</span>
+            <span class="text-xs text-slate-500 font-mono">Head-to-Head</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="glass-inner p-3 rounded-2xl">
+              <div class="font-bold text-white text-sm truncate">${m.team_a.team_name}</div>
+              <div class="text-[11px] text-slate-400 font-mono">Rec: ${m.team_a.record}</div>
+              <div class="text-xl font-black font-mono text-emerald-400 mt-1">${m.team_a.points} pts</div>
+            </div>
+            <div class="glass-inner p-3 rounded-2xl">
+              <div class="font-bold text-white text-sm truncate">${m.team_b.team_name}</div>
+              <div class="text-[11px] text-slate-400 font-mono">Rec: ${m.team_b.record}</div>
+              <div class="text-xl font-black font-mono text-emerald-400 mt-1">${m.team_b.points} pts</div>
+            </div>
+          </div>
+          <div class="bg-slate-950/60 rounded-2xl p-3.5 border border-slate-800/80">
+            <div class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-1">🤖 AI Commissioner Breakdown:</div>
+            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">${m.preview}</p>
+          </div>
+        </div>
+      `).join('');
     }
 
     loadMatchups();
