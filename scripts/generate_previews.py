@@ -3,7 +3,11 @@ import json
 import time
 import requests
 
-LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID", "1312162066798231552")
+# Bulletproof fallback for blank GitHub Secrets
+LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID")
+if not LEAGUE_ID or LEAGUE_ID.strip() == "":
+    LEAGUE_ID = "1312162066798231552"
+
 GROQ_KEY = os.environ.get("GROQ_API_KEY")
 
 def call_ai(prompt):
@@ -41,6 +45,7 @@ def call_ai(prompt):
 
 def run():
     try:
+        print(f"0. Using League ID: {LEAGUE_ID}")
         print("1. Fetching Sleeper NFL State...")
         state_res = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15)
         state = state_res.json() if state_res.status_code == 200 else {}
