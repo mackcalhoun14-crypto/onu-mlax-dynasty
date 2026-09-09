@@ -215,9 +215,9 @@
     }
 
     async function loadTrades() {
-      // Dynamically handle GitHub Pages subpath (e.g. /onu-mlax-dynasty/data/trades.json)
+      // Dynamically handle GitHub Pages subpath with cache-buster
       const pathPrefix = window.location.pathname.includes('/onu-mlax-dynasty/') ? '/onu-mlax-dynasty' : '';
-      const jsonUrl = `${pathPrefix}/data/trades.json`;
+      const jsonUrl = `${pathPrefix}/data/trades.json?v=${Date.now()}`;
 
       try {
         const res = await fetch(jsonUrl);
