@@ -39,49 +39,52 @@
 
   <!-- NAVBAR -->
   <header class="sticky top-0 z-50 glass border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center space-x-3">
-        <div class="h-11 w-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 p-[1px]">
-          <div class="h-full w-full bg-slate-950 rounded-2xl flex items-center justify-center font-black text-white text-lg">🏈</div>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-lg font-extrabold text-white">ONU MLax Dynasty</h1>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase">Live Hub</span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row items-center justify-between gap-4">
+      <div class="flex items-center justify-between w-full lg:w-auto">
+        <div class="flex items-center space-x-3">
+          <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 p-[1px]">
+            <div class="h-full w-full bg-slate-950 rounded-2xl flex items-center justify-center font-black text-white text-base sm:text-lg">🏈</div>
           </div>
-          <p class="text-xs text-slate-400 font-mono">League ID: 1312162066798231552</p>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-sm sm:text-lg font-extrabold text-white">ONU MLax Dynasty</h1>
+              <span class="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase">Live Hub</span>
+            </div>
+            <p class="text-[10px] sm:text-xs text-slate-400 font-mono">League ID: 1312162066798231552</p>
+          </div>
         </div>
       </div>
 
-      <nav class="flex items-center gap-1.5 p-1 bg-slate-950/70 rounded-xl border border-slate-800">
-        <button onclick="switchView('matchups')" id="btn-matchups" class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black">Matchup Center</button>
-        <button onclick="switchView('outlook')" id="btn-outlook" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</button>
-        <a href="trades.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1">Trade Grader <span class="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">Live</span></a>
-        <a href="rules.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Rulebook</a>
-        <a href="draft.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Draft Archive</a>
+      <!-- Mobile-friendly wrapping navigation -->
+      <nav class="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-slate-950/70 rounded-2xl border border-slate-800 w-full lg:w-auto">
+        <button onclick="switchView('matchups')" id="btn-matchups" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500 text-black">Matchup Center</button>
+        <button onclick="switchView('outlook')" id="btn-outlook" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</button>
+        <a href="trades.html" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1">Trade Grader <span class="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">Live</span></a>
+        <a href="rules.html" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Rulebook</a>
+        <a href="draft.html" class="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Draft Archive</a>
       </nav>
 
-      <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
+      <div class="hidden lg:flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Connected to Sleeper</span>
+        <span>Sleeper Connected</span>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1 w-full">
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1 w-full">
 
     <!-- TAB 1: MATCHUP CENTER -->
     <div id="view-matchups" class="space-y-6">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2"><span>⚔️</span> Live Weekly Matchup Center</h2>
+          <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2"><span>⚔️</span> Live Weekly Matchup Center</h2>
           <p class="text-xs text-slate-400">Head-to-head pairings, real-time Sleeper scores, and AI commissioner previews</p>
         </div>
-        <div class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-lg border border-cyan-500/20" id="current-week-label">
+        <div class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-lg border border-cyan-500/20 self-start sm:self-auto" id="current-week-label">
           Polling Matchups...
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="matchups-container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6" id="matchups-container">
         <div class="col-span-full text-center py-12 text-slate-500 font-mono text-xs">Loading live matchup board...</div>
       </div>
     </div>
@@ -90,22 +93,22 @@
     <div id="view-outlook" class="hidden space-y-6">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2"><span>🔮</span> 2026 Season Outlook & Predictions</h2>
+          <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2"><span>🔮</span> 2026 Season Outlook & Predictions</h2>
           <p class="text-xs text-slate-400">Projected records, Win-Now power grades, and ceiling & floor audits</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         <!-- Syracuse Sandstorms -->
-        <div class="glass glow-gold rounded-3xl p-6 border border-amber-500/30 space-y-4">
+        <div class="glass glow-gold rounded-3xl p-5 sm:p-6 border border-amber-500/30 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30">Top Dog • Win-Now #1</span>
-              <h3 class="text-2xl font-black text-white mt-1">Syracuse Sandstorms</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Syracuse Sandstorms</h3>
               <p class="text-xs text-slate-400 font-mono">@Jjmully05 • 168,982 Val</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-emerald-400">12-2</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">12-2</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -120,15 +123,15 @@
         </div>
 
         <!-- Chicken Soup -->
-        <div class="glass glow-gold rounded-3xl p-6 border border-amber-500/30 space-y-4">
+        <div class="glass glow-gold rounded-3xl p-5 sm:p-6 border border-amber-500/30 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Contender • Win-Now #2</span>
-              <h3 class="text-2xl font-black text-white mt-1">Chicken Soup</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Chicken Soup</h3>
               <p class="text-xs text-slate-400 font-mono">@marousc11 • 40% Title Odds</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-emerald-400">11-3</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">11-3</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -143,15 +146,15 @@
         </div>
 
         <!-- noahsaint -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Contender • Win-Now #3</span>
-              <h3 class="text-2xl font-black text-white mt-1">noahsaint</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">noahsaint</h3>
               <p class="text-xs text-slate-400 font-mono">@noahsaint • 142,895 Val</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-emerald-400">10-4</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-emerald-400">10-4</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -166,15 +169,15 @@
         </div>
 
         <!-- George PickHIMs -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Contender • Win-Now #4</span>
-              <h3 class="text-2xl font-black text-white mt-1">George PickHIMs</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">George PickHIMs</h3>
               <p class="text-xs text-slate-400 font-mono">@WaffleHD • #1 TE Advantage</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-cyan-400">9-5</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">9-5</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -189,15 +192,15 @@
         </div>
 
         <!-- Worthy of my Chuba -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Win-Now #5</span>
-              <h3 class="text-2xl font-black text-white mt-1">Worthy of my Chuba</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Worthy of my Chuba</h3>
               <p class="text-xs text-slate-400 font-mono">@PmoneyJizzCakes • RB Rank #3</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-cyan-400">8-6</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">8-6</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -212,15 +215,15 @@
         </div>
 
         <!-- MaxWeese25 -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Glass Cannon</span>
-              <h3 class="text-2xl font-black text-white mt-1">MaxWeese25</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">MaxWeese25</h3>
               <p class="text-xs text-slate-400 font-mono">@MaxWeese25 • 20% Title Odds</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-cyan-400">8-6</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-cyan-400">8-6</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -235,15 +238,15 @@
         </div>
 
         <!-- Amon Ra Akbar -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Zero-RB Volatility</span>
-              <h3 class="text-2xl font-black text-white mt-1">Amon Ra Akbar</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Amon Ra Akbar</h3>
               <p class="text-xs text-slate-400 font-mono">@Nickgroves • WR Room #1</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-amber-400">7-7</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-amber-400">7-7</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -258,15 +261,15 @@
         </div>
 
         <!-- T-Mac Attack -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Feisty • Youth Core</span>
-              <h3 class="text-2xl font-black text-white mt-1">T-Mac Attack</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">T-Mac Attack</h3>
               <p class="text-xs text-slate-400 font-mono">@Cpeeps1997 • Starter Rank #10</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-amber-400">7-7</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-amber-400">7-7</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -281,15 +284,15 @@
         </div>
 
         <!-- Mr Texas -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/30">Basement • Aging Core</span>
-              <h3 class="text-2xl font-black text-white mt-1">Mr texas</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Mr texas</h3>
               <p class="text-xs text-slate-400 font-mono">@georgie69420 • 90,467 Val</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-rose-400">5-9</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">5-9</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -304,15 +307,15 @@
         </div>
 
         <!-- BabbyBare -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/30">Basement • QB Vault</span>
-              <h3 class="text-2xl font-black text-white mt-1">BabbyBare</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">BabbyBare</h3>
               <p class="text-xs text-slate-400 font-mono">@BabbyBare • QB Rank #1</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-rose-400">4-10</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">4-10</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -327,15 +330,15 @@
         </div>
 
         <!-- Dayton Degenerates -->
-        <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+        <div class="glass rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">Basement • Top Riser (+13.9K)</span>
-              <h3 class="text-2xl font-black text-white mt-1">Dayton Degenerates</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Dayton Degenerates</h3>
               <p class="text-xs text-slate-400 font-mono">@bdalidowicz • Foundation: J. Love</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-rose-400">4-10</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">4-10</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -350,15 +353,15 @@
         </div>
 
         <!-- spearson22 -->
-        <div class="glass glow-rose rounded-3xl p-6 border border-rose-500/30 space-y-4">
+        <div class="glass glow-rose rounded-3xl p-5 sm:p-6 border border-rose-500/30 space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/30">Cellar Anchor • Win-Now #12</span>
-              <h3 class="text-2xl font-black text-white mt-1">spearson22</h3>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">spearson22</h3>
               <p class="text-xs text-slate-400 font-mono">@spearson22 • Rebuild Mode</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-black font-mono text-rose-400">1-13</div>
+              <div class="text-xl sm:text-2xl font-black font-mono text-rose-400">1-13</div>
               <div class="text-[10px] font-semibold text-slate-400 uppercase">Projected</div>
             </div>
           </div>
@@ -387,12 +390,12 @@
     function switchView(viewId) {
       document.getElementById('view-matchups').classList.add('hidden');
       document.getElementById('view-outlook').classList.add('hidden');
-      document.getElementById('btn-matchups').className = "px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white";
-      document.getElementById('btn-outlook').className = "px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white";
+      document.getElementById('btn-matchups').className = "px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white";
+      document.getElementById('btn-outlook').className = "px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white";
 
       document.getElementById(`view-${viewId}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`btn-${viewId}`);
-      activeBtn.className = "px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black";
+      activeBtn.className = "px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500 text-black";
     }
 
     async function loadMatchups() {
@@ -413,6 +416,34 @@
       } catch (e) {
         console.log("Error loading JSON:", e);
       }
+    }
+
+    function renderCards(list) {
+      const container = document.getElementById('matchups-container');
+      container.innerHTML = list.map(m => `
+        <div class="glass rounded-3xl p-4 sm:p-6 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Matchup #${m.matchup_id}</span>
+            <span class="text-xs text-slate-500 font-mono">Head-to-Head</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="glass-inner p-3 rounded-2xl">
+              <div class="font-bold text-white text-xs sm:text-sm truncate">${m.team_a.team_name}</div>
+              <div class="text-[10px] sm:text-[11px] text-slate-400 font-mono">Rec: ${m.team_a.record}</div>
+              <div class="text-lg sm:text-xl font-black font-mono text-emerald-400 mt-1">${m.team_a.points} pts</div>
+            </div>
+            <div class="glass-inner p-3 rounded-2xl">
+              <div class="font-bold text-white text-xs sm:text-sm truncate">${m.team_b.team_name}</div>
+              <div class="text-[10px] sm:text-[11px] text-slate-400 font-mono">Rec: ${m.team_b.record}</div>
+              <div class="text-lg sm:text-xl font-black font-mono text-emerald-400 mt-1">${m.team_b.points} pts</div>
+            </div>
+          </div>
+          <div class="bg-slate-950/60 rounded-2xl p-3 sm:p-3.5 border border-slate-800/80">
+            <div class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-1">🤖 AI Commissioner Breakdown:</div>
+            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">${m.preview}</p>
+          </div>
+        </div>
+      `).join('');
     }
 
     loadMatchups();
