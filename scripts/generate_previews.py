@@ -52,14 +52,19 @@ def run():
             "starters": starters
         })
 
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
-    headers = {"Content-Type": "application/json"}
+    # Uses the exact endpoint and header authentication from your cURL quickstart
+    gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
+    headers = {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_KEY.strip()
+    }
     final_matchups = []
 
     for game_id, teams in games.items():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
+        print(f"Generating preview for {t_a['team_name']} vs {t_b['team_name']}...")
 
         prompt = f"""You are the sharp, witty commissioner of the 'ONU MLax Dynasty League'.
 Write a concise, high-energy 2-paragraph matchup preview for Week {week}.
@@ -84,6 +89,8 @@ Tone: Sharp, analytical dynasty analyst. No corporate fluff."""
                 ai_text = resp.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
             except (KeyError, IndexError):
                 pass
+        else:
+            print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
 
         final_matchups.append({
             "matchup_id": game_id,
