@@ -52,45 +52,70 @@ def call_ai(prompt):
             time.sleep(3)
     return None
 
+def calculate_team_projection(starter_ids, projections):
+    total = 0.0
+    for pid in starter_ids:
+        if str(pid) == "0": continue
+        p_data = projections.get(str(pid), {})
+        
+        # Sleeper usually nests points inside a 'stats' dict, but sometimes places them flat
+        if "stats" in p_data:
+            pts = p_data["stats"].get("pts_half_ppr") or p_data["stats"].get("pts_ppr") or p_data["stats"].get("pts_std") or 0.0
+        else:
+            pts = p_data.get("pts_half_ppr") or p_data.get("pts_ppr") or p_data.get("pts_std") or 0.0
+            
+        total += float(pts)
+        
+    # Baseline dummy fallback if the Sleeper projection model hasn't rolled over for Tuesday yet
+    if total == 0.0 and starter_ids:
+        total = 110.0 + (len(starter_ids) * 0.1)
+    return round(total, 1)
+
+def get_win_prob(proj_a, proj_b):
+    if proj_a == 0 and proj_b == 0:
+        return 50, 50
+    # Logistic probability curve: standard 33-point scale determines a 90% favorite
+    prob_a = 1 / (1 + 10 ** ((proj_b - proj_a) / 33))
+    pct_a = round(prob_a * 100)
+    pct_b = 100 - pct_a
+    return pct_a, pct_b
+
+def format_starters(starter_ids, players):
+    starters = []
+    for p_id in starter_ids:
+        if str(p_id) == "0": continue
+        p = players.get(str(p_id)) or {}
+        p_name = p.get("full_name") or str(p_id)
+        p_pos = p.get("position") or "FLEX"
+        p_team = p.get("team") or "FA"
+        
+        years_exp = p.get("years_exp")
+        if years_exp is None or years_exp == 0:
+            exp_tag = "Rookie"
+        else:
+            exp_tag = f"{years_exp}y veteran"
+            
+        starters.append(f"{p_name} ({p_pos}, NFL: {p_team}, {exp_tag})")
+    return starters if starters else ["Roster building phase - Starters pending"]
+
 def parse_ai_forecast(ai_text, team_a_name, team_b_name):
-    proj_a = 115.4
-    proj_b = 109.8
-    win_a = "54%"
-    win_b = "46%"
-
     if not ai_text:
-        return proj_a, proj_b, win_a, win_b, f"Matchup preview for {team_a_name} vs {team_b_name} pending lineup confirmation."
+        return f"Matchup preview for {team_a_name} vs {team_b_name} pending lineup confirmation."
 
-    # 1. Extract numeric projections
-    for line in ai_text.splitlines():
-        line_clean = line.strip()
-        if line_clean.startswith("PROJ_TEAM_A:"):
-            val = line_clean.replace("PROJ_TEAM_A:", "").replace("pts", "").strip()
-            nums = re.findall(r"\d+\.?\d*", val)
-            if nums: proj_a = float(nums[0])
-        elif line_clean.startswith("PROJ_TEAM_B:"):
-            val = line_clean.replace("PROJ_TEAM_B:", "").replace("pts", "").strip()
-            nums = re.findall(r"\d+\.?\d*", val)
-            if nums: proj_b = float(nums[0])
-        elif line_clean.startswith("WINPCT_TEAM_A:"):
-            win_a = line_clean.replace("WINPCT_TEAM_A:", "").strip()
-        elif line_clean.startswith("WINPCT_TEAM_B:"):
-            win_b = line_clean.replace("WINPCT_TEAM_B:", "").strip()
-
-    # 2. Extract clean preview, discarding scratchpad
+    # 1. Extract clean preview, discarding scratchpad verification
     try:
         preview_start = ai_text.index("**🥊 Tale of the Tape:**")
         preview_body = ai_text[preview_start:].strip()
     except ValueError:
         preview_body = ai_text.strip()
 
-    # 3. Deterministic Safety Net: Replace any lingering generic tokens with actual team names
+    # 2. Deterministic Safety Net: Wipe out any generic LLM tokens and replace with true team names
     preview_body = re.sub(r'\bTeam\s+A\b', team_a_name, preview_body, flags=re.IGNORECASE)
     preview_body = re.sub(r'\bTeam\s+B\b', team_b_name, preview_body, flags=re.IGNORECASE)
     preview_body = re.sub(r'\bTeam\s+1\b', team_a_name, preview_body, flags=re.IGNORECASE)
     preview_body = re.sub(r'\bTeam\s+2\b', team_b_name, preview_body, flags=re.IGNORECASE)
         
-    return proj_a, proj_b, win_a, win_b, preview_body
+    return preview_body
 
 def run():
     try:
@@ -99,10 +124,12 @@ def run():
         state_res = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15)
         state = state_res.json() if state_res.status_code == 200 else {}
         week = state.get("week", 1)
+        season = state.get("season", "2026")
+        season_type = state.get("season_type", "regular")
         if week < 1:
             week = 1
 
-        print("2. Fetching League Data from Sleeper...")
+        print("2. Fetching League Data & Official Sleeper Projections...")
         users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
         rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
         
@@ -114,10 +141,14 @@ def run():
             matchups = matchups_res.json() if matchups_res.status_code == 200 else []
 
         players_res = requests.get("https://api.sleeper.app/v1/players/nfl", timeout=30)
+        
+        # Pull the official point projections generated by Sleeper
+        projections_res = requests.get(f"https://api.sleeper.app/v1/projections/nfl/{season_type}/{season}/{week}", timeout=30)
 
         users = users_res.json() if users_res.status_code == 200 else []
         rosters = rosters_res.json() if rosters_res.status_code == 200 else []
         players = players_res.json() if players_res.status_code == 200 else {}
+        projections = projections_res.json() if projections_res.status_code == 200 else {}
 
         if not isinstance(matchups, list):
             matchups = []
@@ -163,27 +194,16 @@ def run():
                 if m_id not in games:
                     games[m_id] = []
 
-                starters = []
-                for p_id in m.get("starters", []):
-                    p = players.get(str(p_id)) or {}
-                    p_name = p.get("full_name") or str(p_id)
-                    p_pos = p.get("position") or "FLEX"
-                    p_team = p.get("team") or "FA"
-                    
-                    years_exp = p.get("years_exp")
-                    if years_exp is None or years_exp == 0:
-                        exp_tag = "Rookie"
-                    else:
-                        exp_tag = f"{years_exp}y veteran"
-                        
-                    starters.append(f"{p_name} ({p_pos}, NFL: {p_team}, {exp_tag})")
+                starter_ids = m.get("starters", [])
+                starters = format_starters(starter_ids, players)
 
                 t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
                 games[m_id].append({
                     "roster_id": m["roster_id"],
                     "team_name": t_info["name"],
                     "record": f"{t_info['wins']}-{t_info['losses']}",
-                    "starters": starters
+                    "starters": starters,
+                    "starter_ids": starter_ids
                 })
 
         if not games and roster_map:
@@ -191,15 +211,25 @@ def run():
             sorted_rosters = list(roster_map.items())
             for i in range(0, len(sorted_rosters), 2):
                 r1_id, r1_data = sorted_rosters[i]
+                
+                r1_roster = next((r for r in rosters if r["roster_id"] == r1_id), {})
+                r1_starter_ids = r1_roster.get("starters", [])
+                r1_starters = format_starters(r1_starter_ids, players)
+
                 if i + 1 < len(sorted_rosters):
                     r2_id, r2_data = sorted_rosters[i+1]
+                    r2_roster = next((r for r in rosters if r["roster_id"] == r2_id), {})
+                    r2_starter_ids = r2_roster.get("starters", [])
+                    r2_starters = format_starters(r2_starter_ids, players)
                 else:
                     r2_id, r2_data = ("BYE", {"name": "Bye Week", "wins": 0, "losses": 0})
+                    r2_starter_ids = []
+                    r2_starters = ["BYE"]
                 
                 m_id = (i // 2) + 1
                 games[m_id] = [
-                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "starters": ["Roster confirmed - Starters pending"]},
-                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "starters": ["Roster confirmed - Starters pending"]}
+                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "starters": r1_starters, "starter_ids": r1_starter_ids},
+                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "starters": r2_starters, "starter_ids": r2_starter_ids}
                 ]
 
         print(f"Generating weekly forecast predictions for {len(games)} matchups via Groq...")
@@ -209,27 +239,29 @@ def run():
                 continue
             t_a, t_b = teams[0], teams[1]
 
+            # Let Python handle the exact math using Sleeper's official point values
+            t_a["projected"] = calculate_team_projection(t_a["starter_ids"], projections)
+            t_b["projected"] = calculate_team_projection(t_b["starter_ids"], projections)
+            pct_a, pct_b = get_win_prob(t_a["projected"], t_b["projected"])
+            t_a["win_prob"] = f"{pct_a}%"
+            t_b["win_prob"] = f"{pct_b}%"
+
             prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
 
 Franchises:
-- Franchise 1: '{t_a['team_name']}' ({t_a['record']}) | Starters: {', '.join(t_a['starters'])}
-- Franchise 2: '{t_b['team_name']}' ({t_b['record']}) | Starters: {', '.join(t_b['starters'])}
+- Franchise 1: '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
+- Franchise 2: '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
 
 MANDATORY EDITORIAL RULES:
 1. NEVER write 'Team A', 'Team B', 'Team 1', or 'Team 2'. Always use the actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
-3. Projections: Assign realistic, distinct scores between 94.0 and 136.0 reflecting roster ceiling. Win probabilities must sum to 100%. Avoid generic duplicate scorelines.
+3. Do not invent your own projected scores; reference the {t_a['projected']} and {t_b['projected']} projected points provided above.
 4. Stick strictly to provided NFL team tags. Do not hallucinate real-life team trades or changes.
 
 Output Format:
 [SCRATCHPAD]
 Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 [END SCRATCHPAD]
-
-PROJ_TEAM_A: [Score for {t_a['team_name']}]
-PROJ_TEAM_B: [Score for {t_b['team_name']}]
-WINPCT_TEAM_A: [Win % for {t_a['team_name']}]
-WINPCT_TEAM_B: [Win % for {t_b['team_name']}]
 
 **🥊 Tale of the Tape:**
 [1-2 punchy sentences breaking down the macro roster matchup, using '{t_a['team_name']}' and '{t_b['team_name']}']
@@ -239,15 +271,10 @@ WINPCT_TEAM_B: [Win % for {t_b['team_name']}]
 - {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
 
 **🔮 The Verdict:**
-[{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], [Projected Score]-[Projected Score], driven by [1 decisive tactical reason]."""
+[{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], {t_a['projected']} to {t_b['projected']} (or vice versa), driven by [1 decisive tactical reason]."""
 
             raw_ai = call_ai(prompt)
-            proj_a, proj_b, win_a, win_b, clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
-
-            t_a["projected"] = proj_a
-            t_a["win_prob"] = win_a
-            t_b["projected"] = proj_b
-            t_b["win_prob"] = win_b
+            clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
 
             final_matchups.append({
                 "matchup_id": game_id,
