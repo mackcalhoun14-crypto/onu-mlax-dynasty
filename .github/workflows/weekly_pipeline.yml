@@ -2,8 +2,8 @@ name: Weekly Matchup & Trade Automation
 
 on:
   schedule:
-    - cron: '0 12 * * TUE' # Runs every Tuesday at 12:00 PM UTC
-  workflow_dispatch:        # Allows manual triggers from GitHub UI
+    - cron: '0 12 * * TUE'
+  workflow_dispatch:
 
 jobs:
   build:
