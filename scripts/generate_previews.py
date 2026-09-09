@@ -11,7 +11,7 @@ def call_gemini(prompt):
         print("CRITICAL ERROR: GEMINI_API_KEY environment variable is not set.")
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY.strip()}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_KEY.strip()}"
     headers = {"Content-Type": "application/json"}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}]
