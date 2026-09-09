@@ -11,7 +11,8 @@ def call_gemini(prompt):
         print("CRITICAL ERROR: GEMINI_API_KEY environment variable is not set.")
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY.strip()}"
+    # Updated to the currently active model ID
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={GEMINI_KEY.strip()}"
     headers = {"Content-Type": "application/json"}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}]
@@ -128,11 +129,17 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
     executed_trades = []
     for w in range(1, week + 1):
         try:
-            tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
+            tx_data = requests.get(f"https://api.sleeeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
             if not isinstance(tx_data, list):
                 continue
         except Exception:
-            continue
+            # Fallback direct call
+            try:
+                tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
+                if not isinstance(tx_data, list):
+                    continue
+            except Exception:
+                continue
 
         for tx in tx_data:
             if tx.get("type") == "trade" and tx.get("status") == "complete":
