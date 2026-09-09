@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ONU MLax Dynasty | In-Season Trade Grader</title>
+  <title>ONU MLax Dynasty | Trade Audit Desk</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -35,7 +35,6 @@
 </head>
 <body class="text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white">
 
-  <!-- NAVBAR -->
   <header class="sticky top-0 z-50 glass border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center space-x-3">
@@ -53,7 +52,7 @@
 
       <nav class="flex items-center gap-1.5 p-1 bg-slate-950/70 rounded-xl border border-slate-800">
         <a href="index.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Matchup Center</a>
-        <a href="index.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</a>
+        <a href="index.html#outlook" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</a>
         <span class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white">Trade Grader</span>
         <a href="draft.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Draft Archive</a>
       </nav>
@@ -61,22 +60,21 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1 w-full">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h2 class="text-xl font-black text-white flex items-center gap-2"><span>📈</span> In-Season Trade Audit Desk</h2>
-        <p class="text-xs text-slate-400">Auditing regular-season blockbusters with automated AI grades, winners, and value deltas</p>
+        <h2 class="text-xl font-black text-white flex items-center gap-2"><span>📈</span> Franchise Trade Audit Desk</h2>
+        <p class="text-xs text-slate-400">Automated AI trade audits, letter grades, and dynasty impact evaluations</p>
       </div>
-      <div class="text-xs font-mono text-purple-400 bg-purple-500/10 px-3.5 py-1.5 rounded-xl border border-purple-500/20" id="trade-count">
-        Monitoring Wire...
+      <div class="flex items-center gap-2">
+        <button onclick="filterTrades('all')" id="btn-all" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-purple-600 text-white transition">All Trades</button>
+        <button onclick="filterTrades('players')" id="btn-players" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800 hover:text-white transition">Player Deals Only</button>
       </div>
     </div>
 
-    <!-- Dynamic Container -->
     <div id="trades-container" class="space-y-6">
       <div class="text-center py-16 glass rounded-3xl border border-slate-800">
         <div class="text-3xl mb-2">📡</div>
-        <h3 class="text-base font-bold text-white">Scanning Sleeper Wire...</h3>
-        <p class="text-xs text-slate-400 mt-1">Connecting to transaction feeds...</p>
+        <h3 class="text-base font-bold text-white">Loading Trade Ledgers...</h3>
       </div>
     </div>
   </main>
@@ -86,60 +84,149 @@
   </footer>
 
   <script>
-    async function loadTrades() {
-      const container = document.getElementById('trades-container');
-      const countLabel = document.getElementById('trade-count');
+    let allTradesData = [];
+    let currentFilter = 'all';
 
+    function getGradeBadge(grade) {
+      if (!grade) return '';
+      const clean = grade.trim().toUpperCase();
+      let color = 'bg-slate-800 text-slate-300 border-slate-700';
+      if (clean.startsWith('A')) color = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40';
+      else if (clean.startsWith('B')) color = 'bg-cyan-500/20 text-cyan-400 border-cyan-500/40';
+      else if (clean.startsWith('C')) color = 'bg-amber-500/20 text-amber-400 border-amber-500/40';
+      else if (clean.startsWith('D') || clean.startsWith('F')) color = 'bg-rose-500/20 text-rose-400 border-rose-500/40';
+
+      return `<span class="px-2.5 py-0.5 rounded-lg border text-xs font-mono font-black ${color}">${clean}</span>`;
+    }
+
+    function parseAuditText(text, team1Name, team2Name) {
+      if (!text || text.includes('pending commissioner review') || text.includes('pending review')) {
+        return { team1Grade: null, team2Grade: null, winner: null, analysis: text || 'Trade audit pending execution.' };
+      }
+
+      let team1Grade = null;
+      let team2Grade = null;
+      let winner = null;
+      const cleanParagraphs = [];
+
+      text.split('\n').forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.toLowerCase().includes(`grade_${team1Name.toLowerCase()}:`)) {
+          team1Grade = trimmed.split(':')[1]?.trim();
+        } else if (trimmed.toLowerCase().includes(`grade_${team2Name.toLowerCase()}:`)) {
+          team2Grade = trimmed.split(':')[1]?.trim();
+        } else if (trimmed.toLowerCase().startsWith('winner:')) {
+          winner = trimmed.substring(7).trim().replace(/\*\*/g, '');
+        } else if (!trimmed.toLowerCase().startsWith('analysis:') && trimmed.length > 0) {
+          cleanParagraphs.push(trimmed);
+        }
+      });
+
+      return { team1Grade, team2Grade, winner, analysis: cleanParagraphs.join('\n\n') };
+    }
+
+    function renderTrades() {
+      const container = document.getElementById('trades-container');
+      const filtered = allTradesData.filter(t => {
+        if (currentFilter === 'players') {
+          const hasP1 = t.team_1.receives.some(i => !i.includes('Round'));
+          const hasP2 = t.team_2.receives.some(i => !i.includes('Round'));
+          return hasP1 || hasP2;
+        }
+        return true;
+      });
+
+      if (!filtered.length) {
+        container.innerHTML = `
+          <div class="text-center py-16 glass rounded-3xl border border-slate-800 space-y-2">
+            <div class="text-3xl">🕊️</div>
+            <h3 class="text-base font-bold text-white">No Player Trades Executed Yet</h3>
+            <p class="text-xs text-slate-400">All current transactions are draft pick swaps. Toggle 'All Trades' to view them.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => {
+        const parsed = parseAuditText(t.audit, t.team_1.name, t.team_2.name);
+
+        return `
+          <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <span class="text-xs font-mono text-purple-400 font-bold uppercase">Week ${t.week} Blockbuster</span>
+              <span class="text-xs font-mono text-slate-500">ID: ${t.transaction_id}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="glass-inner p-4 rounded-2xl border-purple-500/20 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-black text-white truncate">${t.team_1.name}</span>
+                    ${parsed.team1Grade ? getGradeBadge(parsed.team1Grade) : ''}
+                  </div>
+                  <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mt-1">Receives:</div>
+                  <ul class="mt-2 space-y-1 text-xs font-mono text-purple-300">
+                    ${t.team_1.receives.map(item => `<li>• ${item}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="glass-inner p-4 rounded-2xl border-cyan-500/20 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-black text-white truncate">${t.team_2.name}</span>
+                    ${parsed.team2Grade ? getGradeBadge(parsed.team2Grade) : ''}
+                  </div>
+                  <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mt-1">Receives:</div>
+                  <ul class="mt-2 space-y-1 text-xs font-mono text-cyan-300">
+                    ${t.team_2.receives.map(item => `<li>• ${item}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950/60 rounded-2xl p-4 border border-slate-800/80 space-y-3">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wider">🤖 Commissioner Audit:</div>
+                ${parsed.winner ? `
+                  <div class="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-md border border-amber-500/30">
+                    🏆 Winner: ${parsed.winner}
+                  </div>
+                ` : ''}
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">${parsed.analysis}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterTrades(filter) {
+      currentFilter = filter;
+      document.getElementById('btn-all').className = filter === 'all' 
+        ? "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-purple-600 text-white transition"
+        : "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800 hover:text-white transition";
+      
+      document.getElementById('btn-players').className = filter === 'players' 
+        ? "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-purple-600 text-white transition"
+        : "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800 hover:text-white transition";
+
+      renderTrades();
+    }
+
+    async function loadTrades() {
       try {
         const res = await fetch('data/trades.json');
         if (res.ok) {
           const data = await res.json();
-          if (data.trades && data.trades.length > 0) {
-            countLabel.textContent = `${data.trades.length} In-Season Blockbusters Audited`;
-            container.innerHTML = data.trades.map(t => `
-              <div class="glass rounded-3xl p-6 border border-slate-800 space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
-                  <span class="text-xs font-mono text-purple-400 font-bold uppercase">Week ${t.week} Blockbuster</span>
-                  <span class="text-xs font-mono text-slate-500">ID: ${t.transaction_id}</span>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="glass-inner p-4 rounded-2xl border-purple-500/20">
-                    <div class="text-sm font-bold text-white">${t.team_1.name} Receives:</div>
-                    <ul class="mt-2 space-y-1 text-xs font-mono text-purple-300">
-                      ${t.team_1.receives.map(item => `<li>• ${item}</li>`).join('')}
-                    </ul>
-                  </div>
-                  <div class="glass-inner p-4 rounded-2xl border-cyan-500/20">
-                    <div class="text-sm font-bold text-white">${t.team_2.name} Receives:</div>
-                    <ul class="mt-2 space-y-1 text-xs font-mono text-cyan-300">
-                      ${t.team_2.receives.map(item => `<li>• ${item}</li>`).join('')}
-                    </ul>
-                  </div>
-                </div>
-                <div class="bg-slate-950/60 rounded-2xl p-4 border border-slate-800/80">
-                  <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-2">🤖 Commissioner Trade Audit:</div>
-                  <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">${t.audit}</p>
-                </div>
-              </div>
-            `).join('');
-            return;
-          }
+          allTradesData = data.trades || [];
+          renderTrades();
         }
       } catch (e) {
-        console.log("No trades.json found yet.");
+        document.getElementById('trades-container').innerHTML = `
+          <div class="text-center py-12 text-rose-400 font-mono text-xs">Error loading trade data.</div>
+        `;
       }
-
-      // Zero Trades State
-      countLabel.textContent = "0 In-Season Trades";
-      container.innerHTML = `
-        <div class="text-center py-16 glass rounded-3xl border border-slate-800 space-y-3">
-          <div class="text-4xl">🕊️</div>
-          <h3 class="text-base font-bold text-white">No In-Season Blockbusters Yet</h3>
-          <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-            The regular season wire is quiet. Once two managers execute a trade on Sleeper, the commissioner robot will audit the terms, issue letter grades, declare a winner, and publish the breakdown here on Wednesday morning.
-          </p>
-        </div>
-      `;
     }
 
     loadTrades();
