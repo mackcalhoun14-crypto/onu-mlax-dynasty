@@ -7,7 +7,6 @@
         "roster_id": 1,
         "team_name": "George PickHIMs",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Kyler Murray (QB)",
           "De'Von Achane (RB)",
@@ -20,13 +19,14 @@
           "George Pickens (WR)",
           "Spencer Shrader (K)",
           "LAC (DEF)"
-        ]
+        ],
+        "projected": 124.5,
+        "win_prob": "56%"
       },
       "team_b": {
         "roster_id": 7,
         "team_name": "BabbyBare",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Jayden Daniels (QB)",
           "James Cook (RB)",
@@ -39,9 +39,11 @@
           "Brenton Strange (TE)",
           "Eddy Pineiro (K)",
           "PHI (DEF)"
-        ]
+        ],
+        "projected": 118.3,
+        "win_prob": "44%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nGeorge PickHIMs\u2019 veteran\u2011led offense, anchored by Kyler Murray\u2019s dual\u2011threat play and Chris\u202fOlave\u2019s explosive route\u2011running, faces a BabbyBare lineup that hinges on rookie Jayden Daniels\u2019 upside and DeVonta Smith\u2019s big\u2011play ability. The clash boils down to experience versus raw potential, with both teams boasting high\u2011ceiling receivers and a tight\u2011end battle between Trey\u202fMcBride and Dallas\u202fGoedert.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **George PickHIMs:** *Kyler Murray* \u2013 Murray\u2019s proven ability to rack up yards on the ground and through the air gives PickHIMs a reliable ceiling, especially when paired with a deep receiving corps.  \n- **BabbyBare:** *DeVonta Smith* \u2013 Smith\u2019s elite route\u2011running and red\u2011zone threat lift BabbyBare\u2019s ceiling, making him a game\u2011changer even if the rookie quarterback struggles.\n\n**\ud83d\udd2e The Verdict:**  \nGeorge PickHIMs edge out BabbyBare, with Murray\u2019s experience tipping the scales in a close 115\u2011108 showdown."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth teams are riding rookie QBs, but George PickHIMs\u2019 Kyler Murray offers a dual\u2011threat edge against LAC\u2019s stout pass defense, while BabbyBare\u2019s Jayden Daniels faces a more balanced attack from a LAC defense that can stifle the run.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- George PickHIMs: **Kyler Murray** \u2013 his rushing upside and explosive playmaking set the ceiling for the team.  \n- BabbyBare: **Jayden Daniels** \u2013 a high\u2011upside rookie who can generate big plays if he finds rhythm.\n\n**\ud83d\udd2e The Verdict:**  \nGeorge PickHIMs win 124\u2011118, thanks to Murray\u2019s dual\u2011threat threat and LAC\u2019s ability to limit the pass, giving the team a modest but decisive edge."
     },
     {
       "matchup_id": 2,
@@ -49,7 +51,6 @@
         "roster_id": 2,
         "team_name": "T-Mac Attack",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Malik Willis (QB)",
           "Cam Skattebo (RB)",
@@ -62,13 +63,14 @@
           "Tyler Allgeier (RB)",
           "Will Reichard (K)",
           "DET (DEF)"
-        ]
+        ],
+        "projected": 97.3,
+        "win_prob": "32%"
       },
       "team_b": {
         "roster_id": 9,
         "team_name": "Syracuse Sandstorms",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Josh Allen (QB)",
           "Jonathan Taylor (RB)",
@@ -81,9 +83,11 @@
           "Davante Adams (WR)",
           "Jason Myers (K)",
           "KC (DEF)"
-        ]
+        ],
+        "projected": 128.6,
+        "win_prob": "68%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nT-Mac Attack\u2019s power\u2011running attack, anchored by Cam\u202fSkattebo and Jaylen\u202fWarren, faces off against Syracuse Sandstorms\u2019 high\u2011tempo offense led by Josh\u202fAllen and a dual\u2011RB threat in Jonathan\u202fTaylor and Christian\u202fMcCaffrey. The clash boils down to a veteran\u2011led, precision\u2011passing attack versus a rookie\u2011heavy, ground\u2011dominant lineup.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **T\u2011Mac Attack:** *Cam\u202fSkattebo* \u2013 As the team\u2019s featured back, Skattebo\u2019s explosive burst and red\u2011zone efficiency lift the lineup\u2019s ceiling, making him the engine behind the offense.  \n- **Syracuse Sandstorms:** *Josh\u202fAllen* \u2013 Allen\u2019s elite arm and play\u2011making ability set the tempo, turning every play into a scoring opportunity and anchoring a roster that can outpace any rookie\u2011heavy squad.\n\n**\ud83d\udd2e The Verdict:**  \nSyracuse Sandstorms edge out T\u2011Mac Attack 115\u2011108, with Allen\u2019s veteran poise and the depth of their RB corps proving decisive."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe matchup pits a rookie\u2011heavy, low\u2011budget offense against a star\u2011laden, high\u2011scoring lineup. The Sandstorms\u2019 explosive backfield and wide\u2011receiver corps will dominate the T\u2011Mac Attack\u2019s inexperienced offense.  \n\n**\ud83d\udd25 The X\u2011Factors:**  \n- T\u2011Mac Attack: Dalton Schultz (TE) \u2013 his veteran presence could spark a surprise breakout.  \n- Syracuse Sandstorms: Josh Allen (QB) \u2013 his dual\u2011threat ability will dictate the game\u2019s ceiling.  \n\n**\ud83d\udd2e The Verdict:**  \nSyracuse Sandstorms win; Allen\u2019s arm and the backfield\u2019s firepower will outpace the rookie\u2011led T\u2011Mac Attack, ending the game 128\u201397."
     },
     {
       "matchup_id": 4,
@@ -91,7 +95,6 @@
         "roster_id": 3,
         "team_name": "Dayton Degenerates ",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Jaxson Dart (QB)",
           "Jeremiyah Love (RB)",
@@ -104,13 +107,14 @@
           "Deebo Samuel (WR)",
           "Chase McLaughlin (K)",
           "MIN (DEF)"
-        ]
+        ],
+        "projected": 120.3,
+        "win_prob": "52%"
       },
       "team_b": {
         "roster_id": 6,
         "team_name": "Chicken Soup",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Lamar Jackson (QB)",
           "Jahmyr Gibbs (RB)",
@@ -123,9 +127,11 @@
           "Malik Nabers (WR)",
           "Cam Little (K)",
           "SEA (DEF)"
-        ]
+        ],
+        "projected": 118.1,
+        "win_prob": "48%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nDayton\u2019s balanced attack\u2014led by a top\u2011tier TE and a trio of elite receivers\u2014meets Chicken Soup\u2019s high\u2011octane offense, anchored by Lamar Jackson\u2019s dual\u2011threat prowess and Derrick Henry\u2019s bruising run game. The clash boils down to who can outpace the other\u2019s defensive front and capitalize on big\u2011play opportunities.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **Dayton Degenerates:** *Travis Kelce* \u2013 The league\u2019s most consistent TE, Kelce offers a high ceiling with his elite route\u2011running and target share that can explode for big yardage and touchdowns.  \n- **Chicken Soup:** *Lamar Jackson* \u2013 Jackson\u2019s explosive playmaking and rushing upside give him the edge to swing the game in his team\u2019s favor, especially when paired with Henry\u2019s ground dominance.\n\n**\ud83d\udd2e The Verdict:**  \nChicken Soup edges out Dayton 115\u2011108, thanks to Lamar\u2019s explosive dual\u2011threat play and Henry\u2019s relentless yardage that will keep the defense on its toes."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nDayton\u2019s balanced attack\u2014led by a top\u2011tier TE and a star WR duo\u2014meets Chicken Soup\u2019s explosive backfield and Lamar Jackson\u2019s dynamic playmaking, setting the stage for a high\u2011scoring shootout.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- Dayton Degenerates : Travis Kelce  \n- Chicken Soup : Lamar Jackson  \n\n**\ud83d\udd2e The Verdict:**  \nDayton edges out Chicken Soup 120\u2011118, as Kelce\u2019s big\u2011play ceiling and Diggs\u2019 consistency tip the scales against Jackson\u2019s volatile but less reliable offense."
     },
     {
       "matchup_id": 3,
@@ -133,7 +139,6 @@
         "roster_id": 4,
         "team_name": "noahsaint",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Brock Purdy (QB)",
           "Bhayshul Tuten (RB)",
@@ -146,13 +151,14 @@
           "Christian Watson (WR)",
           "Cameron Dicker (K)",
           "TEN (DEF)"
-        ]
+        ],
+        "projected": 122.5,
+        "win_prob": "58%"
       },
       "team_b": {
         "roster_id": 10,
         "team_name": "spearson22",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Baker Mayfield (QB)",
           "Ashton Jeanty (RB)",
@@ -165,9 +171,11 @@
           "Devaughn Vele (WR)",
           "Evan McPherson (K)",
           "CHI (DEF)"
-        ]
+        ],
+        "projected": 117.5,
+        "win_prob": "42%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nNoahsaint\u2019s high\u2011upside, deep\u2011threat WR corps faces spearson22\u2019s bruising RB core. The matchup boils down to whether Purdy\u2019s efficient passing can outpace Mayfield\u2019s inconsistent play and whether Waddle\u2019s explosiveness can outshine Pollard\u2019s yard\u2011after\u2011catch power.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **noahsaint:** Jaylen Waddle \u2013 his deep\u2011ball threat and knack for big plays give the team a ceiling that can swing a game in a single explosive outing.  \n- **spearson22:** Tony Pollard \u2013 his explosive burst and high usage in the backfield make him the engine that can keep the offense moving and rack up yardage.\n\n**\ud83d\udd2e The Verdict:**  \nNoahsaint edges spearson22 115\u2011108, powered by Waddle\u2019s big\u2011play potential and a deeper WR group that can outpace Pollard\u2019s RB dominance."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth squads boast a deep receiving corps, but noahsaint\u2019s roster edges out spearson22 thanks to a higher ceiling from a top-tier wide\u2011receiver group and a solid running back in Rhamondre Stevenson, giving them a slight edge in the early\u2011season power play.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- noahsaint: Jaylen Waddle \u2013 his explosive playmaking and high target volume can swing the game in a high\u2011scoring matchup.  \n- spearson22: Tony Pollard \u2013 his dynamic rushing ability and pass\u2011catching knack can keep the defense honest and provide a surge of points.\n\n**\ud83d\udd2e The Verdict:**  \nnoahsaint pulls ahead, with Waddle\u2019s big\u2011play potential tipping the scales for a 122\u2013118 win."
     },
     {
       "matchup_id": 6,
@@ -175,7 +183,6 @@
         "roster_id": 5,
         "team_name": "MaxWeese25",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Jordan Love (QB)",
           "Omarion Hampton (RB)",
@@ -188,13 +195,14 @@
           "Carnell Tate (WR)",
           "Tyler Loop (K)",
           "LAR (DEF)"
-        ]
+        ],
+        "projected": 108.2,
+        "win_prob": "48%"
       },
       "team_b": {
         "roster_id": 8,
         "team_name": "Mr texas ",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Dak Prescott (QB)",
           "Kenneth Walker (RB)",
@@ -207,9 +215,11 @@
           "Kenny Gainwell (RB)",
           "Trey Smack (K)",
           "JAX (DEF)"
-        ]
+        ],
+        "projected": 112.5,
+        "win_prob": "52%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nMaxWeese25 relies on rookie depth and the explosive talent of Ja\u2019Marr Chase, while Mr texas banks on veteran leadership from Dak Prescott, a solid RB core, and the seasoned threat of Mike Evans. The clash boils down to a rookie\u2011heavy offense versus a veteran\u2011led lineup with a proven playmaker.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- MaxWeese25: **Ja\u2019Marr Chase** \u2013 his elite route\u2011running and red\u2011zone efficiency give the team a high\u2011ceiling WR that can outpace any rookie backfield.  \n- Mr texas : **Dak Prescott** \u2013 his ability to extend plays, make accurate throws, and consistently rack up points anchors the offense and lifts the team\u2019s ceiling.\n\n**\ud83d\udd2e The Verdict:**  \nMr texas edges out MaxWeese25, with Prescott\u2019s veteran poise and Montgomery\u2019s rushing stability tipping the scales for a 115\u2011108 win."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nMaxWeese25\u2019s star\u2011powered WR lineup faces Mr texas\u2019s balanced attack, but the rookie RB surge on the Texans side gives them a slight edge in depth and upside.\n\n**\ud83d\udd25 The X-Factors:**  \n- MaxWeese25: Ja'Marr Chase \u2013 his explosive playmaking can swing the game.  \n- Mr texas : Kenneth Walker \u2013 his rookie surge and 1,000\u2011yard potential can tip the scales.\n\n**\ud83d\udd2e The Verdict:**  \nMr texas edges out MaxWeese25, with Walker\u2019s breakout RB performance the decisive factor, 112.5 to 108.2."
     },
     {
       "matchup_id": 1,
@@ -217,7 +227,6 @@
         "roster_id": 11,
         "team_name": "Worthy of my Chuba",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Drake Maye (QB)",
           "Bijan Robinson (RB)",
@@ -230,13 +239,14 @@
           "Michael Wilson (WR)",
           "Brandon Aubrey (K)",
           "PIT (DEF)"
-        ]
+        ],
+        "projected": 118.4,
+        "win_prob": "56%"
       },
       "team_b": {
         "roster_id": 12,
         "team_name": "Amon Ra Akbar",
         "record": "0-0",
-        "points": 0.0,
         "starters": [
           "Jalen Hurts (QB)",
           "Jordan Mason (RB)",
@@ -249,9 +259,11 @@
           "Marvin Harrison (WR)",
           "Ka'imi Fairbairn (K)",
           "BAL (DEF)"
-        ]
+        ],
+        "projected": 112.8,
+        "win_prob": "44%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nWorthy of my Chuba\u2019s power\u2011running duo of Bijan Robinson and Saquon Barkley faces off against Amon Ra Akbar\u2019s balanced attack featuring Jalen Hurts\u2019 dual\u2011threat offense and Justin Jefferson\u2019s deep\u2011ball threat. Both teams boast elite receiving corps, but the matchup hinges on who can exploit the opposing defense\u2019s gaps first.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **Worthy of my Chuba:** Saquon Barkley \u2013 his explosive burst and ability to dominate inside will set the tone for the RB corps and keep the defense on its toes.  \n- **Amon Ra Akbar:** Justin Jefferson \u2013 his route\u2011running precision and big\u2011play capability make him the engine that can swing the game in his team\u2019s favor.\n\n**\ud83d\udd2e The Verdict:**  \nAmon Ra Akbar edges out Worthy of my Chuba, with Jefferson\u2019s big\u2011play potential and Hurts\u2019 rushing threat tipping the scales \u2013 projected score 115-108."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nTeam A\u2019s bruising ground game will clash head\u2011to\u2011head with Amon Ra Akbar\u2019s high\u2011tempo offense that relies on Jalen Hurts\u2019 dual\u2011threat ability and a deep receiving corps.  \n\n**\ud83d\udd25 The X\u2011Factors:**  \n- Worthy of my Chuba: **Bijan Robinson** \u2013 his explosive rushing upside can swing the game.  \n- Amon Ra Akbar: **Jalen Hurts** \u2013 his ability to rack up yards and touchdowns on the ground and through the air will dictate the ceiling.  \n\n**\ud83d\udd2e The Verdict:**  \nWorthy of my Chuba pulls ahead on the ground and a stout defense, edging Amon Ra Akbar in a tight, 118\u2011112 finish."
     }
   ]
 }
