@@ -1,4 +1,137 @@
 {
   "week": 1,
-  "matchups": []
+  "matchups": [
+    {
+      "matchup_id": 1,
+      "team_a": {
+        "roster_id": 1,
+        "team_name": "George PickHIMs",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "team_b": {
+        "roster_id": 2,
+        "team_name": "T-Mac Attack",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "preview": "Matchup breakdown for George PickHIMs vs T-Mac Attack pending lineup confirmation."
+    },
+    {
+      "matchup_id": 2,
+      "team_a": {
+        "roster_id": 3,
+        "team_name": "Dayton Degenerates ",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "team_b": {
+        "roster_id": 4,
+        "team_name": "noahsaint",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "preview": "Matchup breakdown for Dayton Degenerates  vs noahsaint pending lineup confirmation."
+    },
+    {
+      "matchup_id": 3,
+      "team_a": {
+        "roster_id": 5,
+        "team_name": "MaxWeese25",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "team_b": {
+        "roster_id": 6,
+        "team_name": "Chicken Soup",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "preview": "Matchup breakdown for MaxWeese25 vs Chicken Soup pending lineup confirmation."
+    },
+    {
+      "matchup_id": 4,
+      "team_a": {
+        "roster_id": 7,
+        "team_name": "BabbyBare",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "team_b": {
+        "roster_id": 8,
+        "team_name": "Mr texas ",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "preview": "Matchup breakdown for BabbyBare vs Mr texas  pending lineup confirmation."
+    },
+    {
+      "matchup_id": 5,
+      "team_a": {
+        "roster_id": 9,
+        "team_name": "Syracuse Sandstorms",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "team_b": {
+        "roster_id": 10,
+        "team_name": "spearson22",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "preview": "Matchup breakdown for Syracuse Sandstorms vs spearson22 pending lineup confirmation."
+    },
+    {
+      "matchup_id": 6,
+      "team_a": {
+        "roster_id": 11,
+        "team_name": "Worthy of my Chuba",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "team_b": {
+        "roster_id": 12,
+        "team_name": "Amon Ra Akbar",
+        "record": "0-0",
+        "points": 0,
+        "starters": [
+          "Roster setting up"
+        ]
+      },
+      "preview": "Matchup breakdown for Worthy of my Chuba vs Amon Ra Akbar pending lineup confirmation."
+    }
+  ]
 }
