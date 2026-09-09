@@ -11,7 +11,6 @@ def call_gemini(prompt):
         print("Error: GEMINI_API_KEY is not set.")
         return None
 
-    # Official standard endpoint with URL-based key authentication
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY.strip()}"
     headers = {"Content-Type": "application/json"}
     payload = {
@@ -29,7 +28,7 @@ def call_gemini(prompt):
                     if parts and "text" in parts[0]:
                         return parts[0]["text"].strip()
             elif resp.status_code == 429:
-                print(f"Rate limited (429). Pausing 7s...")
+                print("Rate limited (429). Pausing 7s...")
                 time.sleep(7)
             else:
                 print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
