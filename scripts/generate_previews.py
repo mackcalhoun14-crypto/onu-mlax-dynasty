@@ -45,17 +45,28 @@ def call_ai(prompt):
 
 def run():
     print("1. Fetching Sleeper NFL State...")
-    state = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15).json()
+    state_res = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15)
+    state = state_res.json() if state_res.status_code == 200 else {}
     week = state.get("week", 1)
     print(f"Current active week: {week}")
 
     print("2. Fetching League Users, Rosters, Matchups, and Players...")
-    users = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15).json()
-    rosters = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15).json()
-    matchups = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15).json()
-    players = requests.get("https://api.sleeper.app/v1/players/nfl", timeout=30).json()
+    users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
+    rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
+    matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
+    players_res = requests.get("https://api.sleeper.app/v1/players/nfl", timeout=30)
 
-    user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
+    users = users_res.json() if users_res.status_code == 200 else []
+    rosters = rosters_res.json() if rosters_res.status_code == 200 else []
+    matchups = matchups_res.json() if matchups_res.status_code == 200 else []
+    players = players_res.json() if players_res.status_code == 200 else {}
+
+    # Safety fallback if matchups isn't a valid list
+    if not isinstance(matchups, list):
+        print(f"Warning: Matchups endpoint returned non-list data: {matchups}")
+        matchups = []
+
+    user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name"] for u in users}
     roster_map = {}
     for r in rosters:
         roster_map[r["roster_id"]] = {
@@ -129,7 +140,6 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
             "team_b": t_b,
             "preview": ai_text
         })
-        # Gentle pacing between Groq calls
         time.sleep(2)
 
     os.makedirs("data", exist_ok=True)
@@ -143,7 +153,8 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
     
     for w in range(max(1, week - 1), week + 1):
         try:
-            tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
+            tx_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15)
+            tx_data = tx_res.json() if tx_res.status_code == 200 else []
             if not isinstance(tx_data, list):
                 continue
         except Exception:
