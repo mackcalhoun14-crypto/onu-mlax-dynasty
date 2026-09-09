@@ -4,40 +4,43 @@ import time
 import requests
 
 LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID", "1312162066798231552")
-GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
+GROQ_KEY = os.environ.get("GROQ_API_KEY")
 
-def call_gemini(prompt):
-    if not GEMINI_KEY:
-        print("CRITICAL ERROR: GEMINI_API_KEY environment variable is not set.")
+def call_ai(prompt):
+    if not GROQ_KEY:
+        print("CRITICAL ERROR: GROQ_API_KEY environment variable is not set.")
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={GEMINI_KEY.strip()}"
-    headers = {"Content-Type": "application/json"}
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {GROQ_KEY.strip()}",
+        "Content-Type": "application/json"
+    }
     payload = {
-        "contents": [{"parts": [{"text": prompt}]}]
+        "model": "llama-3.3-70b-versatile",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.7
     }
 
-    for attempt in range(2):
+    for attempt in range(3):
         try:
-            print(f"Calling Gemini API (Attempt {attempt + 1})...")
+            print(f"Calling Groq API (Attempt {attempt + 1})...")
             resp = requests.post(url, headers=headers, json=payload, timeout=25)
-            print(f"Gemini API Response Status: {resp.status_code}")
+            print(f"Groq API Response Status: {resp.status_code}")
             
             if resp.status_code == 200:
                 data = resp.json()
-                candidates = data.get("candidates", [])
-                if candidates and "content" in candidates[0]:
-                    parts = candidates[0]["content"].get("parts", [])
-                    if parts and "text" in parts[0]:
-                        return parts[0]["text"].strip()
-            elif resp.status_code in [429, 503]:
-                print(f"Rate limited or unavailable ({resp.status_code}). Pausing 15s...")
-                time.sleep(15)
+                choices = data.get("choices", [])
+                if choices and "message" in choices[0]:
+                    return choices[0]["message"].get("content", "").strip()
+            elif resp.status_code == 429:
+                print("Rate limited (429). Pausing 10s...")
+                time.sleep(10)
             else:
-                print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
+                print(f"Groq API Error [{resp.status_code}]: {resp.text}")
         except Exception as e:
             print(f"Request exception encountered: {e}")
-            time.sleep(5)
+            time.sleep(3)
     return None
 
 def run():
@@ -60,6 +63,17 @@ def run():
             "wins": (r.get("settings", {}) or {}).get("wins", 0),
             "losses": (r.get("settings", {}) or {}).get("losses", 0)
         }
+
+    existing_matchups_map = {}
+    if os.path.exists("data/matchups.json"):
+        try:
+            with open("data/matchups.json", "r") as f:
+                old_m_data = json.load(f)
+                if old_m_data.get("week") == week:
+                    for m in old_m_data.get("matchups", []):
+                        existing_matchups_map[m["matchup_id"]] = m["preview"]
+        except Exception:
+            pass
 
     existing_trades_map = {}
     if os.path.exists("data/trades.json"):
@@ -96,14 +110,24 @@ def run():
             "starters": starters
         })
 
-    print(f"Found {len(games)} head-to-head matchups. Generating AI previews...")
+    print(f"Found {len(games)} head-to-head matchups. Generating AI previews via Groq...")
     final_matchups = []
     for game_id, teams in games.items():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
-        print(f"Processing Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}")
 
+        if game_id in existing_matchups_map and not existing_matchups_map[game_id].startswith("The opening clash"):
+            print(f"Using cached preview for Matchup #{game_id}")
+            final_matchups.append({
+                "matchup_id": game_id,
+                "team_a": t_a,
+                "team_b": t_b,
+                "preview": existing_matchups_map[game_id]
+            })
+            continue
+
+        print(f"Processing Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}")
         prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
 Write a concise, high-energy 2-paragraph matchup preview for Week {week}.
 
@@ -118,22 +142,14 @@ Requirements:
 2. Paragraph 2: Name one volatile flex player on each side and predict the winner with a final score.
 Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
 
-        # Fallback text if rate limited so previews still populate gracefully
-        fallback_text = (
-            f"The opening clash of Week {week} features {t_a['team_name']} locking horns with {t_b['team_name']}. "
-            f"Both squads boast high-ceiling starting lineups capable of exploding out of the gate.\n\n"
-            f"Watch the flex positions closely here as depth volatility will dictate the winner. "
-            f"Expect a hard-fought battle down to the wire with narrow margins deciding the final outcome."
-        )
-
-        ai_text = call_gemini(prompt) or fallback_text
+        ai_text = call_ai(prompt) or f"Matchup breakdown for {t_a['team_name']} vs {t_b['team_name']} pending lineup locks."
         final_matchups.append({
             "matchup_id": game_id,
             "team_a": t_a,
             "team_b": t_b,
             "preview": ai_text
         })
-        time.sleep(8)
+        time.sleep(2)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
@@ -194,11 +210,16 @@ Context: 12-team dynasty league moving to Superflex in 2027.
 Task:
 1. Assign a letter grade (A+ to F) for each team.
 2. Declare the winner of the trade.
-3. Write a 2-paragraph audit covering immediate lineup ceiling and multi-year dynasty impact."""
+3. Write a 2-paragraph audit covering immediate lineup ceiling and multi-year dynasty impact.
 
-                fallback_audit = f"GRADE_{t1_name}: B\nGRADE_{t2_name}: B\nWINNER: Even Trade\nANALYSIS:\nBoth managers exchange valuable assets matching their respective roster timelines as they build toward the 2027 Superflex shift."
+Format output exactly as:
+GRADE_{t1_name}: [Grade]
+GRADE_{t2_name}: [Grade]
+WINNER: [Winner Team Name]
+ANALYSIS:
+[Your 2-paragraph audit]"""
 
-                audit_text = call_gemini(trade_prompt) or fallback_audit
+                audit_text = call_ai(trade_prompt) or f"GRADE_{t1_name}: B\nGRADE_{t2_name}: B\nWINNER: Even Trade\nANALYSIS:\nTrade evaluation pending."
                 executed_trades.append({
                     "transaction_id": tx_id,
                     "week": w,
@@ -206,7 +227,7 @@ Task:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                time.sleep(8)
+                time.sleep(2)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
