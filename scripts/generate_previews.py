@@ -89,32 +89,35 @@ def run():
 
         # --- PART 1: MATCHUPS ---
         games = {}
-        for m in matchups:
-            m_id = m.get("matchup_id")
-            if not m_id:
-                continue
-            if m_id not in games:
-                games[m_id] = []
+        
+        # If Sleeper returns real matchups, parse them
+        if matchups and isinstance(matchups, list):
+            for m in matchups:
+                m_id = m.get("matchup_id")
+                if not m_id:
+                    continue
+                if m_id not in games:
+                    games[m_id] = []
 
-            starters = []
-            for p_id in m.get("starters", []):
-                p = players.get(str(p_id)) or {}
-                p_name = p.get("full_name") or str(p_id)
-                p_pos = p.get("position") or "FLEX"
-                starters.append(f"{p_name} ({p_pos})")
+                starters = []
+                for p_id in m.get("starters", []):
+                    p = players.get(str(p_id)) or {}
+                    p_name = p.get("full_name") or str(p_id)
+                    p_pos = p.get("position") or "FLEX"
+                    starters.append(f"{p_name} ({p_pos})")
 
-            t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
-            games[m_id].append({
-                "roster_id": m["roster_id"],
-                "team_name": t_info["name"],
-                "record": f"{t_info['wins']}-{t_info['losses']}",
-                "points": m.get("points", 0),
-                "starters": starters
-            })
+                t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
+                games[m_id].append({
+                    "roster_id": m["roster_id"],
+                    "team_name": t_info["name"],
+                    "record": f"{t_info['wins']}-{t_info['losses']}",
+                    "points": m.get("points", 0),
+                    "starters": starters
+                })
 
-        # Fallback: If Sleeper has no official matchups yet, pair up rosters sequentially
-        if not games and rosters:
-            print("Sleeper returned 0 matchups. Generating default head-to-head pairings from rosters...")
+        # Guaranteed Fallback: If Sleeper has no official matchups generated yet, pair up rosters sequentially
+        if not games and roster_map:
+            print("Sleeper returned 0 official matchups. Forcing default head-to-head pairings from rosters...")
             sorted_rosters = list(roster_map.items())
             for i in range(0, len(sorted_rosters), 2):
                 if i + 1 < len(sorted_rosters):
@@ -122,8 +125,8 @@ def run():
                     r2_id, r2_data = sorted_rosters[i+1]
                     m_id = (i // 2) + 1
                     games[m_id] = [
-                        {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "points": 0, "starters": ["Lineup locking"]},
-                        {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "points": 0, "starters": ["Lineup locking"]}
+                        {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "points": 0, "starters": ["Roster building phase - Starters pending"]},
+                        {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "points": 0, "starters": ["Roster building phase - Starters pending"]}
                     ]
 
         print(f"Generating clean previews for {len(games)} matchups via Groq...")
