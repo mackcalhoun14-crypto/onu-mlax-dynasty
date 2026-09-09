@@ -148,7 +148,6 @@ def run():
         print("3. Fetching Detailed Player News via RotoWire RSS...")
         global_news = []
         try:
-            # Using RotoWire's dedicated fantasy football player news feed
             rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
             if rss_res.status_code != 200:
                 rss_res = requests.get("https://www.espn.com/espn/rss/nfl/news", timeout=10)
