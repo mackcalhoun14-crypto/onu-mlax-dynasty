@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import time
 import requests
 
@@ -43,6 +44,38 @@ def call_ai(prompt):
             time.sleep(3)
     return None
 
+def parse_ai_forecast(ai_text, team_a_name, team_b_name):
+    proj_a = 114.5
+    proj_b = 110.0
+    win_a = "53%"
+    win_b = "47%"
+    body_lines = []
+
+    if not ai_text:
+        return proj_a, proj_b, win_a, win_b, "Matchup preview pending lineup confirmation."
+
+    for line in ai_text.splitlines():
+        line_clean = line.strip()
+        if line_clean.startswith("PROJ_TEAM_A:"):
+            val = line_clean.replace("PROJ_TEAM_A:", "").replace("pts", "").strip()
+            nums = re.findall(r"\d+\.?\d*", val)
+            if nums:
+                proj_a = float(nums[0])
+        elif line_clean.startswith("PROJ_TEAM_B:"):
+            val = line_clean.replace("PROJ_TEAM_B:", "").replace("pts", "").strip()
+            nums = re.findall(r"\d+\.?\d*", val)
+            if nums:
+                proj_b = float(nums[0])
+        elif line_clean.startswith("WINPCT_TEAM_A:"):
+            win_a = line_clean.replace("WINPCT_TEAM_A:", "").strip()
+        elif line_clean.startswith("WINPCT_TEAM_B:"):
+            win_b = line_clean.replace("WINPCT_TEAM_B:", "").strip()
+        else:
+            body_lines.append(line)
+
+    preview_body = "\n".join(body_lines).strip()
+    return proj_a, proj_b, win_a, win_b, preview_body
+
 def run():
     try:
         print(f"0. Using League ID: {LEAGUE_ID}")
@@ -84,7 +117,6 @@ def run():
                     "losses": (r.get("settings", {}) or {}).get("losses", 0)
                 }
         
-        # Absolute safety net: if rosters endpoint fails, generate mock teams so code never halts on 0
         if not roster_map:
             print("Warning: Rosters endpoint empty. Generating safety mock rosters...")
             roster_map = {
@@ -107,7 +139,6 @@ def run():
         # --- PART 1: MATCHUPS ---
         games = {}
         
-        # If Sleeper returns real matchups, parse them
         if matchups and isinstance(matchups, list) and len(matchups) > 0:
             for m in matchups:
                 m_id = m.get("matchup_id")
@@ -128,18 +159,15 @@ def run():
                     "roster_id": m["roster_id"],
                     "team_name": t_info["name"],
                     "record": f"{t_info['wins']}-{t_info['losses']}",
-                    "points": m.get("points", 0),
                     "starters": starters
                 })
 
-        # Guaranteed Fallback: If matchups are empty, pair up roster_map sequentially
+        # Fallback pairing if regular matchups haven't officially rolled over
         if not games and roster_map:
             print("Sleeper returned 0 official matchups. Forcing default head-to-head pairings from rosters...")
             sorted_rosters = list(roster_map.items())
             for i in range(0, len(sorted_rosters), 2):
                 r1_id, r1_data = sorted_rosters[i]
-                
-                # Assign a Bye Week if there is an odd number of teams
                 if i + 1 < len(sorted_rosters):
                     r2_id, r2_data = sorted_rosters[i+1]
                 else:
@@ -147,47 +175,56 @@ def run():
                 
                 m_id = (i // 2) + 1
                 games[m_id] = [
-                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "points": 0, "starters": ["Roster building phase - Starters pending"]},
-                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "points": 0, "starters": ["Roster building phase - Starters pending"]}
+                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "starters": ["Roster confirmed - Starters pending"]},
+                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "starters": ["Roster confirmed - Starters pending"]}
                 ]
 
-        print(f"Generating clean previews for {len(games)} matchups via Groq...")
+        print(f"Generating weekly forecast predictions for {len(games)} matchups via Groq...")
         final_matchups = []
         for game_id, teams in games.items():
             if len(teams) != 2:
                 continue
             t_a, t_b = teams[0], teams[1]
 
-            prompt = f"""You are an elite fantasy football expert and commissioner of the 'ONU MLax Dynasty League'. Write a high-impact, professional preview for Week {week}.
+            prompt = f"""You are the lead fantasy football analyst and commissioner for the 'ONU MLax Dynasty League'. Write a high-impact pregame forecast for Week {week}.
 
 Matchup:
-- Team 1: {t_a['team_name']} ({t_a['record']}) -> Starters: {', '.join(t_a['starters']) if t_a['starters'] else 'None set'}
-- Team 2: {t_b['team_name']} ({t_b['record']}) -> Starters: {', '.join(t_b['starters']) if t_b['starters'] else 'None set'}
+- Team A: {t_a['team_name']} ({t_a['record']}) | Starters: {', '.join(t_a['starters'])}
+- Team B: {t_b['team_name']} ({t_b['record']}) | Starters: {', '.join(t_b['starters'])}
 
 Instructions:
-1. Focus entirely on the actual players listed above. Do not hallucinate or add players not present on these rosters.
-2. Maintain correct player statuses (established veterans are veterans, not rookies).
-3. Keep the output punchy, professional, and sports-column style.
+1. Estimate realistic projected scores (range 95.0 to 135.0) and win probabilities (totaling 100%).
+2. Output the 4 exact projection lines first, followed by the preview text.
 
-Format output strictly using these headers:
+Output Format:
+PROJ_TEAM_A: [Score, e.g. 118.4]
+PROJ_TEAM_B: [Score, e.g. 112.8]
+WINPCT_TEAM_A: [e.g. 56%]
+WINPCT_TEAM_B: [e.g. 44%]
 
 **🥊 Tale of the Tape:**
-[1-2 sentences breaking down the macro clash between these two starting lineups]
+[1-2 sentences breaking down the macro clash between these rosters]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Name one primary star from their lineup and explain why they drive this team's ceiling]
-- {t_b['team_name']}: [Name one primary star from their lineup and explain why they drive this team's ceiling]
+- {t_a['team_name']}: [Star player who dictates this team's ceiling]
+- {t_b['team_name']}: [Star player who dictates this team's ceiling]
 
 **🔮 The Verdict:**
-[1 sentence declaring the winner, the deciding factor, and a realistic projected score like 115-108]"""
+[1 sharp sentence declaring the predicted winner, deciding factor, and final outcome]"""
 
-            ai_text = call_ai(prompt) or f"Matchup breakdown for {t_a['team_name']} vs {t_b['team_name']} pending lineup confirmation."
-            
+            raw_ai = call_ai(prompt)
+            proj_a, proj_b, win_a, win_b, clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
+
+            t_a["projected"] = proj_a
+            t_a["win_prob"] = win_a
+            t_b["projected"] = proj_b
+            t_b["win_prob"] = win_b
+
             final_matchups.append({
                 "matchup_id": game_id,
                 "team_a": t_a,
                 "team_b": t_b,
-                "preview": ai_text
+                "preview": clean_preview
             })
             time.sleep(1)
 
@@ -232,7 +269,7 @@ Format output strictly using these headers:
                         elif pick.get("owner_id") == r2:
                             t2_receives.append(pick_desc)
 
-                    trade_prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
+                    trade_prompt = f"""You are the commissioner of the 'ONU MLax Dynasty League'.
 Audit this trade:
 Team 1: {t1_name} receives {', '.join(t1_receives) or 'Nothing'}
 Team 2: {t2_name} receives {', '.join(t2_receives) or 'Nothing'}
