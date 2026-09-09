@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import requests
 
 LEAGUE_ID = "1312162066798231552"
@@ -9,9 +10,11 @@ def run():
     if not GEMINI_KEY:
         raise ValueError("GEMINI_API_KEY environment variable is missing.")
 
+    print("Fetching Sleeper state...")
     state = requests.get("https://api.sleeper.app/v1/state/nfl").json()
     week = state.get("week", 1)
 
+    print(f"Fetching Week {week} matchups and rosters...")
     users = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users").json()
     rosters = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters").json()
     matchups = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}").json()
@@ -52,19 +55,27 @@ def run():
             "starters": starters
         })
 
-    # Uses the exact endpoint and header authentication from your cURL quickstart
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
     headers = {
         "Content-Type": "application/json",
         "x-goog-api-key": GEMINI_KEY.strip()
     }
+
+    # Relax safety filters so sports idioms and team names aren't blocked
+    safety_settings = [
+        {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+        {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+    ]
+
     final_matchups = []
 
     for game_id, teams in games.items():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
-        print(f"Generating preview for {t_a['team_name']} vs {t_b['team_name']}...")
+        print(f"Generating preview for Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}...")
 
         prompt = f"""You are the sharp, witty commissioner of the 'ONU MLax Dynasty League'.
 Write a concise, high-energy 2-paragraph matchup preview for Week {week}.
@@ -78,19 +89,34 @@ Matchup:
 Requirements:
 1. Paragraph 1: Break down the primary positional clash (e.g. ground volume vs. perimeter air attack).
 2. Paragraph 2: Name one volatile flex/X-Factor player on each roster and predict the winning team with a projected score.
-Tone: Sharp, analytical dynasty analyst. No corporate fluff."""
+Tone: Sharp, analytical fantasy analyst. No corporate filler."""
 
-        payload = {"contents": [{"parts": [{"text": prompt}]}]}
-        resp = requests.post(gemini_url, headers=headers, json=payload)
-        
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}],
+            "safetySettings": safety_settings
+        }
+
         ai_text = "Preview pending final lineup locks."
-        if resp.status_code == 200:
+        
+        # Retry up to 3 times per matchup with exponential pause
+        for attempt in range(3):
             try:
-                ai_text = resp.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
-            except (KeyError, IndexError):
-                pass
-        else:
-            print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
+                resp = requests.post(gemini_url, headers=headers, json=payload, timeout=20)
+                if resp.status_code == 200:
+                    candidates = resp.json().get("candidates", [])
+                    if candidates and "content" in candidates[0]:
+                        parts = candidates[0]["content"].get("parts", [])
+                        if parts and "text" in parts[0]:
+                            ai_text = parts[0]["text"].strip()
+                            break
+                elif resp.status_code == 429:
+                    print(f"Rate limited on attempt {attempt + 1}. Waiting 5s...")
+                    time.sleep(5)
+                else:
+                    print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
+            except Exception as e:
+                print(f"Request exception: {e}")
+                time.sleep(3)
 
         final_matchups.append({
             "matchup_id": game_id,
@@ -99,9 +125,14 @@ Tone: Sharp, analytical dynasty analyst. No corporate fluff."""
             "preview": ai_text
         })
 
+        # 3-second delay between calls to respect the free-tier rate limit
+        time.sleep(3)
+
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
         json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
+
+    print("Generation complete.")
 
 if __name__ == "__main__":
     run()
