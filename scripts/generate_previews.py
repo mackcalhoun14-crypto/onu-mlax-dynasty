@@ -17,7 +17,7 @@ def call_ai(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "llama-3.3-70b-versatile",
+        "model": "llama-3.1-8b-instant",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.7
     }
@@ -65,7 +65,6 @@ def run():
         print(f"Warning: Matchups endpoint returned non-list data: {matchups}")
         matchups = []
 
-    # Fixed syntax here: closed with ')' instead of ']'
     user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
     roster_map = {}
     for r in rosters:
