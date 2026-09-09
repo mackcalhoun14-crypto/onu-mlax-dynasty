@@ -11,7 +11,7 @@ def call_gemini(prompt):
         print("CRITICAL ERROR: GEMINI_API_KEY environment variable is not set.")
         return None
 
-    # Updated to the currently active model ID
+    # Using the active model identifier
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={GEMINI_KEY.strip()}"
     headers = {"Content-Type": "application/json"}
     payload = {
@@ -33,13 +33,13 @@ def call_gemini(prompt):
                         return parts[0]["text"].strip()
                 print(f"Unexpected response structure: {data}")
             elif resp.status_code == 429:
-                print("Rate limited (429). Pausing 7s...")
-                time.sleep(7)
+                print("Rate limited (429). Pausing 12s...")
+                time.sleep(12)
             else:
                 print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
         except Exception as e:
             print(f"Request exception encountered: {e}")
-            time.sleep(3)
+            time.sleep(5)
     return None
 
 def run():
@@ -117,7 +117,8 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
             "team_b": t_b,
             "preview": ai_text
         })
-        time.sleep(2)
+        # Increased sleep buffer to prevent rate-limiting (429)
+        time.sleep(5)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
@@ -129,17 +130,11 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
     executed_trades = []
     for w in range(1, week + 1):
         try:
-            tx_data = requests.get(f"https://api.sleeeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
+            tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
             if not isinstance(tx_data, list):
                 continue
         except Exception:
-            # Fallback direct call
-            try:
-                tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
-                if not isinstance(tx_data, list):
-                    continue
-            except Exception:
-                continue
+            continue
 
         for tx in tx_data:
             if tx.get("type") == "trade" and tx.get("status") == "complete":
@@ -194,7 +189,8 @@ ANALYSIS:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                time.sleep(2)
+                # Increased sleep buffer to prevent rate-limiting (429)
+                time.sleep(5)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
