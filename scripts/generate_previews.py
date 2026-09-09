@@ -2,6 +2,7 @@ import os
 import json
 import time
 import requests
+import nflreadpy as nfl
 
 LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID", "1312162066798231552")
 GROQ_KEY = os.environ.get("GROQ_API_KEY")
@@ -45,8 +46,28 @@ def run():
     week = state.get("week", 1)
     if week < 1:
         week = 1
+    season = state.get("season", "2026")
 
-    print("2. Fetching League Data...")
+    print("2. Pulling live data via nflreadpy...")
+    recent_profiles = {}
+    try:
+        df_stats = nfl.load_player_stats(seasons=[int(season)]).to_pandas()
+        if not df_stats.empty and 'player_name' in df_stats.columns:
+            grouped = df_stats.groupby('player_name').agg({
+                'fantasy_points_ppr': 'mean',
+                'targets': 'sum',
+                'carries': 'sum'
+            }).reset_index()
+            for _, row in grouped.iterrows():
+                recent_profiles[row['player_name']] = {
+                    "ppr_avg": round(row['fantasy_points_ppr'], 1),
+                    "targets": int(row['targets']),
+                    "carries": int(row['carries'])
+                }
+    except Exception as e:
+        print(f"Warning: Could not pull nflverse stats: {e}")
+
+    print("3. Fetching League Data from Sleeper...")
     users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
     rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
     
@@ -99,7 +120,13 @@ def run():
             p = players.get(str(p_id)) or {}
             p_name = p.get("full_name") or str(p_id)
             p_pos = p.get("position") or "FLEX"
-            starters.append(f"{p_name} ({p_pos})")
+            
+            p_context = ""
+            if p_name in recent_profiles:
+                stats = recent_profiles[p_name]
+                p_context = f" [Season Avg: {stats['ppr_avg']} PPR pts]"
+            
+            starters.append(f"{p_name} ({p_pos}){p_context}")
 
         t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
         games[m_id].append({
@@ -122,19 +149,19 @@ def run():
                     {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "points": 0, "starters": ["Lineup locking"]}
                 ]
 
-    print(f"Generating previews for {len(games)} matchups via Groq...")
+    print(f"Generating data-driven previews for {len(games)} matchups via Groq...")
     final_matchups = []
     for game_id, teams in games.items():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
 
-        prompt = f"""You are the sharp, blunt commissioner of the 'ONU MLax Dynasty League'.
-Write a concise, scannable matchup breakdown for Week {week}.
+        prompt = f"""You are an elite fantasy football analyst and commissioner of the 'ONU MLax Dynasty League'. Write a high-impact, professional matchup preview for Week {week}.
 
 RULES:
-1. Base analysis strictly on the provided starters. Do not invent players.
-2. Treat all players with proper veteran/established status (e.g., Brock Bowers is an established star, not a rookie).
+1. Base analysis strictly on the provided starters and their attached nflverse statistical metrics.
+2. Provide a professional sports-column narrative profile for key players using their data metrics.
+3. Treat all players with proper veteran/established status.
 
 Team 1: {t_a['team_name']} ({t_a['record']})
 Starters: {', '.join(t_a['starters']) if t_a['starters'] else 'None set'}
@@ -145,14 +172,14 @@ Starters: {', '.join(t_b['starters']) if t_b['starters'] else 'None set'}
 Format output strictly using these headers:
 
 **🥊 Tale of the Tape:**
-[1 concise sentence comparing the matchup]
+[1-2 punchy sentences breaking down the macro-clash of the rosters and positional advantages]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Name one specific starter who dictates their ceiling]
-- {t_b['team_name']}: [Name one specific starter who dictates their ceiling]
+- {t_a['team_name']}: [Profile a specific star player from their lineup using their metrics, explaining why their outlook dictates this team's ceiling]
+- {t_b['team_name']}: [Profile a specific star player from their lineup using their metrics, explaining why their outlook dictates this team's ceiling]
 
 **🔮 The Verdict:**
-[1 sharp sentence declaring the winner and why, ending with a projected score like 115-108]"""
+[1 sharp analytical sentence declaring the winner, explaining the deciding factor, and ending with a projected score like 115-108]"""
 
         ai_text = call_ai(prompt) or f"Matchup breakdown for {t_a['team_name']} vs {t_b['team_name']} pending lineup confirmation."
         
