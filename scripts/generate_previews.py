@@ -56,7 +56,6 @@ def run():
     users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
     rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
     
-    # Try fetching matchups for current week, fallback to week 1 if empty
     matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
     matchups = matchups_res.json() if matchups_res.status_code == 200 else []
     if not matchups and week > 1:
@@ -118,7 +117,6 @@ def run():
             "starters": starters
         })
 
-    # If Sleeper still returns 0 matchups (e.g. pre-season schedule not generated), map rosters directly into simulated 1v1 matchups so UI populates!
     if not games and rosters:
         print("Sleeper returned no active matchups. Generating placeholder pairings from rosters...")
         sorted_rosters = list(roster_map.items())
@@ -200,8 +198,9 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
                 t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
 
                 adds = tx.get("adds") or {}
-                t1_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
-                t2_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
+                # Fixed syntax here: closed with ')' instead of ']'
+                t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
+                t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
 
                 for pick in tx.get("draft_picks", []):
                     pick_desc = f"{pick.get('season')} Round {pick.get('round')}"
