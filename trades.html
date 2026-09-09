@@ -54,7 +54,7 @@
         <a href="index.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Matchup Center</a>
         <a href="index.html#outlook" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</a>
         <span class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white">Trade Grader</span>
-        <a href="draft.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Draft Archive</a>
+        <a href="rules.html" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">Rulebook</a>
       </nav>
     </div>
   </header>
@@ -215,7 +215,6 @@
     }
 
     async function loadTrades() {
-      // Dynamically handle GitHub Pages subpath with cache-buster
       const pathPrefix = window.location.pathname.includes('/onu-mlax-dynasty/') ? '/onu-mlax-dynasty' : '';
       const jsonUrl = `${pathPrefix}/data/trades.json?v=${Date.now()}`;
 
