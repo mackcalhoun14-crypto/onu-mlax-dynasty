@@ -1,0 +1,38 @@
+name: Weekly Matchup Automation
+
+on:
+  schedule:
+    # 14:15 UTC = 10:15 AM EDT every Wednesday (after waivers clear)
+    - cron: '15 14 * * 3'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Matchup & AI Generator
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SLEEPER_LEAGUE_ID: "1312162066798231552"
+        run: python scripts/generate_previews.py
+
+      - name: Commit and Push Updated Previews
+        run: |
+          git config --global user.name "Dynasty Bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          git add data/matchups.json
+          git commit -m "Auto-update weekly matchups & AI previews" || exit 0
+          git push
