@@ -1,4 +1,157 @@
 {
-  "total_trades": 0,
-  "trades": []
+  "total_trades": 8,
+  "trades": [
+    {
+      "transaction_id": "1400485828521648128",
+      "week": 1,
+      "team_1": {
+        "name": "noahsaint",
+        "receives": [
+          "2026 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "spearson22",
+        "receives": [
+          "2026 Round 3",
+          "2026 Round 4"
+        ]
+      },
+      "audit": "GRADE_noahsaint: C  \nGRADE_spearson22: A  \nWINNER: spearson22  \nANALYSIS:  \nThe trade is heavily skewed in favor of spearson22, who receives two early\u2011round picks while noahsaint only gets one. Unless noahsaint is surrendering a valuable player or future asset, the deal is lopsided and clearly benefits spearson22. Therefore spearson22 wins the audit."
+    },
+    {
+      "transaction_id": "1400295410559414272",
+      "week": 1,
+      "team_1": {
+        "name": "BabbyBare",
+        "receives": [
+          "2026 Round 2"
+        ]
+      },
+      "team_2": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "2026 Round 2",
+          "2026 Round 2"
+        ]
+      },
+      "audit": "GRADE_BabbyBare: 2  \nGRADE_Syracuse Sandstorms: 8  \nWINNER: Syracuse Sandstorms  \nANALYSIS:  \nThe trade is a clear 2\u2011for\u20111 deal where BabbyBare gives up two 2026 Round\u202f2 picks and receives only one in return, resulting in a net loss of a draft asset. Syracuse, on the other hand, nets an extra second\u2011round pick, improving their depth for the upcoming draft. Thus, Syracuse gains a decisive advantage while BabbyBare is left worse off."
+    },
+    {
+      "transaction_id": "1400138088730140672",
+      "week": 1,
+      "team_1": {
+        "name": "George PickHIMs",
+        "receives": [
+          "2026 Round 2",
+          "2028 Round 2"
+        ]
+      },
+      "team_2": {
+        "name": "T-Mac Attack",
+        "receives": [
+          "2026 Round 1"
+        ]
+      },
+      "audit": "GRADE_George PickHIMs: C  \nGRADE_T-Mac Attack: A  \nWINNER: T-Mac Attack  \nANALYSIS:  \nTeam 2 secured a higher\u2011value player for a first\u2011round pick, while Team 1 swapped a mid\u2011tier player for two second\u2011round picks. The trade slightly favors Team 2, making it a marginally better deal for them."
+    },
+    {
+      "transaction_id": "1399936600359575552",
+      "week": 1,
+      "team_1": {
+        "name": "Dayton Degenerates ",
+        "receives": [
+          "Deebo Samuel"
+        ]
+      },
+      "team_2": {
+        "name": "Worthy of my Chuba",
+        "receives": [
+          "2027 Round 3"
+        ]
+      },
+      "audit": "GRADE_Dayton Degenerates : A  \nGRADE_Worthy of my Chuba : D  \nWINNER: Dayton Degenerates  \nANALYSIS:  \nDayton\u2019s haul of Deebo Samuel far outweighs the modest 2027 third\u2011round pick they surrendered. Samuel\u2019s elite talent, proven production, and upside make him a top\u2011tier asset, whereas a late\u2011round pick in a future draft is a low\u2011risk, low\u2011reward trade\u2011piece. The deal is heavily skewed in Dayton\u2019s favor, giving them a clear advantage in the upcoming season."
+    },
+    {
+      "transaction_id": "1399816305309184000",
+      "week": 1,
+      "team_1": {
+        "name": "MaxWeese25",
+        "receives": [
+          "2026 Round 1",
+          "2026 Round 2"
+        ]
+      },
+      "team_2": {
+        "name": "Mr texas ",
+        "receives": [
+          "Hunter Henry",
+          "David Montgomery",
+          "Michael Pittman",
+          "2027 Round 1",
+          "2026 Round 3"
+        ]
+      },
+      "audit": "GRADE_MaxWeese25: 9\nGRADE_Mr texas : 2\nWINNER: MaxWeese25\nANALYSIS:\nTeam 1 has clearly outbid Team 2, acquiring two high\u2011tier 2026 draft picks for a single player, while Team 2 gave up three proven receivers and two future picks. The trade is heavily skewed in favor of MaxWeese25, making it a lopsided win for that side."
+    },
+    {
+      "transaction_id": "1399808502368587776",
+      "week": 1,
+      "team_1": {
+        "name": "Mr texas ",
+        "receives": [
+          "Kenny Gainwell",
+          "2026 Round 1",
+          "2028 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "2026 Round 1",
+          "2027 Round 1"
+        ]
+      },
+      "audit": "GRADE_Mr texas : B\nGRADE_Syracuse Sandstorms: B\nWINNER: Even Trade\nANALYSIS:\nEvaluation pending."
+    },
+    {
+      "transaction_id": "1399138359141474304",
+      "week": 1,
+      "team_1": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "2028 Round 2",
+          "2026 Round 1"
+        ]
+      },
+      "team_2": {
+        "name": "spearson22",
+        "receives": [
+          "Courtland Sutton",
+          "Rico Dowdle",
+          "2027 Round 2"
+        ]
+      },
+      "audit": "GRADE_Syracuse Sandstorms: A  \nGRADE_spearson22: C  \nWINNER: Syracuse Sandstorms  \nANALYSIS:  \nSyracuse Sandstorms secured a 2026 first\u2011round pick and a 2028 second\u2011round pick for Courtland Sutton and Rico Dowdle. The first\u2011rounder is a high\u2011value asset that can yield a franchise player, while the second\u2011rounder adds depth. In contrast, spearson22 gave up those picks for two mid\u2011tier players who, while solid, are unlikely to match the upside of a first\u2011round selection. Overall, the trade favors Syracuse, making it the clear winner."
+    },
+    {
+      "transaction_id": "1382434099502792704",
+      "week": 1,
+      "team_1": {
+        "name": "George PickHIMs",
+        "receives": [
+          "De'Von Achane",
+          "2027 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "BabbyBare",
+        "receives": [
+          "DeVonta Smith",
+          "2027 Round 2"
+        ]
+      },
+      "audit": "GRADE_George PickHIMs: D  \nGRADE_BabbyBare: A  \nWINNER: BabbyBare  \nANALYSIS:  \nThe trade is heavily skewed in favor of BabbyBare. DeVonta Smith is a proven, high\u2011impact wide receiver, while De'Von Achane is a rookie with uncertain upside. Coupled with the 2027 Round 2 pick versus a Round 3 pick, George PickHIMs is giving up significantly more value for less. This imbalance makes the deal lopsided and clearly benefits BabbyBare."
+    }
+  ]
 }
