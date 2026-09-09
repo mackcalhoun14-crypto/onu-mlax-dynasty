@@ -3,8 +3,6 @@ import json
 import re
 import time
 import requests
-import asyncio
-import edge_tts
 import xml.etree.ElementTree as ET
 
 # Bulletproof fallback for blank GitHub Secrets
@@ -54,22 +52,6 @@ def call_ai(prompt):
             print(f"AI call exception: {e}")
             time.sleep(3)
     return None
-
-def generate_voiceover(text, output_path):
-    # Strip markdown headers/emojis so the TTS reads cleanly
-    clean_text = re.sub(r'[\*#_🥊🔥🔮🤖]', '', text)
-    clean_text = clean_text.replace("Tale of the Tape:", "").replace("The X-Factors:", "").replace("The Verdict:", "")
-
-    # Deep, professional broadcaster voice from Azure Neural
-    voice = "en-US-ChristopherNeural" 
-    
-    try:
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        asyncio.run(edge_tts.Communicate(clean_text, voice).save(output_path))
-        return True
-    except Exception as e:
-        print(f"TTS Generation failed: {e}")
-        return False
 
 def calculate_team_projection(starter_ids, projections):
     total = 0.0
@@ -163,13 +145,17 @@ def run():
 
         if not isinstance(matchups, list): matchups = []
 
-        print("3. Fetching Latest NFL News via RSS...")
+        print("3. Fetching Detailed Player News via RotoWire RSS...")
         global_news = []
         try:
-            rss_res = requests.get("https://www.espn.com/espn/rss/nfl/news", timeout=10)
+            # Using RotoWire's dedicated fantasy football player news feed
+            rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
+            if rss_res.status_code != 200:
+                rss_res = requests.get("https://www.espn.com/espn/rss/nfl/news", timeout=10)
+                
             if rss_res.status_code == 200:
                 root = ET.fromstring(rss_res.content)
-                for item in root.findall('./channel/item'):
+                for item in root.findall('.//item'):
                     title = item.find('title').text if item.find('title') is not None else ""
                     desc = item.find('description').text if item.find('description') is not None else ""
                     desc_clean = re.sub(r'<[^>]+>', '', desc)
@@ -249,7 +235,7 @@ def run():
                     {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "starters": r2_starters, "starter_ids": r2_starter_ids}
                 ]
 
-        print(f"Generating weekly forecast predictions and audio for {len(games)} matchups...")
+        print(f"Generating weekly forecast predictions for {len(games)} matchups...")
         final_matchups = []
         for game_id, teams in games.items():
             if len(teams) != 2: continue
@@ -261,7 +247,7 @@ def run():
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
-            # Parse relevant news using relaxed last-name matching
+            # Parse relevant news using relaxed last-name matching against player feeds
             matchup_news = []
             for starter in t_a['starters'] + t_b['starters']:
                 full_name = starter.split(" (")[0].strip()
@@ -274,9 +260,9 @@ def run():
             
             news_context = ""
             if matchup_news:
-                news_context = "\n[LATEST REAL-WORLD NFL NEWS ALERTS]\n" + "\n".join([f"- {n}" for n in matchup_news[:3]]) + "\n"
+                news_context = "\n[LATEST FANTASY PLAYER NEWS & INJURY REPORTS]\n" + "\n".join([f"- {n}" for n in matchup_news[:4]]) + "\n"
             else:
-                news_context = "\n[LATEST REAL-WORLD NFL NEWS ALERTS]\n- No major breaking news alerts for these specific starters this week; rely on standard projections and roles.\n"
+                news_context = "\n[LATEST FANTASY PLAYER NEWS & INJURY REPORTS]\n- No specific breaking news alerts for these starters; proceed with standard projections.\n"
 
             prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
 
@@ -288,8 +274,7 @@ MANDATORY EDITORIAL RULES:
 1. NEVER write 'Team A', 'Team B', 'Team 1', or 'Team 2'. Always use the actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
 3. Do not invent your own projected scores; reference the {t_a['projected']} and {t_b['projected']} projected points provided above.
-4. Stick strictly to provided NFL team tags. Do not hallucinate real-life team trades or changes.
-5. If [LATEST REAL-WORLD NFL NEWS ALERTS] contain relevant headlines, explicitly reference how those injuries, rumors, or game-time decisions impact the game script.
+4. If [LATEST FANTASY PLAYER NEWS & INJURY REPORTS] contain specific updates or injuries for any starter, you MUST explicitly weave them into the analysis or X-factors.
 
 Output Format:
 [SCRATCHPAD]
@@ -300,8 +285,8 @@ Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 [1-2 punchy sentences breaking down the macro roster matchup, using '{t_a['team_name']}' and '{t_b['team_name']}']
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news alerts]
-- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news alerts]
+- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news or injury reports]
+- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news or injury reports]
 
 **🔮 The Verdict:**
 [{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], {t_a['projected']} to {t_b['projected']} (or vice versa), driven by [1 decisive tactical reason]."""
@@ -309,16 +294,11 @@ Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
             raw_ai = call_ai(prompt)
             clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
 
-            # Generate the MP3
-            audio_rel_path = f"data/audio/matchup_{game_id}.mp3"
-            audio_success = generate_voiceover(clean_preview, audio_rel_path)
-
             final_matchups.append({
                 "matchup_id": game_id,
                 "team_a": t_a,
                 "team_b": t_b,
-                "preview": clean_preview,
-                "audio_url": audio_rel_path if audio_success else None
+                "preview": clean_preview
             })
             time.sleep(1)
 
