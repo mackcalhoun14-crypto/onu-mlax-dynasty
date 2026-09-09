@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ONU MLax Dynasty | Power Rankings & Standings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #070a13;
+      background-image: radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.07) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    .glass { background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.07); }
+  </style>
+</head>
+<body class="text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 glass border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="h-10 w-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 p-[1px]">
+          <div class="h-full w-full bg-slate-950 rounded-2xl flex items-center justify-center font-black text-white text-base">📊</div>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-lg font-extrabold text-white">ONU MLax Dynasty</h1>
+          <p class="text-[10px] text-slate-400 font-mono">Power Rankings & Playoff Picture</p>
+        </div>
+      </div>
+
+      <nav class="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-slate-950/70 rounded-2xl border border-slate-800">
+        <a href="index.html" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Weekly Forecast</a>
+        <a href="index.html#view-outlook" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Season Outlook</a>
+        <a href="standings.html" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500 text-black">Standings & Magic #</a>
+        <a href="trades.html" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white">Trade Grader</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-6 flex-1 w-full">
+    <div>
+      <h2 class="text-xl font-black text-white">🏆 Power Rankings & Playoff Race</h2>
+      <p class="text-xs text-slate-400">Automated power scores, total points for, and magic numbers updated live via Sleeper.</p>
+    </div>
+
+    <div class="glass rounded-3xl overflow-hidden border border-slate-800">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-slate-800 text-[10px] font-mono text-cyan-400 uppercase bg-slate-950/50">
+            <th class="p-4">Rank</th>
+            <th class="p-4">Franchise</th>
+            <th class="p-4">Record</th>
+            <th class="p-4">Points For</th>
+            <th class="p-4">Power Score</th>
+            <th class="p-4">Playoff Status</th>
+          </tr>
+        </thead>
+        <tbody id="standings-body" class="divide-y divide-slate-800/60 text-xs font-mono">
+          <tr><td colspan="6" class="p-6 text-center text-slate-500">Loading standings...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-900 font-mono">
+    ONU MLax Dynasty League • Powered by Sleeper API & Groq AI
+  </footer>
+
+  <script>
+    async function loadStandings() {
+      try {
+        const res = await fetch('data/standings.json?v=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        const tbody = document.getElementById('standings-body');
+        
+        tbody.innerHTML = data.standings.map((t, idx) => `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="p-4 font-bold text-cyan-400">#${idx + 1}</td>
+            <td class="p-4 font-bold text-white font-sans">${t.name}</td>
+            <td class="p-4">${t.record}</td>
+            <td class="p-4 text-slate-300">${t.fpts}</td>
+            <td class="p-4 font-black text-amber-400">${t.power_score}</td>
+            <td class="p-4">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${idx < 6 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400'}">
+                ${t.playoff_status} (Mag #: ${t.magic_number})
+              </span>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.error("Failed to load standings", e);
+      }
+    }
+    loadStandings();
+  </script>
+</body>
+</html>
