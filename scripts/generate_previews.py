@@ -5,6 +5,7 @@ import time
 import requests
 import asyncio
 import edge_tts
+import xml.etree.ElementTree as ET
 
 # Bulletproof fallback for blank GitHub Secrets
 LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID")
@@ -162,6 +163,20 @@ def run():
 
         if not isinstance(matchups, list): matchups = []
 
+        print("3. Fetching Latest NFL News via RSS...")
+        global_news = []
+        try:
+            rss_res = requests.get("https://www.espn.com/espn/rss/nfl/news", timeout=10)
+            if rss_res.status_code == 200:
+                root = ET.fromstring(rss_res.content)
+                for item in root.findall('./channel/item'):
+                    title = item.find('title').text if item.find('title') is not None else ""
+                    desc = item.find('description').text if item.find('description') is not None else ""
+                    desc_clean = re.sub(r'<[^>]+>', '', desc)
+                    global_news.append(f"{title}: {desc_clean}")
+        except Exception as e:
+            print(f"Failed to fetch RSS feed: {e}")
+
         user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
         roster_map = {}
         if isinstance(rosters, list) and len(rosters) > 0:
@@ -246,17 +261,30 @@ def run():
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
+            # Parse relevant news for this specific matchup
+            matchup_news = []
+            for starter in t_a['starters'] + t_b['starters']:
+                player_name = starter.split(" (")[0].strip()
+                for news_item in global_news:
+                    if player_name in news_item and news_item not in matchup_news:
+                        matchup_news.append(news_item)
+            
+            news_context = ""
+            if matchup_news:
+                news_context = "\n[LATEST NEWS ALERTS FOR ACTIVE STARTERS]\n" + "\n".join([f"- {n}" for n in matchup_news]) + "\n"
+
             prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
 
 Franchises:
 - Franchise 1: '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
 - Franchise 2: '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
-
+{news_context}
 MANDATORY EDITORIAL RULES:
 1. NEVER write 'Team A', 'Team B', 'Team 1', or 'Team 2'. Always use the actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
 3. Do not invent your own projected scores; reference the {t_a['projected']} and {t_b['projected']} projected points provided above.
 4. Stick strictly to provided NFL team tags. Do not hallucinate real-life team trades or changes.
+5. If [LATEST NEWS ALERTS] are provided, explicitly reference how those injuries, rumors, or game-time decisions impact the game script.
 
 Output Format:
 [SCRATCHPAD]
@@ -267,8 +295,8 @@ Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 [1-2 punchy sentences breaking down the macro roster matchup, using '{t_a['team_name']}' and '{t_b['team_name']}']
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
-- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
+- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news alerts]
+- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news alerts]
 
 **🔮 The Verdict:**
 [{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], {t_a['projected']} to {t_b['projected']} (or vice versa), driven by [1 decisive tactical reason]."""
