@@ -48,21 +48,30 @@ def run():
     state_res = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15)
     state = state_res.json() if state_res.status_code == 200 else {}
     week = state.get("week", 1)
+    if week < 1:
+        week = 1
     print(f"Current active week: {week}")
 
     print("2. Fetching League Users, Rosters, Matchups, and Players...")
     users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
     rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
+    
+    # Try fetching matchups for current week, fallback to week 1 if empty
     matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
+    matchups = matchups_res.json() if matchups_res.status_code == 200 else []
+    if not matchups and week > 1:
+        print(f"No matchups found for week {week}, falling back to week 1...")
+        week = 1
+        matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
+        matchups = matchups_res.json() if matchups_res.status_code == 200 else []
+
     players_res = requests.get("https://api.sleeper.app/v1/players/nfl", timeout=30)
 
     users = users_res.json() if users_res.status_code == 200 else []
     rosters = rosters_res.json() if rosters_res.status_code == 200 else []
-    matchups = matchups_res.json() if matchups_res.status_code == 200 else []
     players = players_res.json() if players_res.status_code == 200 else {}
 
     if not isinstance(matchups, list):
-        print(f"Warning: Matchups endpoint returned non-list data: {matchups}")
         matchups = []
 
     user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
@@ -109,6 +118,20 @@ def run():
             "starters": starters
         })
 
+    # If Sleeper still returns 0 matchups (e.g. pre-season schedule not generated), map rosters directly into simulated 1v1 matchups so UI populates!
+    if not games and rosters:
+        print("Sleeper returned no active matchups. Generating placeholder pairings from rosters...")
+        sorted_rosters = list(roster_map.items())
+        for i in range(0, len(sorted_rosters), 2):
+            if i + 1 < len(sorted_rosters):
+                r1_id, r1_data = sorted_rosters[i]
+                r2_id, r2_data = sorted_rosters[i+1]
+                m_id = (i // 2) + 1
+                games[m_id] = [
+                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "points": 0, "starters": ["Roster setting up"]},
+                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "points": 0, "starters": ["Roster setting up"]}
+                ]
+
     print(f"Found {len(games)} head-to-head matchups. Generating unique AI previews via Groq...")
     final_matchups = []
     for game_id, teams in games.items():
@@ -139,7 +162,7 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
             "team_b": t_b,
             "preview": ai_text
         })
-        time.sleep(2)
+        time.sleep(1)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
@@ -177,8 +200,8 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
                 t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
 
                 adds = tx.get("adds") or {}
-                t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
-                t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
+                t1_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
+                t2_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
 
                 for pick in tx.get("draft_picks", []):
                     pick_desc = f"{pick.get('season')} Round {pick.get('round')}"
@@ -218,7 +241,7 @@ ANALYSIS:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                time.sleep(2)
+                time.sleep(1)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
