@@ -26,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Always refer to fantasy franchises by their actual team names, never as generic placeholders like Team A or Team B."
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Focus strictly on this week's matchup, active game script, weekly projections, and real-time news or injuries. Never write season-long player autobiographies or generic history."
             },
             {"role": "user", "content": prompt}
         ],
@@ -42,13 +42,10 @@ def call_ai(prompt):
                 if choices and "message" in choices[0]:
                     return choices[0]["message"].get("content", "").strip()
             elif resp.status_code == 429:
-                print("Rate limited by Groq, waiting 10s...")
                 time.sleep(10)
             else:
-                print(f"Groq API Error {resp.status_code}: {resp.text}")
                 time.sleep(3)
-        except Exception as e:
-            print(f"AI call exception: {e}")
+        except Exception:
             time.sleep(3)
     return None
 
@@ -82,9 +79,7 @@ def format_starters(starter_ids, players):
         p_name = p.get("full_name") or str(p_id)
         p_pos = p.get("position") or "FLEX"
         p_team = p.get("team") or "FA"
-        years_exp = p.get("years_exp")
-        exp_tag = "Rookie" if (years_exp is None or years_exp == 0) else f"{years_exp}y veteran"
-        starters.append(f"{p_name} ({p_pos}, NFL: {p_team}, {exp_tag})")
+        starters.append(f"{p_name} ({p_pos}, {p_team})")
     return starters if starters else ["Starters pending"]
 
 def parse_ai_forecast(ai_text, team_a_name, team_b_name):
@@ -128,7 +123,6 @@ def run():
 
         if not isinstance(matchups, list): matchups = []
 
-        print("3. Fetching Detailed Player News via RotoWire & ESPN RSS...")
         global_news = []
         try:
             rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
@@ -140,8 +134,8 @@ def run():
                     title = item.find('title').text if item.find('title') is not None else ""
                     desc = item.find('description').text if item.find('description') is not None else ""
                     global_news.append(f"{title}: {re.sub(r'<[^>]+>', '', desc)}")
-        except Exception as e:
-            print(f"Failed to fetch RSS: {e}")
+        except Exception:
+            pass
 
         user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
         roster_map = {}
@@ -175,7 +169,6 @@ def run():
                 })
 
         power_standings.sort(key=lambda x: x["power_score"], reverse=True)
-        
         for idx, team in enumerate(power_standings):
             team["playoff_status"] = "In The Hunt" if idx < 6 else "Chasing"
             team["magic_number"] = max(0, 9 - int(team["record"].split("-")[0]))
@@ -217,7 +210,7 @@ def run():
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
-            # Aggregate all players on both rosters (Starters + Bench) to scan for news
+            # Scan rosters (starters + bench) for active news alerts
             all_matchup_pids = t_a["roster_player_ids"] + t_b["roster_player_ids"]
             matchup_news = []
             
@@ -235,26 +228,29 @@ def run():
 
             news_block = ""
             if matchup_news:
-                news_block = "\n[CRITICAL REAL-WORLD INJURY/NEWS ALERTS FOR THESE ROSTERS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:5]]) + "\n"
+                news_block = "\n[BREAKING PLAYER NEWS / INJURIES TO INCORPORATE]:\n" + "\n".join([f"- {n}" for n in matchup_news[:5]]) + "\n"
 
-            prompt = f"""You are lead analyst for 'ONU MLax Dynasty League'. Write Week {week} preview:
+            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write a sharp, strictly weekly pregame preview for Week {week}.
+
+Franchises:
 - '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
 - '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
 {news_block}
-CRITICAL INSTRUCTION:
-If any real-world news or injury alerts are listed above for either franchise, you MUST explicitly discuss them in the preview text or X-Factors.
+STRICT EDITORIAL RULES:
+1. FOCUS EXCLUSIVELY ON THIS WEEK. Do not write season-long player histories, rookie draft summaries, or multi-year background filler.
+2. If any breaking player news or injuries (such as surgery or game statuses) are provided above, you MUST explicitly mention them and how they alter this week's outcome.
+3. Never use generic placeholders like Team A or Team B; always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
-Rules: Never use Team A/B. Reference projected scores.
-Format:
+Format Output Exactly As:
 **🥊 Tale of the Tape:**
-[1-2 sentences weaving in any active player news/injuries]
+[1-2 punchy sentences focusing strictly on this week's projected lines and immediate injury impacts]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Analysis including any injury/news updates]
-- {t_b['team_name']}: [Analysis including any injury/news updates]
+- {t_a['team_name']}: [Focus on a weekly matchup edge, weather, or active injury status]
+- {t_b['team_name']}: [Focus on a weekly matchup edge, weather, or active injury status]
 
 **🔮 The Verdict:**
-[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}."""
+[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 immediate tactical reason for this week]."""
 
             raw_ai = call_ai(prompt)
             clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
