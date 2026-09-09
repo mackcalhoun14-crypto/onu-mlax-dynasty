@@ -138,7 +138,7 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
     print("Auditing completed trades...")
     executed_trades = []
     
-    # Only pull transactions for the current week or check recent weeks to minimize API spikes
+    # Check recent transactions to minimize API spikes
     for w in range(max(1, week - 1), week + 1):
         try:
             tx_data = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15).json()
@@ -151,7 +151,7 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
             if tx.get("type") == "trade" and tx.get("status") == "complete":
                 tx_id = tx.get("transaction_id")
                 
-                # If we already audited this trade previously, keep the old audit to save API quota!
+                # If already audited previously, reuse to preserve API quota
                 if tx_id in existing_trades_map:
                     print(f"Skipping re-audit for existing Trade ID: {tx_id}")
                     executed_trades.append(existing_trades_map[tx_id])
@@ -166,8 +166,8 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
                 t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
 
                 adds = tx.get("adds") or {}
-                t1_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
-                t2_receives = [(players.get(str(p_id)) or {}).get("full_name"] or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
+                t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
+                t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
 
                 for pick in tx.get("draft_picks", []):
                     pick_desc = f"{pick.get('season')} Round {pick.get('round')}"
