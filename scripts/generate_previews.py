@@ -26,11 +26,11 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Rely strictly on the explicit player experience tags provided in the prompt."
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Always refer to fantasy franchises by their actual team names, never as generic placeholders like Team A or Team B."
             },
             {"role": "user", "content": prompt}
         ],
-        "temperature": 0.1  # Groq throws 400 errors if this is exactly 0.0
+        "temperature": 0.25
     }
 
     for attempt in range(3):
@@ -45,7 +45,6 @@ def call_ai(prompt):
                 print("Rate limited by Groq, waiting 10s...")
                 time.sleep(10)
             else:
-                # Crucial Fix: Print the exact API error so it doesn't fail silently
                 print(f"Groq API Error {resp.status_code}: {resp.text}")
                 time.sleep(3)
         except Exception as e:
@@ -54,15 +53,15 @@ def call_ai(prompt):
     return None
 
 def parse_ai_forecast(ai_text, team_a_name, team_b_name):
-    proj_a = 114.5
-    proj_b = 110.0
-    win_a = "53%"
-    win_b = "47%"
+    proj_a = 115.4
+    proj_b = 109.8
+    win_a = "54%"
+    win_b = "46%"
 
     if not ai_text:
-        return proj_a, proj_b, win_a, win_b, "Matchup preview pending lineup confirmation."
+        return proj_a, proj_b, win_a, win_b, f"Matchup preview for {team_a_name} vs {team_b_name} pending lineup confirmation."
 
-    # 1. Extract deterministic projections
+    # 1. Extract numeric projections
     for line in ai_text.splitlines():
         line_clean = line.strip()
         if line_clean.startswith("PROJ_TEAM_A:"):
@@ -78,12 +77,18 @@ def parse_ai_forecast(ai_text, team_a_name, team_b_name):
         elif line_clean.startswith("WINPCT_TEAM_B:"):
             win_b = line_clean.replace("WINPCT_TEAM_B:", "").strip()
 
-    # 2. Extract clean preview, ignoring the AI's verification scratchpad
+    # 2. Extract clean preview, discarding scratchpad
     try:
         preview_start = ai_text.index("**🥊 Tale of the Tape:**")
         preview_body = ai_text[preview_start:].strip()
     except ValueError:
-        preview_body = ai_text.strip() # Fallback if formatting breaks
+        preview_body = ai_text.strip()
+
+    # 3. Deterministic Safety Net: Replace any lingering generic tokens with actual team names
+    preview_body = re.sub(r'\bTeam\s+A\b', team_a_name, preview_body, flags=re.IGNORECASE)
+    preview_body = re.sub(r'\bTeam\s+B\b', team_b_name, preview_body, flags=re.IGNORECASE)
+    preview_body = re.sub(r'\bTeam\s+1\b', team_a_name, preview_body, flags=re.IGNORECASE)
+    preview_body = re.sub(r'\bTeam\s+2\b', team_b_name, preview_body, flags=re.IGNORECASE)
         
     return proj_a, proj_b, win_a, win_b, preview_body
 
@@ -171,7 +176,7 @@ def run():
                     else:
                         exp_tag = f"{years_exp}y veteran"
                         
-                    starters.append(f"{p_name} ({p_pos}, {p_team}, {exp_tag})")
+                    starters.append(f"{p_name} ({p_pos}, NFL: {p_team}, {exp_tag})")
 
                 t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
                 games[m_id].append({
@@ -204,36 +209,37 @@ def run():
                 continue
             t_a, t_b = teams[0], teams[1]
 
-            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. 
+            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
 
-Matchup:
-- Team A: {t_a['team_name']} ({t_a['record']}) | Starters: {', '.join(t_a['starters'])}
-- Team B: {t_b['team_name']} ({t_b['record']}) | Starters: {', '.join(t_b['starters'])}
+Franchises:
+- Franchise 1: '{t_a['team_name']}' ({t_a['record']}) | Starters: {', '.join(t_a['starters'])}
+- Franchise 2: '{t_b['team_name']}' ({t_b['record']}) | Starters: {', '.join(t_b['starters'])}
 
-STRICT FACTUAL RULES:
-1. Every player includes their experience tag (e.g. 'Rookie' or 'Ny veteran'). NEVER refer to a player as a rookie unless their tag explicitly says 'Rookie'.
-2. Rely only on the players provided. Do not hallucinate other players.
-3. Output strictly following the format below.
+MANDATORY EDITORIAL RULES:
+1. NEVER write 'Team A', 'Team B', 'Team 1', or 'Team 2'. Always use the actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
+2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
+3. Projections: Assign realistic, distinct scores between 94.0 and 136.0 reflecting roster ceiling. Win probabilities must sum to 100%. Avoid generic duplicate scorelines.
+4. Stick strictly to provided NFL team tags. Do not hallucinate real-life team trades or changes.
 
 Output Format:
 [SCRATCHPAD]
-List the exact experience tags for the starting QBs in this matchup to verify tenure.
+Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
 [END SCRATCHPAD]
 
-PROJ_TEAM_A: [Score between 95.0 and 135.0]
-PROJ_TEAM_B: [Score between 95.0 and 135.0]
-WINPCT_TEAM_A: [Percentage, e.g. 54%]
-WINPCT_TEAM_B: [Percentage, e.g. 46%]
+PROJ_TEAM_A: [Score for {t_a['team_name']}]
+PROJ_TEAM_B: [Score for {t_b['team_name']}]
+WINPCT_TEAM_A: [Win % for {t_a['team_name']}]
+WINPCT_TEAM_B: [Win % for {t_b['team_name']}]
 
 **🥊 Tale of the Tape:**
-[1-2 sentences breaking down the macro clash between these starting lineups]
+[1-2 punchy sentences breaking down the macro roster matchup, using '{t_a['team_name']}' and '{t_b['team_name']}']
 
 **🔥 The X-Factors:**
 - {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
 - {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
 
 **🔮 The Verdict:**
-[1 sharp sentence declaring the predicted winner, the deciding factor, and final outcome]"""
+[{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], [Projected Score]-[Projected Score], driven by [1 decisive tactical reason]."""
 
             raw_ai = call_ai(prompt)
             proj_a, proj_b, win_a, win_b, clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
@@ -294,8 +300,8 @@ WINPCT_TEAM_B: [Percentage, e.g. 46%]
 
                     trade_prompt = f"""You are the commissioner of the 'ONU MLax Dynasty League'.
 Audit this trade:
-Team 1: {t1_name} receives {', '.join(t1_receives) or 'Nothing'}
-Team 2: {t2_name} receives {', '.join(t2_receives) or 'Nothing'}
+Franchise 1: '{t1_name}' receives {', '.join(t1_receives) or 'Nothing'}
+Franchise 2: '{t2_name}' receives {', '.join(t2_receives) or 'Nothing'}
 
 Format output exactly as:
 GRADE_{t1_name}: [Grade]
