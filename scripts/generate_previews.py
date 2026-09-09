@@ -17,7 +17,7 @@ def call_ai(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "llama-3.1-8b-instant",
+        "model": "llama-3.3-70b-versatile",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.7
     }
@@ -160,7 +160,7 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
             "team_b": t_b,
             "preview": ai_text
         })
-        time.sleep(1)
+        time.sleep(2)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
@@ -198,7 +198,6 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct an
                 t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
 
                 adds = tx.get("adds") or {}
-                # Fixed syntax here: closed with ')' instead of ']'
                 t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
                 t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
 
@@ -240,7 +239,7 @@ ANALYSIS:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                time.sleep(1)
+                time.sleep(2)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
