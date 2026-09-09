@@ -138,8 +138,8 @@ def run():
         t_a, t_b = teams[0], teams[1]
         print(f"Processing Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}")
 
-        prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
-Write a concise, high-energy 2-paragraph matchup preview for Week {week} featuring these exact teams.
+        prompt = f"""You are the sharp, blunt, and highly-analytical commissioner of the 'ONU MLax Dynasty League'.
+Write a punchy, highly-scannable matchup preview for Week {week} featuring these exact teams.
 
 Matchup:
 - Team 1: {t_a['team_name']} (Record: {t_a['record']})
@@ -148,9 +148,12 @@ Matchup:
   Starters: {', '.join(t_b['starters'][:7]) if t_b['starters'] else 'None set'}
 
 Requirements:
-1. Paragraph 1: Analyze the specific positional advantages and starter firepower for each side based on their listed players.
-2. Paragraph 2: Highlight a key player matchup or volatility factor and predict who takes home the win.
-Tone: Sharp, analytical fantasy analyst. No corporate fluff. Make it distinct and tailored to these exact teams."""
+Format the output EXACTLY using these 3 sections. Use bolding for scannability.
+**🥊 Tale of the Tape:** 1 to 2 punchy sentences analyzing the heavy-hitters and positional clash. 
+**🔥 The X-Factors:** Identify one volatile flex/starter on each side that dictates the outcome.
+**🔮 The Verdict:** A blunt prediction of who wins and why, ending with a projected score (e.g., 115-108).
+
+Tone: Sharp, analytical fantasy expert with a bit of commissioner trash talk. No corporate fluff. Keep it bite-sized, dynamic, and easy to read."""
 
         ai_text = call_ai(prompt) or f"Matchup breakdown for {t_a['team_name']} vs {t_b['team_name']} pending lineup confirmation."
         
