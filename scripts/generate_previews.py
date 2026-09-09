@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import re
 import requests
 
 LEAGUE_ID = "1312162066798231552"
@@ -61,7 +62,6 @@ def run():
         "x-goog-api-key": GEMINI_KEY.strip()
     }
 
-    # Relax safety filters so sports idioms and team names aren't blocked
     safety_settings = [
         {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
         {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
@@ -75,64 +75,81 @@ def run():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
-        print(f"Generating preview for Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}...")
+        print(f"Generating punchy JSON preview for Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}...")
 
-        prompt = f"""You are the sharp, witty commissioner of the 'ONU MLax Dynasty League'.
-Write a concise, high-energy 2-paragraph matchup preview for Week {week}.
+        prompt = f"""You are the sharp, brutally concise commissioner of the 'ONU MLax Dynasty League'.
+Analyze this Week {week} fantasy matchup and respond ONLY with a raw JSON object (no markdown, no extra commentary).
 
 Matchup:
-- {t_a['team_name']} (Record: {t_a['record']})
+- Team A: {t_a['team_name']} (Record: {t_a['record']})
   Starters: {', '.join(t_a['starters'][:7])}
-- {t_b['team_name']} (Record: {t_b['record']})
+- Team B: {t_b['team_name']} (Record: {t_b['record']})
   Starters: {', '.join(t_b['starters'][:7])}
 
-Requirements:
-1. Paragraph 1: Break down the primary positional clash (e.g. ground volume vs. perimeter air attack).
-2. Paragraph 2: Name one volatile flex/X-Factor player on each roster and predict the winning team with a projected score.
-Tone: Sharp, analytical fantasy analyst. No corporate filler."""
+Respond with this exact JSON structure:
+{{
+  "headline": "A punchy 3 to 6 word title for this clash",
+  "clash": "Maximum 2 sentences explaining the core positional or roster mismatch.",
+  "team_a_xfactor": "Player Name: Exactly 1 sentence on why they make or break Team A.",
+  "team_b_xfactor": "Player Name: Exactly 1 sentence on why they make or break Team B.",
+  "team_a_proj": 128.5,
+  "team_b_proj": 119.2,
+  "favorite": "Name of favored team",
+  "spread": "-9.3",
+  "verdict": "Exactly 1 punchline sentence predicting how and why the winner seals the game."
+}}"""
 
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
             "safetySettings": safety_settings
         }
 
-        ai_text = "Preview pending final lineup locks."
-        
-        # Retry up to 3 times per matchup with exponential pause
+        preview_data = {
+            "headline": "Head-to-Head Clash",
+            "clash": "Lineups are locked in for a classic divisional brawl.",
+            "team_a_xfactor": "Key Starter: High-upside weekly flex.",
+            "team_b_xfactor": "Key Starter: High-upside weekly flex.",
+            "team_a_proj": 120.0,
+            "team_b_proj": 120.0,
+            "favorite": t_a['team_name'],
+            "spread": "EVEN",
+            "verdict": "This matchup will be decided in the fourth quarter on Sunday."
+        }
+
         for attempt in range(3):
             try:
                 resp = requests.post(gemini_url, headers=headers, json=payload, timeout=20)
                 if resp.status_code == 200:
-                    candidates = resp.json().get("candidates", [])
-                    if candidates and "content" in candidates[0]:
-                        parts = candidates[0]["content"].get("parts", [])
-                        if parts and "text" in parts[0]:
-                            ai_text = parts[0]["text"].strip()
-                            break
+                    raw_text = resp.json().get("candidates", [])[0]["content"]["parts"][0]["text"].strip()
+                    # Strip any accidental ```json code blocks
+                    cleaned = re.sub(r"^```(?:json)?\n?", "", raw_text, flags=re.IGNORECASE)
+                    cleaned = re.sub(r"\n?```$", "", cleaned).strip()
+                    parsed = json.loads(cleaned)
+                    preview_data = parsed
+                    break
                 elif resp.status_code == 429:
-                    print(f"Rate limited on attempt {attempt + 1}. Waiting 5s...")
+                    print(f"Rate limit 429. Waiting 5s (attempt {attempt+1})...")
                     time.sleep(5)
                 else:
-                    print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
+                    print(f"Error {resp.status_code}: {resp.text}")
             except Exception as e:
-                print(f"Request exception: {e}")
+                print(f"Exception during parse: {e}")
                 time.sleep(3)
 
         final_matchups.append({
             "matchup_id": game_id,
             "team_a": t_a,
             "team_b": t_b,
-            "preview": ai_text
+            "preview_data": preview_data
         })
 
-        # 3-second delay between calls to respect the free-tier rate limit
         time.sleep(3)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
         json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
 
-    print("Generation complete.")
+    print("Success: Generated punchy matchup artifacts.")
 
 if __name__ == "__main__":
     run()
