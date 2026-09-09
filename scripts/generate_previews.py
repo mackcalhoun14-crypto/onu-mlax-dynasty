@@ -5,7 +5,6 @@ import time
 import requests
 import xml.etree.ElementTree as ET
 
-# Bulletproof fallback for blank GitHub Secrets
 LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID")
 if not LEAGUE_ID or LEAGUE_ID.strip() == "":
     LEAGUE_ID = "1312162066798231552"
@@ -27,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Always refer to fantasy franchises by their actual team names, never as generic placeholders like Team A or Team B."
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts or team names."
             },
             {"role": "user", "content": prompt}
         ],
@@ -43,13 +42,10 @@ def call_ai(prompt):
                 if choices and "message" in choices[0]:
                     return choices[0]["message"].get("content", "").strip()
             elif resp.status_code == 429:
-                print("Rate limited by Groq, waiting 10s...")
                 time.sleep(10)
             else:
-                print(f"Groq API Error {resp.status_code}: {resp.text}")
                 time.sleep(3)
-        except Exception as e:
-            print(f"AI call exception: {e}")
+        except Exception:
             time.sleep(3)
     return None
 
@@ -58,14 +54,11 @@ def calculate_team_projection(starter_ids, projections):
     for pid in starter_ids:
         if str(pid) == "0": continue
         p_data = projections.get(str(pid), {})
-        
         if "stats" in p_data:
             pts = p_data["stats"].get("pts_half_ppr") or p_data["stats"].get("pts_ppr") or p_data["stats"].get("pts_std") or 0.0
         else:
             pts = p_data.get("pts_half_ppr") or p_data.get("pts_ppr") or p_data.get("pts_std") or 0.0
-            
         total += float(pts)
-        
     if total == 0.0 and starter_ids:
         total = 110.0 + (len(starter_ids) * 0.1)
     return round(total, 1)
@@ -86,37 +79,26 @@ def format_starters(starter_ids, players):
         p_name = p.get("full_name") or str(p_id)
         p_pos = p.get("position") or "FLEX"
         p_team = p.get("team") or "FA"
-        
         years_exp = p.get("years_exp")
-        if years_exp is None or years_exp == 0:
-            exp_tag = "Rookie"
-        else:
-            exp_tag = f"{years_exp}y veteran"
-            
+        exp_tag = "Rookie" if (years_exp is None or years_exp == 0) else f"{years_exp}y veteran"
         starters.append(f"{p_name} ({p_pos}, NFL: {p_team}, {exp_tag})")
-    return starters if starters else ["Roster building phase - Starters pending"]
+    return starters if starters else ["Starters pending"]
 
 def parse_ai_forecast(ai_text, team_a_name, team_b_name):
     if not ai_text:
         return f"Matchup preview for {team_a_name} vs {team_b_name} pending lineup confirmation."
-
     try:
         preview_start = ai_text.index("**🥊 Tale of the Tape:**")
         preview_body = ai_text[preview_start:].strip()
     except ValueError:
         preview_body = ai_text.strip()
-
     preview_body = re.sub(r'\bTeam\s+A\b', team_a_name, preview_body, flags=re.IGNORECASE)
     preview_body = re.sub(r'\bTeam\s+B\b', team_b_name, preview_body, flags=re.IGNORECASE)
-    preview_body = re.sub(r'\bTeam\s+1\b', team_a_name, preview_body, flags=re.IGNORECASE)
-    preview_body = re.sub(r'\bTeam\s+2\b', team_b_name, preview_body, flags=re.IGNORECASE)
-        
     return preview_body
 
 def run():
     try:
         print(f"0. Using League ID: {LEAGUE_ID}")
-        print("1. Fetching Sleeper NFL State...")
         state_res = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15)
         state = state_res.json() if state_res.status_code == 200 else {}
         week = state.get("week", 1)
@@ -124,10 +106,8 @@ def run():
         season_type = state.get("season_type", "regular")
         if week < 1: week = 1
 
-        print("2. Fetching League Data & Official Sleeper Projections...")
         users_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15)
         rosters_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15)
-        
         matchups_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15)
         matchups = matchups_res.json() if matchups_res.status_code == 200 else []
         if not matchups and week > 1:
@@ -145,62 +125,72 @@ def run():
 
         if not isinstance(matchups, list): matchups = []
 
-        print("3. Fetching Detailed Player News via RotoWire RSS...")
         global_news = []
         try:
             rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
             if rss_res.status_code != 200:
                 rss_res = requests.get("https://www.espn.com/espn/rss/nfl/news", timeout=10)
-                
             if rss_res.status_code == 200:
                 root = ET.fromstring(rss_res.content)
                 for item in root.findall('.//item'):
                     title = item.find('title').text if item.find('title') is not None else ""
                     desc = item.find('description').text if item.find('description') is not None else ""
-                    desc_clean = re.sub(r'<[^>]+>', '', desc)
-                    global_news.append(f"{title}: {desc_clean}")
-        except Exception as e:
-            print(f"Failed to fetch RSS feed: {e}")
+                    global_news.append(f"{title}: {re.sub(r'<[^>]+>', '', desc)}")
+        except Exception:
+            pass
 
         user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
         roster_map = {}
+        power_standings = []
+        
         if isinstance(rosters, list) and len(rosters) > 0:
             for r in rosters:
-                roster_map[r["roster_id"]] = {
-                    "name": user_map.get(r["owner_id"], f"Team {r['roster_id']}"),
-                    "wins": (r.get("settings", {}) or {}).get("wins", 0),
-                    "losses": (r.get("settings", {}) or {}).get("losses", 0)
-                }
+                r_id = r["roster_id"]
+                name = user_map.get(r["owner_id"], f"Team {r_id}")
+                settings = r.get("settings", {}) or {}
+                wins = settings.get("wins", 0)
+                losses = settings.get("losses", 0)
+                ties = settings.get("ties", 0)
+                fpts = (settings.get("fpts", 0) or 0) + ((settings.get("fpts_decimal", 0) or 0) / 100.0)
+                
+                roster_map[r_id] = {"name": name, "wins": wins, "losses": losses, "fpts": fpts}
+                
+                # Power Score Calculation: Record weight + Point weighting
+                power_score = round((wins * 2) + (fpts / 20.0), 1)
+                
+                power_standings.append({
+                    "roster_id": r_id,
+                    "name": name,
+                    "record": f"{wins}-{losses}" + (f"-{ties}" if ties > 0 else ""),
+                    "fpts": round(fpts, 1),
+                    "power_score": power_score
+                })
+
+        # Sort standings by Power Score descending
+        power_standings.sort(key=lambda x: x["power_score"], reverse=True)
         
-        if not roster_map:
-            roster_map = {
-                1: {"name": "ONU Dynasty 1", "wins": 0, "losses": 0},
-                2: {"name": "Midfield Maestro", "wins": 0, "losses": 0},
-                3: {"name": "Attack Wing", "wins": 0, "losses": 0},
-                4: {"name": "Clear Defenders", "wins": 0, "losses": 0}
-            }
+        # Calculate Playoff Magic Numbers (Top 6 make playoffs out of total teams)
+        total_teams = len(power_standings)
+        for idx, team in enumerate(power_standings):
+            # Magic number estimation: Max possible wins remaining minus current pace
+            games_played = int(team["record"].split("-")[0]) + int(team["record"].split("-")[1])
+            games_left = max(0, 14 - games_played)
+            team["playoff_status"] = "In The Hunt" if idx < 6 else "Chasing"
+            team["magic_number"] = max(0, 9 - int(team["record"].split("-")[0])) # Assuming 9 wins locks a playoff spot
 
-        existing_trades_map = {}
-        if os.path.exists("data/trades.json"):
-            try:
-                with open("data/trades.json", "r") as f:
-                    old_data = json.load(f)
-                    for t in old_data.get("trades", []):
-                        existing_trades_map[t["transaction_id"]] = t
-            except Exception: pass
+        os.makedirs("data", exist_ok=True)
+        with open("data/standings.json", "w") as f:
+            json.dump({"week": week, "standings": power_standings}, f, indent=2)
 
-        # --- PART 1: MATCHUPS ---
+        # --- MATCHUPS ---
         games = {}
-        
-        if matchups and isinstance(matchups, list) and len(matchups) > 0:
+        if matchups:
             for m in matchups:
                 m_id = m.get("matchup_id")
                 if not m_id: continue
                 if m_id not in games: games[m_id] = []
-
                 starter_ids = m.get("starters", [])
                 starters = format_starters(starter_ids, players)
-
                 t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
                 games[m_id].append({
                     "roster_id": m["roster_id"],
@@ -210,156 +200,36 @@ def run():
                     "starter_ids": starter_ids
                 })
 
-        if not games and roster_map:
-            sorted_rosters = list(roster_map.items())
-            for i in range(0, len(sorted_rosters), 2):
-                r1_id, r1_data = sorted_rosters[i]
-                r1_roster = next((r for r in rosters if r["roster_id"] == r1_id), {})
-                r1_starter_ids = r1_roster.get("starters", [])
-                r1_starters = format_starters(r1_starter_ids, players)
-
-                if i + 1 < len(sorted_rosters):
-                    r2_id, r2_data = sorted_rosters[i+1]
-                    r2_roster = next((r for r in rosters if r["roster_id"] == r2_id), {})
-                    r2_starter_ids = r2_roster.get("starters", [])
-                    r2_starters = format_starters(r2_starter_ids, players)
-                else:
-                    r2_id, r2_data = ("BYE", {"name": "Bye Week", "wins": 0, "losses": 0})
-                    r2_starter_ids = []
-                    r2_starters = ["BYE"]
-                
-                m_id = (i // 2) + 1
-                games[m_id] = [
-                    {"roster_id": r1_id, "team_name": r1_data["name"], "record": f"{r1_data['wins']}-{r1_data['losses']}", "starters": r1_starters, "starter_ids": r1_starter_ids},
-                    {"roster_id": r2_id, "team_name": r2_data["name"], "record": f"{r2_data['wins']}-{r2_data['losses']}", "starters": r2_starters, "starter_ids": r2_starter_ids}
-                ]
-
-        print(f"Generating weekly forecast predictions for {len(games)} matchups...")
         final_matchups = []
         for game_id, teams in games.items():
             if len(teams) != 2: continue
             t_a, t_b = teams[0], teams[1]
-
             t_a["projected"] = calculate_team_projection(t_a["starter_ids"], projections)
             t_b["projected"] = calculate_team_projection(t_b["starter_ids"], projections)
             pct_a, pct_b = get_win_prob(t_a["projected"], t_b["projected"])
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
-            # Parse relevant news using relaxed last-name matching against player feeds
-            matchup_news = []
-            for starter in t_a['starters'] + t_b['starters']:
-                full_name = starter.split(" (")[0].strip()
-                name_parts = full_name.split()
-                last_name = name_parts[-1] if name_parts else full_name
-                
-                for news_item in global_news:
-                    if (full_name.lower() in news_item.lower() or (len(last_name) > 3 and last_name.lower() in news_item.lower())) and news_item not in matchup_news:
-                        matchup_news.append(news_item)
-            
-            news_context = ""
-            if matchup_news:
-                news_context = "\n[LATEST FANTASY PLAYER NEWS & INJURY REPORTS]\n" + "\n".join([f"- {n}" for n in matchup_news[:4]]) + "\n"
-            else:
-                news_context = "\n[LATEST FANTASY PLAYER NEWS & INJURY REPORTS]\n- No specific breaking news alerts for these starters; proceed with standard projections.\n"
-
-            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
-
-Franchises:
-- Franchise 1: '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
-- Franchise 2: '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
-{news_context}
-MANDATORY EDITORIAL RULES:
-1. NEVER write 'Team A', 'Team B', 'Team 1', or 'Team 2'. Always use the actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
-2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
-3. Do not invent your own projected scores; reference the {t_a['projected']} and {t_b['projected']} projected points provided above.
-4. If [LATEST FANTASY PLAYER NEWS & INJURY REPORTS] contain specific updates or injuries for any starter, you MUST explicitly weave them into the analysis or X-factors.
-
-Output Format:
-[SCRATCHPAD]
-Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
-[END SCRATCHPAD]
-
+            prompt = f"""You are lead analyst for 'ONU MLax Dynasty League'. Write Week {week} preview:
+- '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts
+- '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts
+Rules: Never use Team A/B. Reference projected scores.
+Format:
 **🥊 Tale of the Tape:**
-[1-2 punchy sentences breaking down the macro roster matchup, using '{t_a['team_name']}' and '{t_b['team_name']}']
-
+[1-2 sentences]
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news or injury reports]
-- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling, factoring in any news or injury reports]
-
+- {t_a['team_name']}: [Analysis]
+- {t_b['team_name']}: [Analysis]
 **🔮 The Verdict:**
-[{t_a['team_name']} or {t_b['team_name']}] defeats [{t_b['team_name']} or {t_a['team_name']}], {t_a['projected']} to {t_b['projected']} (or vice versa), driven by [1 decisive tactical reason]."""
+[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}."""
 
             raw_ai = call_ai(prompt)
             clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
-
-            final_matchups.append({
-                "matchup_id": game_id,
-                "team_a": t_a,
-                "team_b": t_b,
-                "preview": clean_preview
-            })
+            final_matchups.append({"matchup_id": game_id, "team_a": t_a, "team_b": t_b, "preview": clean_preview})
             time.sleep(1)
 
-        os.makedirs("data", exist_ok=True)
         with open("data/matchups.json", "w") as f:
             json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
-
-        # --- PART 2: TRADES ---
-        executed_trades = []
-        for w in range(max(1, week - 1), week + 1):
-            try:
-                tx_res = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/transactions/{w}", timeout=15)
-                tx_data = tx_res.json() if tx_res.status_code == 200 else []
-                if not isinstance(tx_data, list): continue
-            except Exception: continue
-
-            for tx in tx_data:
-                if tx.get("type") == "trade" and tx.get("status") == "complete":
-                    tx_id = tx.get("transaction_id")
-                    if tx_id in existing_trades_map:
-                        executed_trades.append(existing_trades_map[tx_id])
-                        continue
-
-                    r_ids = tx.get("roster_ids", [])
-                    if len(r_ids) != 2: continue
-
-                    r1, r2 = r_ids[0], r_ids[1]
-                    t1_name = roster_map.get(r1, {}).get("name", f"Team {r1}")
-                    t2_name = roster_map.get(r2, {}).get("name", f"Team {r2}")
-
-                    adds = tx.get("adds") or {}
-                    t1_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r1]
-                    t2_receives = [(players.get(str(p_id)) or {}).get("full_name") or str(p_id) for p_id, r_dest in adds.items() if r_dest == r2]
-
-                    for pick in tx.get("draft_picks", []):
-                        pick_desc = f"{pick.get('season')} Round {pick.get('round')}"
-                        if pick.get("owner_id") == r1: t1_receives.append(pick_desc)
-                        elif pick.get("owner_id") == r2: t2_receives.append(pick_desc)
-
-                    trade_prompt = f"""You are the commissioner of the 'ONU MLax Dynasty League'. Audit this trade:
-Franchise 1: '{t1_name}' receives {', '.join(t1_receives) or 'Nothing'}
-Franchise 2: '{t2_name}' receives {', '.join(t2_receives) or 'Nothing'}
-
-Format output exactly as:
-GRADE_{t1_name}: [Grade]
-GRADE_{t2_name}: [Grade]
-WINNER: [Winner Team Name]
-ANALYSIS:
-[1 short paragraph evaluation]"""
-
-                    audit_text = call_ai(trade_prompt) or f"GRADE_{t1_name}: B\nGRADE_{t2_name}: B\nWINNER: Even Trade\nANALYSIS:\nEvaluation pending."
-                    executed_trades.append({
-                        "transaction_id": tx_id,
-                        "week": w,
-                        "team_1": {"name": t1_name, "receives": t1_receives},
-                        "team_2": {"name": t2_name, "receives": t2_receives},
-                        "audit": audit_text
-                    })
-                    time.sleep(1)
-
-        with open("data/trades.json", "w") as f:
-            json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
         print("Pipeline execution complete.")
 
     except Exception as e:
