@@ -22,9 +22,15 @@ def call_ai(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "openai/gpt-oss-20b",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.3
+        "model": "llama-3.3-70b-versatile",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Never hallucinate facts, injuries, or player tenure. Rely strictly on the explicit player experience tags provided in the prompt."
+            },
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.0
     }
 
     for attempt in range(3):
@@ -49,31 +55,33 @@ def parse_ai_forecast(ai_text, team_a_name, team_b_name):
     proj_b = 110.0
     win_a = "53%"
     win_b = "47%"
-    body_lines = []
 
     if not ai_text:
         return proj_a, proj_b, win_a, win_b, "Matchup preview pending lineup confirmation."
 
+    # 1. Extract deterministic projections
     for line in ai_text.splitlines():
         line_clean = line.strip()
         if line_clean.startswith("PROJ_TEAM_A:"):
             val = line_clean.replace("PROJ_TEAM_A:", "").replace("pts", "").strip()
             nums = re.findall(r"\d+\.?\d*", val)
-            if nums:
-                proj_a = float(nums[0])
+            if nums: proj_a = float(nums[0])
         elif line_clean.startswith("PROJ_TEAM_B:"):
             val = line_clean.replace("PROJ_TEAM_B:", "").replace("pts", "").strip()
             nums = re.findall(r"\d+\.?\d*", val)
-            if nums:
-                proj_b = float(nums[0])
+            if nums: proj_b = float(nums[0])
         elif line_clean.startswith("WINPCT_TEAM_A:"):
             win_a = line_clean.replace("WINPCT_TEAM_A:", "").strip()
         elif line_clean.startswith("WINPCT_TEAM_B:"):
             win_b = line_clean.replace("WINPCT_TEAM_B:", "").strip()
-        else:
-            body_lines.append(line)
 
-    preview_body = "\n".join(body_lines).strip()
+    # 2. Extract clean preview, ignoring the AI's verification scratchpad
+    try:
+        preview_start = ai_text.index("**🥊 Tale of the Tape:**")
+        preview_body = ai_text[preview_start:].strip()
+    except ValueError:
+        preview_body = ai_text.strip() # Fallback if formatting breaks
+        
     return proj_a, proj_b, win_a, win_b, preview_body
 
 def run():
@@ -152,7 +160,15 @@ def run():
                     p = players.get(str(p_id)) or {}
                     p_name = p.get("full_name") or str(p_id)
                     p_pos = p.get("position") or "FLEX"
-                    starters.append(f"{p_name} ({p_pos})")
+                    p_team = p.get("team") or "FA"
+                    
+                    years_exp = p.get("years_exp")
+                    if years_exp is None or years_exp == 0:
+                        exp_tag = "Rookie"
+                    else:
+                        exp_tag = f"{years_exp}y veteran"
+                        
+                    starters.append(f"{p_name} ({p_pos}, {p_team}, {exp_tag})")
 
                 t_info = roster_map.get(m["roster_id"], {"name": f"Team {m['roster_id']}", "wins": 0, "losses": 0})
                 games[m_id].append({
@@ -162,7 +178,6 @@ def run():
                     "starters": starters
                 })
 
-        # Fallback pairing if regular matchups haven't officially rolled over
         if not games and roster_map:
             print("Sleeper returned 0 official matchups. Forcing default head-to-head pairings from rosters...")
             sorted_rosters = list(roster_map.items())
@@ -186,31 +201,36 @@ def run():
                 continue
             t_a, t_b = teams[0], teams[1]
 
-            prompt = f"""You are the lead fantasy football analyst and commissioner for the 'ONU MLax Dynasty League'. Write a high-impact pregame forecast for Week {week}.
+            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. 
 
 Matchup:
 - Team A: {t_a['team_name']} ({t_a['record']}) | Starters: {', '.join(t_a['starters'])}
 - Team B: {t_b['team_name']} ({t_b['record']}) | Starters: {', '.join(t_b['starters'])}
 
-Instructions:
-1. Estimate realistic projected scores (range 95.0 to 135.0) and win probabilities (totaling 100%).
-2. Output the 4 exact projection lines first, followed by the preview text.
+STRICT FACTUAL RULES:
+1. Every player includes their experience tag (e.g. 'Rookie' or 'Ny veteran'). NEVER refer to a player as a rookie unless their tag explicitly says 'Rookie'.
+2. Rely only on the players provided. Do not hallucinate other players.
+3. Output strictly following the format below.
 
 Output Format:
-PROJ_TEAM_A: [Score, e.g. 118.4]
-PROJ_TEAM_B: [Score, e.g. 112.8]
-WINPCT_TEAM_A: [e.g. 56%]
-WINPCT_TEAM_B: [e.g. 44%]
+[SCRATCHPAD]
+List the exact experience tags for the starting QBs in this matchup to verify tenure.
+[END SCRATCHPAD]
+
+PROJ_TEAM_A: [Score between 95.0 and 135.0]
+PROJ_TEAM_B: [Score between 95.0 and 135.0]
+WINPCT_TEAM_A: [Percentage, e.g. 54%]
+WINPCT_TEAM_B: [Percentage, e.g. 46%]
 
 **🥊 Tale of the Tape:**
-[1-2 sentences breaking down the macro clash between these rosters]
+[1-2 sentences breaking down the macro clash between these starting lineups]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Star player who dictates this team's ceiling]
-- {t_b['team_name']}: [Star player who dictates this team's ceiling]
+- {t_a['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
+- {t_b['team_name']}: [Name one primary starter from their lineup and analyze why they drive this team's ceiling]
 
 **🔮 The Verdict:**
-[1 sharp sentence declaring the predicted winner, deciding factor, and final outcome]"""
+[1 sharp sentence declaring the predicted winner, the deciding factor, and final outcome]"""
 
             raw_ai = call_ai(prompt)
             proj_a, proj_b, win_a, win_b, clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
