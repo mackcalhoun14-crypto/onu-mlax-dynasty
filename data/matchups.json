@@ -8,42 +8,42 @@
         "team_name": "George PickHIMs",
         "record": "0-0",
         "starters": [
-          "Kyler Murray (QB, MIN, 7y veteran)",
-          "De'Von Achane (RB, MIA, 3y veteran)",
-          "Blake Corum (RB, LAR, 2y veteran)",
-          "Rashid Shaheed (WR, SEA, 4y veteran)",
-          "Chris Olave (WR, NO, 4y veteran)",
-          "Trey McBride (TE, ARI, 4y veteran)",
-          "Brock Bowers (TE, LV, 2y veteran)",
-          "Ladd McConkey (WR, LAC, 2y veteran)",
-          "George Pickens (WR, DAL, 4y veteran)",
-          "Spencer Shrader (K, IND, 2y veteran)",
-          "LAC (DEF, LAC, Rookie)"
+          "Kyler Murray (QB, NFL: MIN, 7y veteran)",
+          "De'Von Achane (RB, NFL: MIA, 3y veteran)",
+          "Blake Corum (RB, NFL: LAR, 2y veteran)",
+          "Rashid Shaheed (WR, NFL: SEA, 4y veteran)",
+          "Chris Olave (WR, NFL: NO, 4y veteran)",
+          "Trey McBride (TE, NFL: ARI, 4y veteran)",
+          "Brock Bowers (TE, NFL: LV, 2y veteran)",
+          "Ladd McConkey (WR, NFL: LAC, 2y veteran)",
+          "George Pickens (WR, NFL: DAL, 4y veteran)",
+          "Spencer Shrader (K, NFL: IND, 2y veteran)",
+          "LAC (DEF, NFL: LAC, Rookie)"
         ],
-        "projected": 112.5,
-        "win_prob": "57%"
+        "projected": 122.5,
+        "win_prob": "68%"
       },
       "team_b": {
         "roster_id": 7,
         "team_name": "BabbyBare",
         "record": "0-0",
         "starters": [
-          "Jayden Daniels (QB, WAS, 2y veteran)",
-          "James Cook (RB, BUF, 4y veteran)",
-          "Bucky Irving (RB, TB, 2y veteran)",
-          "DeVonta Smith (WR, PHI, 5y veteran)",
-          "Quentin Johnston (WR, LAC, 3y veteran)",
-          "Dallas Goedert (TE, PHI, 8y veteran)",
-          "Khalil Shakir (WR, BUF, 4y veteran)",
-          "Juwan Johnson (TE, NO, 6y veteran)",
-          "Brenton Strange (TE, JAX, 3y veteran)",
-          "Eddy Pineiro (K, SF, 8y veteran)",
-          "PHI (DEF, PHI, Rookie)"
+          "Jayden Daniels (QB, NFL: WAS, 2y veteran)",
+          "James Cook (RB, NFL: BUF, 4y veteran)",
+          "Bucky Irving (RB, NFL: TB, 2y veteran)",
+          "DeVonta Smith (WR, NFL: PHI, 5y veteran)",
+          "Quentin Johnston (WR, NFL: LAC, 3y veteran)",
+          "Dallas Goedert (TE, NFL: PHI, 8y veteran)",
+          "Khalil Shakir (WR, NFL: BUF, 4y veteran)",
+          "Juwan Johnson (TE, NFL: NO, 6y veteran)",
+          "Brenton Strange (TE, NFL: JAX, 3y veteran)",
+          "Eddy Pineiro (K, NFL: SF, 8y veteran)",
+          "PHI (DEF, NFL: PHI, Rookie)"
         ],
         "projected": 108.3,
-        "win_prob": "43%"
+        "win_prob": "32%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nTeam A leans on a high\u2011upside dual\u2011threat quarterback and a deep receiving corps, while Team B counters with a solid, run\u2011heavy backfield and a veteran tight end core. The clash pits explosive playmaking against consistent, grind\u2011it\u2011out production.\n\n**\ud83d\udd25 The X-Factors:**  \n- George PickHIMs: Kyler Murray \u2013 his 7\u2011year veteran experience and dual\u2011threat ability give him the ceiling to explode for big fantasy weeks, especially against weaker secondaries.  \n- BabbyBare: James Cook \u2013 as a 4\u2011year veteran RB in a run\u2011first Buffalo offense, he provides a reliable volume floor and upside in goal\u2011line situations.\n\n**\ud83d\udd2e The Verdict:**  \nTeam A edges the matchup, with Kyler Murray\u2019s elite upside and big\u2011play ceiling proving the decisive edge for a narrow victory."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**\nGeorge PickHIMs banks on a high\u2011octane, dual\u2011threat offense anchored by Kyler Murray and a deep WR corps, while BabbyBare leans on a balanced, run\u2011first approach with a stout TE anchor in Dallas Goedert.\n\n**\ud83d\udd25 The X-Factors:**\n- George PickHIMs: **Kyler Murray (QB, MIN, 7y veteran)** \u2013 Murray\u2019s ability to generate points on the ground and his improved chemistry with Chris\u202fOlave and George\u202fPickens lifts the ceiling well above 120 points on a good day.\n- BabbyBare: **Dallas Goedert (TE, PHI, 8y veteran)** \u2013 Goedert\u2019s consistent target share in a pass\u2011heavy Eagles offense makes him the most reliable high\u2011volume scorer on BabbyBare\u2019s roster.\n\n**\ud83d\udd2e The Verdict:**\nGeorge PickHIMs defeats BabbyBare, 122.5\u2011108.3, driven by Kyler Murray\u2019s rushing upside and the stacked WR upside of Olave and Pickens that outpaces BabbyBare\u2019s more modest offensive firepower."
     },
     {
       "matchup_id": 2,
@@ -52,42 +52,42 @@
         "team_name": "T-Mac Attack",
         "record": "0-0",
         "starters": [
-          "Malik Willis (QB, MIA, 4y veteran)",
-          "Cam Skattebo (RB, NYG, 1y veteran)",
-          "Jaylen Warren (RB, PIT, 4y veteran)",
-          "Tetairoa McMillan (WR, CAR, 1y veteran)",
-          "Luther Burden (WR, CHI, 1y veteran)",
-          "Isaiah Likely (TE, NYG, 4y veteran)",
-          "Jordan Addison (WR, MIN, 3y veteran)",
-          "Dalton Schultz (TE, HOU, 8y veteran)",
-          "Tyler Allgeier (RB, ARI, 4y veteran)",
-          "Will Reichard (K, MIN, 2y veteran)",
-          "DET (DEF, DET, Rookie)"
+          "Malik Willis (QB, NFL: MIA, 4y veteran)",
+          "Cam Skattebo (RB, NFL: NYG, 1y veteran)",
+          "Jaylen Warren (RB, NFL: PIT, 4y veteran)",
+          "Tetairoa McMillan (WR, NFL: CAR, 1y veteran)",
+          "Luther Burden (WR, NFL: CHI, 1y veteran)",
+          "Isaiah Likely (TE, NFL: NYG, 4y veteran)",
+          "Jordan Addison (WR, NFL: MIN, 3y veteran)",
+          "Dalton Schultz (TE, NFL: HOU, 8y veteran)",
+          "Tyler Allgeier (RB, NFL: ARI, 4y veteran)",
+          "Will Reichard (K, NFL: MIN, 2y veteran)",
+          "DET (DEF, NFL: DET, Rookie)"
         ],
         "projected": 108.5,
-        "win_prob": "45%"
+        "win_prob": "32%"
       },
       "team_b": {
         "roster_id": 9,
         "team_name": "Syracuse Sandstorms",
         "record": "0-0",
         "starters": [
-          "Josh Allen (QB, BUF, 8y veteran)",
-          "Jonathan Taylor (RB, IND, 6y veteran)",
-          "Christian McCaffrey (RB, SF, 9y veteran)",
-          "CeeDee Lamb (WR, DAL, 6y veteran)",
-          "Zay Flowers (WR, BAL, 3y veteran)",
-          "Kyle Pitts (TE, ATL, 5y veteran)",
-          "Javonte Williams (RB, DAL, 5y veteran)",
-          "Quinshon Judkins (RB, CLE, 1y veteran)",
-          "Davante Adams (WR, LAR, 12y veteran)",
-          "Jason Myers (K, SEA, 11y veteran)",
-          "KC (DEF, KC, Rookie)"
+          "Josh Allen (QB, NFL: BUF, 8y veteran)",
+          "Jonathan Taylor (RB, NFL: IND, 6y veteran)",
+          "Christian McCaffrey (RB, NFL: SF, 9y veteran)",
+          "CeeDee Lamb (WR, NFL: DAL, 6y veteran)",
+          "Zay Flowers (WR, NFL: BAL, 3y veteran)",
+          "Kyle Pitts (TE, NFL: ATL, 5y veteran)",
+          "Javonte Williams (RB, NFL: DAL, 5y veteran)",
+          "Quinshon Judkins (RB, NFL: CLE, 1y veteran)",
+          "Davante Adams (WR, NFL: LAR, 12y veteran)",
+          "Jason Myers (K, NFL: SEA, 11y veteran)",
+          "KC (DEF, NFL: KC, Rookie)"
         ],
-        "projected": 119.3,
-        "win_prob": "55%"
+        "projected": 122.3,
+        "win_prob": "68%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe Sandstorms boast a stacked backfield anchored by elite dual\u2011threat RBs, while the Attack leans on a youthful, high\u2011upside skill set that must out\u2011perform its veteran QB to stay competitive.\n\n**\ud83d\udd25 The X-Factors:**  \n- T-Mac Attack: Cam Skattebo \u2013 As a 1y veteran RB with a clear workload in New York, his breakaway speed and goal\u2011line usage could push the Attack\u2019s ceiling beyond its projection.  \n- Syracuse Sandstorms: Christian McCaffrey \u2013 The 9y veteran RB\u2019s versatility as a rusher and receiver makes him the primary engine, capable of single\u2011handedly outscoring most opponents.\n\n**\ud83d\udd2e The Verdict:**  \nThe Sandstorms win, driven by McCaffrey\u2019s multi\u2011dimensional dominance that eclipses the Attack\u2019s upside."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe T-Mac Attack leans on a balanced but unproven mix of young skill players, while the Syracuse Sandstorms field a veteran\u2011heavy, high\u2011octane offense anchored by a premier dual\u2011threat quarterback and two elite running backs.\n\n**\ud83d\udd25 The X-Factors:**  \n- **T-Mac Attack:** Malik Willis (QB, NFL: MIA, 4y veteran) \u2013 Willis\u2019 mobility and improved decision\u2011making give the Attack a ceiling that can explode if he connects deep with Jordan Addison or finds a gap for Tyler Allgeier.  \n- **Syracuse Sandstorms:** Josh Allen (QB, NFL: BUF, 8y veteran) \u2013 Allen\u2019s arm strength, rushing upside, and chemistry with CeeDee Lamb and Davante Adams make him the engine that can outpace any defense.\n\n**\ud83d\udd2e The Verdict:**  \nSyracuse Sandstorms defeat T-Mac Attack, 122.3\u2011108.5, driven by Josh Allen\u2019s dual\u2011threat dominance that overwhelms the Attack\u2019s modest passing attack and forces the defense into impossible coverage assignments."
     },
     {
       "matchup_id": 4,
@@ -96,42 +96,42 @@
         "team_name": "Dayton Degenerates ",
         "record": "0-0",
         "starters": [
-          "Jaxson Dart (QB, NYG, 1y veteran)",
-          "Jeremiyah Love (RB, ARI, Rookie)",
-          "D'Andre Swift (RB, CHI, 6y veteran)",
-          "Jakobi Meyers (WR, JAX, 7y veteran)",
-          "Stefon Diggs (WR, WAS, 11y veteran)",
-          "Travis Kelce (TE, KC, 13y veteran)",
-          "Aaron Jones (RB, MIN, 9y veteran)",
-          "Jalen McMillan (WR, TB, 2y veteran)",
-          "Deebo Samuel (WR, SF, 7y veteran)",
-          "Chase McLaughlin (K, TB, 7y veteran)",
-          "MIN (DEF, MIN, Rookie)"
+          "Jaxson Dart (QB, NFL: NYG, 1y veteran)",
+          "Jeremiyah Love (RB, NFL: ARI, Rookie)",
+          "D'Andre Swift (RB, NFL: CHI, 6y veteran)",
+          "Jakobi Meyers (WR, NFL: JAX, 7y veteran)",
+          "Stefon Diggs (WR, NFL: WAS, 11y veteran)",
+          "Travis Kelce (TE, NFL: KC, 13y veteran)",
+          "Aaron Jones (RB, NFL: MIN, 9y veteran)",
+          "Jalen McMillan (WR, NFL: TB, 2y veteran)",
+          "Deebo Samuel (WR, NFL: SF, 7y veteran)",
+          "Chase McLaughlin (K, NFL: TB, 7y veteran)",
+          "MIN (DEF, NFL: MIN, Rookie)"
         ],
         "projected": 108.5,
-        "win_prob": "45%"
+        "win_prob": "38%"
       },
       "team_b": {
         "roster_id": 6,
         "team_name": "Chicken Soup",
         "record": "0-0",
         "starters": [
-          "Lamar Jackson (QB, BAL, 8y veteran)",
-          "Jahmyr Gibbs (RB, DET, 3y veteran)",
-          "Derrick Henry (RB, BAL, 10y veteran)",
-          "A.J. Brown (WR, NE, 7y veteran)",
-          "Rashee Rice (WR, KC, 3y veteran)",
-          "George Kittle (TE, SF, 9y veteran)",
-          "Emeka Egbuka (WR, TB, 1y veteran)",
-          "Breece Hall (RB, NYJ, 4y veteran)",
-          "Malik Nabers (WR, NYG, 2y veteran)",
-          "Cam Little (K, JAX, 2y veteran)",
-          "SEA (DEF, SEA, Rookie)"
+          "Lamar Jackson (QB, NFL: BAL, 8y veteran)",
+          "Jahmyr Gibbs (RB, NFL: DET, 3y veteran)",
+          "Derrick Henry (RB, NFL: BAL, 10y veteran)",
+          "A.J. Brown (WR, NFL: NE, 7y veteran)",
+          "Rashee Rice (WR, NFL: KC, 3y veteran)",
+          "George Kittle (TE, NFL: SF, 9y veteran)",
+          "Emeka Egbuka (WR, NFL: TB, 1y veteran)",
+          "Breece Hall (RB, NFL: NYJ, 4y veteran)",
+          "Malik Nabers (WR, NFL: NYG, 2y veteran)",
+          "Cam Little (K, NFL: JAX, 2y veteran)",
+          "SEA (DEF, NFL: SEA, Rookie)"
         ],
-        "projected": 112.3,
-        "win_prob": "55%"
+        "projected": 119.3,
+        "win_prob": "62%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nDayton leans on a balanced mix of veteran playmakers and a rookie RB, while Chicken Soup fields a high\u2011powered rushing attack anchored by Derrick Henry and a veteran\u2011heavy receiving corps. The clash pits steady veteran production against explosive, run\u2011first firepower.\n\n**\ud83d\udd25 The X-Factors:**  \n- Dayton Degenerates: **Stefon Diggs** \u2013 his 11\u2011year veteran savvy and target volume in Washington give Dayton a reliable ceiling at WR, capable of single\u2011digit weekly spikes.  \n- Chicken Soup: **Derrick Henry** \u2013 a 10\u2011year veteran bruiser who can dominate the ground game, providing a massive upside that can outpace Dayton\u2019s scoring bursts.\n\n**\ud83d\udd2e The Verdict:**  \nChicken Soup edges out Dayton thanks to Henry\u2019s game\u2011breaking rushing upside, delivering a higher ceiling and the projected win."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe Dayton Degenerates pile veteran production at RB/WR but lean on a one\u2011year QB, while Chicken Soup couples a dual\u2011threat quarterback with two elite rushers and a premier tight end, giving them a higher weekly ceiling.\n\n**\ud83d\udd25 The X-Factors:**  \n- **Dayton Degenerates:** *Travis Kelce (TE, KC, 13y veteran)* \u2013 Kelce remains a red\u2011zone magnet and a consistent 10\u201115 point engine, anchoring an otherwise QB\u2011limited offense.  \n- **Chicken Soup:** *Lamar Jackson (QB, BAL, 8y veteran)* \u2013 Jackson\u2019s dual\u2011threat upside can explode for 30+ points on a single play, and his ability to control the tempo amplifies the production of Henry and Gibbs.\n\n**\ud83d\udd2e The Verdict:**  \nChicken Soup defeats Dayton Degenerates , 119.3\u2011108.5, driven by Lamar Jackson\u2019s explosive dual\u2011threat play that unlocks the full potential of Derrick Henry and Jahmyr Gibbs."
     },
     {
       "matchup_id": 3,
@@ -140,42 +140,42 @@
         "team_name": "noahsaint",
         "record": "0-0",
         "starters": [
-          "Brock Purdy (QB, SF, 4y veteran)",
-          "Bhayshul Tuten (RB, JAX, 1y veteran)",
-          "Rhamondre Stevenson (RB, NE, 5y veteran)",
-          "Jaxon Smith-Njigba (WR, SEA, 3y veteran)",
-          "Tee Higgins (WR, CIN, 6y veteran)",
-          "Colston Loveland (TE, CHI, 1y veteran)",
-          "Jaylen Waddle (WR, DEN, 5y veteran)",
-          "Jameson Williams (WR, DET, 4y veteran)",
-          "Christian Watson (WR, GB, 4y veteran)",
-          "Cameron Dicker (K, LAC, 4y veteran)",
-          "TEN (DEF, TEN, Rookie)"
+          "Brock Purdy (QB, NFL: SF, 4y veteran)",
+          "Bhayshul Tuten (RB, NFL: JAX, 1y veteran)",
+          "Rhamondre Stevenson (RB, NFL: NE, 5y veteran)",
+          "Jaxon Smith-Njigba (WR, NFL: SEA, 3y veteran)",
+          "Tee Higgins (WR, NFL: CIN, 6y veteran)",
+          "Colston Loveland (TE, NFL: CHI, 1y veteran)",
+          "Jaylen Waddle (WR, NFL: DEN, 5y veteran)",
+          "Jameson Williams (WR, NFL: DET, 4y veteran)",
+          "Christian Watson (WR, NFL: GB, 4y veteran)",
+          "Cameron Dicker (K, NFL: LAC, 4y veteran)",
+          "TEN (DEF, NFL: TEN, Rookie)"
         ],
-        "projected": 112.5,
-        "win_prob": "57%"
+        "projected": 108.3,
+        "win_prob": "68%"
       },
       "team_b": {
         "roster_id": 10,
         "team_name": "spearson22",
         "record": "0-0",
         "starters": [
-          "Baker Mayfield (QB, TB, 8y veteran)",
-          "Ashton Jeanty (RB, LV, 1y veteran)",
-          "Tony Pollard (RB, TEN, 7y veteran)",
-          "DJ Moore (WR, BUF, 8y veteran)",
-          "Courtland Sutton (WR, DEN, 8y veteran)",
-          "Pat Freiermuth (TE, PIT, 5y veteran)",
-          "Rico Dowdle (RB, PIT, 6y veteran)",
-          "Matthew Golden (WR, GB, 1y veteran)",
-          "Devaughn Vele (WR, NO, 2y veteran)",
-          "Evan McPherson (K, CIN, 5y veteran)",
-          "CHI (DEF, CHI, Rookie)"
+          "Baker Mayfield (QB, NFL: TB, 8y veteran)",
+          "Ashton Jeanty (RB, NFL: LV, 1y veteran)",
+          "Tony Pollard (RB, NFL: TEN, 7y veteran)",
+          "DJ Moore (WR, NFL: BUF, 8y veteran)",
+          "Courtland Sutton (WR, NFL: DEN, 8y veteran)",
+          "Pat Freiermuth (TE, NFL: PIT, 5y veteran)",
+          "Rico Dowdle (RB, NFL: PIT, 6y veteran)",
+          "Matthew Golden (WR, NFL: GB, 1y veteran)",
+          "Devaughn Vele (WR, NFL: NO, 2y veteran)",
+          "Evan McPherson (K, NFL: CIN, 5y veteran)",
+          "CHI (DEF, NFL: CHI, Rookie)"
         ],
-        "projected": 108.3,
-        "win_prob": "43%"
+        "projected": 95.7,
+        "win_prob": "32%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nTeam\u202fA leans on a balanced attack with a veteran quarterback and a high\u2011volume back in Rhamondre Stevenson, while Team\u202fB counters with a veteran QB and a dual\u2011threat RB in Tony Pollard, making the ground game the decisive battleground.\n\n**\ud83d\udd25 The X-Factors:**  \n- noahsaint: **Rhamondre Stevenson** \u2013 his 5y veteran status and consistent workload in New England give Team\u202fA a reliable source of touchdowns and yardage, lifting the ceiling of the lineup.  \n- spearson22: **Tony Pollard** \u2013 as a 7y veteran who can explode both as a rusher and receiver, Pollard provides the explosive upside needed to keep Team\u202fB competitive.\n\n**\ud83d\udd2e The Verdict:**  \nTeam\u202fA edges the matchup, with Stevenson\u2019s steady production outpacing Pollard\u2019s upside, delivering a narrow victory for noahsaint."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nnoahsaint boasts a deep, veteran\u2011laden receiving corps anchored by a dual\u2011threat QB in Brock Purdy, while spearson22 leans heavily on a single workhorse back in Tony Pollard and a modestly productive passing attack.\n\n**\ud83d\udd25 The X-Factors:**  \n- noahsaint: **Brock Purdy (QB, SF, 4y veteran)** \u2013 Purdy\u2019s efficient pocket presence and upside as a dual\u2011threat passer give him a floor of 15 points and a ceiling that can eclipse 25 when his receivers find space.  \n- spearson22: **Tony Pollard (RB, TEN, 7y veteran)** \u2013 Pollard is the engine of the offense; his blend of breakaway speed and goal\u2011line power makes him the only consistent 15\u2011point threat on the roster.\n\n**\ud83d\udd2e The Verdict:**  \nnoahsaint defeats spearson22, 108.3\u201195.7, driven by a superior passing attack that spreads the ball to multiple high\u2011volume WRs, overwhelming spearson22\u2019s single\u2011dimensional ground game."
     },
     {
       "matchup_id": 6,
@@ -184,19 +184,19 @@
         "team_name": "MaxWeese25",
         "record": "0-0",
         "starters": [
-          "Jordan Love (QB, GB, 6y veteran)",
-          "Omarion Hampton (RB, LAC, 1y veteran)",
-          "Chase Brown (RB, CIN, 3y veteran)",
-          "Ja'Marr Chase (WR, CIN, 5y veteran)",
-          "Puka Nacua (WR, LAR, 3y veteran)",
-          "Sam LaPorta (TE, DET, 3y veteran)",
-          "Nico Collins (WR, HOU, 5y veteran)",
-          "RJ Harvey (RB, DEN, 1y veteran)",
-          "Carnell Tate (WR, TEN, Rookie)",
-          "Tyler Loop (K, BAL, 1y veteran)",
-          "LAR (DEF, LAR, Rookie)"
+          "Jordan Love (QB, NFL: GB, 6y veteran)",
+          "Omarion Hampton (RB, NFL: LAC, 1y veteran)",
+          "Chase Brown (RB, NFL: CIN, 3y veteran)",
+          "Ja'Marr Chase (WR, NFL: CIN, 5y veteran)",
+          "Puka Nacua (WR, NFL: LAR, 3y veteran)",
+          "Sam LaPorta (TE, NFL: DET, 3y veteran)",
+          "Nico Collins (WR, NFL: HOU, 5y veteran)",
+          "RJ Harvey (RB, NFL: DEN, 1y veteran)",
+          "Carnell Tate (WR, NFL: TEN, Rookie)",
+          "Tyler Loop (K, NFL: BAL, 1y veteran)",
+          "LAR (DEF, NFL: LAR, Rookie)"
         ],
-        "projected": 112.4,
+        "projected": 112.5,
         "win_prob": "57%"
       },
       "team_b": {
@@ -204,22 +204,22 @@
         "team_name": "Mr texas ",
         "record": "0-0",
         "starters": [
-          "Dak Prescott (QB, DAL, 10y veteran)",
-          "Kenneth Walker (RB, KC, 4y veteran)",
-          "David Montgomery (RB, HOU, 7y veteran)",
-          "Alec Pierce (WR, IND, 4y veteran)",
-          "Mike Evans (WR, SF, 12y veteran)",
-          "Harold Fannin (TE, CLE, 1y veteran)",
-          "J.K. Dobbins (RB, DEN, 6y veteran)",
-          "Tyler Warren (TE, IND, 1y veteran)",
-          "Kenny Gainwell (RB, TB, 5y veteran)",
-          "Trey Smack (K, GB, Rookie)",
-          "JAX (DEF, JAX, Rookie)"
+          "Dak Prescott (QB, NFL: DAL, 10y veteran)",
+          "Kenneth Walker (RB, NFL: KC, 4y veteran)",
+          "David Montgomery (RB, NFL: HOU, 7y veteran)",
+          "Alec Pierce (WR, NFL: IND, 4y veteran)",
+          "Mike Evans (WR, NFL: SF, 12y veteran)",
+          "Harold Fannin (TE, NFL: CLE, 1y veteran)",
+          "J.K. Dobbins (RB, NFL: DEN, 6y veteran)",
+          "Tyler Warren (TE, NFL: IND, 1y veteran)",
+          "Kenny Gainwell (RB, NFL: TB, 5y veteran)",
+          "Trey Smack (K, NFL: GB, Rookie)",
+          "JAX (DEF, NFL: JAX, Rookie)"
         ],
-        "projected": 108.7,
+        "projected": 108.3,
         "win_prob": "43%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nTeam A leans on a balanced attack with a mobile quarterback and a deep receiving corps, while Team B counters with a seasoned quarterback and a veteran\u2011heavy backfield that can grind out consistent points.\n\n**\ud83d\udd25 The X-Factors:**  \n- MaxWeese25: **Ja'Marr Chase** \u2013 his 5y veteran status and elite route\u2011running give him a high ceiling to explode any week, especially against a secondary that struggles against top\u2011tier receivers.  \n- Mr texas : **Dak Prescott** \u2013 his 10y veteran experience provides stability and the ability to generate big plays through the air, anchoring a lineup that relies on his consistency.\n\n**\ud83d\udd2e The Verdict:**  \nMaxWeese25 should edge out Mr texas, with Ja'Marr Chase\u2019s upside tipping the scales in a close, high\u2011scoring showdown."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nMaxWeese25 rolls into Week\u202f1 with a balanced attack\u2014steady veteran QB Jordan Love, a three\u2011deep RB corps, and a high\u2011upside WR duo anchored by Ja'Marr Chase. Mr texas counters with a seasoned Dak Prescott and a deep receiving corps led by Mike Evans, but its RB depth leans on aging veterans.\n\n**\ud83d\udd25 The X-Factors:**  \n- MaxWeese25: **Ja'Marr Chase (WR, CIN, 5y veteran)** \u2013 the league\u2019s most consistent deep\u2011ball threat; his route\u2011running and red\u2011zone presence can explode any week, pushing MaxWeese25\u2019s ceiling well above 120 points.  \n- Mr texas : **Dak Prescott (QB, DAL, 10y veteran)** \u2013 a dual\u2011threat quarterback who can generate both passing yards and rushing upside; his ability to thread the needle with his veteran WRs is the primary driver of Mr texas\u2019s scoring potential.\n\n**\ud83d\udd2e The Verdict:**  \nMaxWeese25 defeats Mr texas, 112.5\u2011108.3, driven by Ja'Marr Chase\u2019s elite big\u2011play ceiling that outpaces Mr texas\u2019s reliance on Dak Prescott\u2019s steady but less explosive production."
     },
     {
       "matchup_id": 1,
@@ -228,42 +228,42 @@
         "team_name": "Worthy of my Chuba",
         "record": "0-0",
         "starters": [
-          "Drake Maye (QB, NE, 2y veteran)",
-          "Bijan Robinson (RB, ATL, 3y veteran)",
-          "Saquon Barkley (RB, PHI, 8y veteran)",
-          "Terry McLaurin (WR, WAS, 7y veteran)",
-          "DK Metcalf (WR, PIT, 7y veteran)",
-          "Mark Andrews (TE, BAL, 8y veteran)",
-          "Travis Etienne (RB, NO, 5y veteran)",
-          "Chris Godwin (WR, TB, 9y veteran)",
-          "Michael Wilson (WR, ARI, 3y veteran)",
-          "Brandon Aubrey (K, DAL, 3y veteran)",
-          "PIT (DEF, PIT, Rookie)"
+          "Drake Maye (QB, NFL: NE, 2y veteran)",
+          "Bijan Robinson (RB, NFL: ATL, 3y veteran)",
+          "Saquon Barkley (RB, NFL: PHI, 8y veteran)",
+          "Terry McLaurin (WR, NFL: WAS, 7y veteran)",
+          "DK Metcalf (WR, NFL: PIT, 7y veteran)",
+          "Mark Andrews (TE, NFL: BAL, 8y veteran)",
+          "Travis Etienne (RB, NFL: NO, 5y veteran)",
+          "Chris Godwin (WR, NFL: TB, 9y veteran)",
+          "Michael Wilson (WR, NFL: ARI, 3y veteran)",
+          "Brandon Aubrey (K, NFL: DAL, 3y veteran)",
+          "PIT (DEF, NFL: PIT, Rookie)"
         ],
-        "projected": 108.5,
-        "win_prob": "48%"
+        "projected": 112.5,
+        "win_prob": "58%"
       },
       "team_b": {
         "roster_id": 12,
         "team_name": "Amon Ra Akbar",
         "record": "0-0",
         "starters": [
-          "Jalen Hurts (QB, PHI, 6y veteran)",
-          "Jordan Mason (RB, MIN, 4y veteran)",
-          "Brian Robinson (RB, ATL, 4y veteran)",
-          "Amon-Ra St. Brown (WR, DET, 5y veteran)",
-          "Justin Jefferson (WR, MIN, 6y veteran)",
-          "Tucker Kraft (TE, GB, 3y veteran)",
-          "Drake London (WR, ATL, 4y veteran)",
-          "Rome Odunze (WR, CHI, 2y veteran)",
-          "Marvin Harrison (WR, ARI, 2y veteran)",
-          "Ka'imi Fairbairn (K, HOU, 10y veteran)",
-          "BAL (DEF, BAL, Rookie)"
+          "Jalen Hurts (QB, NFL: PHI, 6y veteran)",
+          "Jordan Mason (RB, NFL: MIN, 4y veteran)",
+          "Brian Robinson (RB, NFL: ATL, 4y veteran)",
+          "Amon-Ra St. Brown (WR, NFL: DET, 5y veteran)",
+          "Justin Jefferson (WR, NFL: MIN, 6y veteran)",
+          "Tucker Kraft (TE, NFL: GB, 3y veteran)",
+          "Drake London (WR, NFL: ATL, 4y veteran)",
+          "Rome Odunze (WR, NFL: CHI, 2y veteran)",
+          "Marvin Harrison (WR, NFL: ARI, 2y veteran)",
+          "Ka'imi Fairbairn (K, NFL: HOU, 10y veteran)",
+          "BAL (DEF, NFL: BAL, Rookie)"
         ],
-        "projected": 112.3,
-        "win_prob": "52%"
+        "projected": 108.3,
+        "win_prob": "42%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nTeam B fields a higher\u2011powered passing attack anchored by a seasoned quarterback, while Team A leans on a balanced roster with a strong running back duo but a less experienced QB.\n\n**\ud83d\udd25 The X-Factors:**  \n- Worthy of my Chuba: Bijan Robinson \u2013 his 3\u2011year veteran status and elite dual\u2011threat ability give Team A its primary upside, especially in PPR formats.  \n- Amon Ra Akbar: Justin Jefferson \u2013 as a 6\u2011year veteran, his elite route running and target volume make him the engine of Team B\u2019s offense.\n\n**\ud83d\udd2e The Verdict:**  \nTeam B edges out Team A, with Jefferson\u2019s big\u2011play ceiling and Hurts\u2019 veteran poise proving the decisive advantage."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**\nWorthy of my Chuba leans on a three\u2011head rush with Bijan Robinson, Saquon Barkley and Travis Etienne, while Amon Ra Akbar banks on a fireworks\u2011filled receiving corps anchored by Justin Jefferson and Amon\u2011Ra St.\u202fBrown plus Jalen Hurts\u2019 dual\u2011threat upside.\n\n**\ud83d\udd25 The X-Factors:**\n- Worthy of my Chuba: **Bijan Robinson (RB, ATL, 3y veteran)** \u2013 his blend of breakaway speed and volume in a run\u2011first offense gives the franchise the highest single\u2011player ceiling in the matchup.\n- Amon Ra Akbar: **Jalen Hurts (QB, PHI, 6y veteran)** \u2013 his rushing upside and improved passing efficiency make him the only quarterback capable of out\u2011scoring Worthy\u2019s top RBs on any given week.\n\n**\ud83d\udd2e The Verdict:**\nWorthy of my Chuba defeats Amon Ra Akbar, 112.5\u2011108.3, driven by superior RB depth that translates into a higher weekly floor and more consistent point production."
     }
   ]
 }
