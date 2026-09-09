@@ -261,17 +261,22 @@ def run():
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
-            # Parse relevant news for this specific matchup
+            # Parse relevant news using relaxed last-name matching
             matchup_news = []
             for starter in t_a['starters'] + t_b['starters']:
-                player_name = starter.split(" (")[0].strip()
+                full_name = starter.split(" (")[0].strip()
+                name_parts = full_name.split()
+                last_name = name_parts[-1] if name_parts else full_name
+                
                 for news_item in global_news:
-                    if player_name in news_item and news_item not in matchup_news:
+                    if (full_name.lower() in news_item.lower() or (len(last_name) > 3 and last_name.lower() in news_item.lower())) and news_item not in matchup_news:
                         matchup_news.append(news_item)
             
             news_context = ""
             if matchup_news:
-                news_context = "\n[LATEST NEWS ALERTS FOR ACTIVE STARTERS]\n" + "\n".join([f"- {n}" for n in matchup_news]) + "\n"
+                news_context = "\n[LATEST REAL-WORLD NFL NEWS ALERTS]\n" + "\n".join([f"- {n}" for n in matchup_news[:3]]) + "\n"
+            else:
+                news_context = "\n[LATEST REAL-WORLD NFL NEWS ALERTS]\n- No major breaking news alerts for these specific starters this week; rely on standard projections and roles.\n"
 
             prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write an analytical, sharp pregame preview for Week {week}.
 
@@ -284,7 +289,7 @@ MANDATORY EDITORIAL RULES:
 2. Every player includes their experience tag. Never refer to a player as a rookie unless explicitly marked 'Rookie'.
 3. Do not invent your own projected scores; reference the {t_a['projected']} and {t_b['projected']} projected points provided above.
 4. Stick strictly to provided NFL team tags. Do not hallucinate real-life team trades or changes.
-5. If [LATEST NEWS ALERTS] are provided, explicitly reference how those injuries, rumors, or game-time decisions impact the game script.
+5. If [LATEST REAL-WORLD NFL NEWS ALERTS] contain relevant headlines, explicitly reference how those injuries, rumors, or game-time decisions impact the game script.
 
 Output Format:
 [SCRATCHPAD]
@@ -322,7 +327,6 @@ Confirm actual team names: '{t_a['team_name']}' and '{t_b['team_name']}'.
             json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
 
         # --- PART 2: TRADES ---
-        # (Trade processing logic remains unchanged)
         executed_trades = []
         for w in range(max(1, week - 1), week + 1):
             try:
