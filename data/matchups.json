@@ -8,42 +8,42 @@
         "team_name": "George PickHIMs",
         "record": "0-0",
         "starters": [
-          "Kyler Murray (QB)",
-          "De'Von Achane (RB)",
-          "Blake Corum (RB)",
-          "Rashid Shaheed (WR)",
-          "Chris Olave (WR)",
-          "Trey McBride (TE)",
-          "Brock Bowers (TE)",
-          "Ladd McConkey (WR)",
-          "George Pickens (WR)",
-          "Spencer Shrader (K)",
-          "LAC (DEF)"
+          "Kyler Murray (QB, MIN, 7y veteran)",
+          "De'Von Achane (RB, MIA, 3y veteran)",
+          "Blake Corum (RB, LAR, 2y veteran)",
+          "Rashid Shaheed (WR, SEA, 4y veteran)",
+          "Chris Olave (WR, NO, 4y veteran)",
+          "Trey McBride (TE, ARI, 4y veteran)",
+          "Brock Bowers (TE, LV, 2y veteran)",
+          "Ladd McConkey (WR, LAC, 2y veteran)",
+          "George Pickens (WR, DAL, 4y veteran)",
+          "Spencer Shrader (K, IND, 2y veteran)",
+          "LAC (DEF, LAC, Rookie)"
         ],
-        "projected": 124.5,
-        "win_prob": "56%"
+        "projected": 114.5,
+        "win_prob": "53%"
       },
       "team_b": {
         "roster_id": 7,
         "team_name": "BabbyBare",
         "record": "0-0",
         "starters": [
-          "Jayden Daniels (QB)",
-          "James Cook (RB)",
-          "Bucky Irving (RB)",
-          "DeVonta Smith (WR)",
-          "Quentin Johnston (WR)",
-          "Dallas Goedert (TE)",
-          "Khalil Shakir (WR)",
-          "Juwan Johnson (TE)",
-          "Brenton Strange (TE)",
-          "Eddy Pineiro (K)",
-          "PHI (DEF)"
+          "Jayden Daniels (QB, WAS, 2y veteran)",
+          "James Cook (RB, BUF, 4y veteran)",
+          "Bucky Irving (RB, TB, 2y veteran)",
+          "DeVonta Smith (WR, PHI, 5y veteran)",
+          "Quentin Johnston (WR, LAC, 3y veteran)",
+          "Dallas Goedert (TE, PHI, 8y veteran)",
+          "Khalil Shakir (WR, BUF, 4y veteran)",
+          "Juwan Johnson (TE, NO, 6y veteran)",
+          "Brenton Strange (TE, JAX, 3y veteran)",
+          "Eddy Pineiro (K, SF, 8y veteran)",
+          "PHI (DEF, PHI, Rookie)"
         ],
-        "projected": 118.3,
-        "win_prob": "44%"
+        "projected": 110.0,
+        "win_prob": "47%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth teams are riding rookie QBs, but George PickHIMs\u2019 Kyler Murray offers a dual\u2011threat edge against LAC\u2019s stout pass defense, while BabbyBare\u2019s Jayden Daniels faces a more balanced attack from a LAC defense that can stifle the run.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- George PickHIMs: **Kyler Murray** \u2013 his rushing upside and explosive playmaking set the ceiling for the team.  \n- BabbyBare: **Jayden Daniels** \u2013 a high\u2011upside rookie who can generate big plays if he finds rhythm.\n\n**\ud83d\udd2e The Verdict:**  \nGeorge PickHIMs win 124\u2011118, thanks to Murray\u2019s dual\u2011threat threat and LAC\u2019s ability to limit the pass, giving the team a modest but decisive edge."
+      "preview": "Matchup preview pending lineup confirmation."
     },
     {
       "matchup_id": 2,
@@ -52,42 +52,42 @@
         "team_name": "T-Mac Attack",
         "record": "0-0",
         "starters": [
-          "Malik Willis (QB)",
-          "Cam Skattebo (RB)",
-          "Jaylen Warren (RB)",
-          "Tetairoa McMillan (WR)",
-          "Luther Burden (WR)",
-          "Isaiah Likely (TE)",
-          "Jordan Addison (WR)",
-          "Dalton Schultz (TE)",
-          "Tyler Allgeier (RB)",
-          "Will Reichard (K)",
-          "DET (DEF)"
+          "Malik Willis (QB, MIA, 4y veteran)",
+          "Cam Skattebo (RB, NYG, 1y veteran)",
+          "Jaylen Warren (RB, PIT, 4y veteran)",
+          "Tetairoa McMillan (WR, CAR, 1y veteran)",
+          "Luther Burden (WR, CHI, 1y veteran)",
+          "Isaiah Likely (TE, NYG, 4y veteran)",
+          "Jordan Addison (WR, MIN, 3y veteran)",
+          "Dalton Schultz (TE, HOU, 8y veteran)",
+          "Tyler Allgeier (RB, ARI, 4y veteran)",
+          "Will Reichard (K, MIN, 2y veteran)",
+          "DET (DEF, DET, Rookie)"
         ],
-        "projected": 97.3,
-        "win_prob": "32%"
+        "projected": 114.5,
+        "win_prob": "53%"
       },
       "team_b": {
         "roster_id": 9,
         "team_name": "Syracuse Sandstorms",
         "record": "0-0",
         "starters": [
-          "Josh Allen (QB)",
-          "Jonathan Taylor (RB)",
-          "Christian McCaffrey (RB)",
-          "CeeDee Lamb (WR)",
-          "Zay Flowers (WR)",
-          "Kyle Pitts (TE)",
-          "Javonte Williams (RB)",
-          "Quinshon Judkins (RB)",
-          "Davante Adams (WR)",
-          "Jason Myers (K)",
-          "KC (DEF)"
+          "Josh Allen (QB, BUF, 8y veteran)",
+          "Jonathan Taylor (RB, IND, 6y veteran)",
+          "Christian McCaffrey (RB, SF, 9y veteran)",
+          "CeeDee Lamb (WR, DAL, 6y veteran)",
+          "Zay Flowers (WR, BAL, 3y veteran)",
+          "Kyle Pitts (TE, ATL, 5y veteran)",
+          "Javonte Williams (RB, DAL, 5y veteran)",
+          "Quinshon Judkins (RB, CLE, 1y veteran)",
+          "Davante Adams (WR, LAR, 12y veteran)",
+          "Jason Myers (K, SEA, 11y veteran)",
+          "KC (DEF, KC, Rookie)"
         ],
-        "projected": 128.6,
-        "win_prob": "68%"
+        "projected": 110.0,
+        "win_prob": "47%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe matchup pits a rookie\u2011heavy, low\u2011budget offense against a star\u2011laden, high\u2011scoring lineup. The Sandstorms\u2019 explosive backfield and wide\u2011receiver corps will dominate the T\u2011Mac Attack\u2019s inexperienced offense.  \n\n**\ud83d\udd25 The X\u2011Factors:**  \n- T\u2011Mac Attack: Dalton Schultz (TE) \u2013 his veteran presence could spark a surprise breakout.  \n- Syracuse Sandstorms: Josh Allen (QB) \u2013 his dual\u2011threat ability will dictate the game\u2019s ceiling.  \n\n**\ud83d\udd2e The Verdict:**  \nSyracuse Sandstorms win; Allen\u2019s arm and the backfield\u2019s firepower will outpace the rookie\u2011led T\u2011Mac Attack, ending the game 128\u201397."
+      "preview": "Matchup preview pending lineup confirmation."
     },
     {
       "matchup_id": 4,
@@ -96,42 +96,42 @@
         "team_name": "Dayton Degenerates ",
         "record": "0-0",
         "starters": [
-          "Jaxson Dart (QB)",
-          "Jeremiyah Love (RB)",
-          "D'Andre Swift (RB)",
-          "Jakobi Meyers (WR)",
-          "Stefon Diggs (WR)",
-          "Travis Kelce (TE)",
-          "Aaron Jones (RB)",
-          "Jalen McMillan (WR)",
-          "Deebo Samuel (WR)",
-          "Chase McLaughlin (K)",
-          "MIN (DEF)"
+          "Jaxson Dart (QB, NYG, 1y veteran)",
+          "Jeremiyah Love (RB, ARI, Rookie)",
+          "D'Andre Swift (RB, CHI, 6y veteran)",
+          "Jakobi Meyers (WR, JAX, 7y veteran)",
+          "Stefon Diggs (WR, WAS, 11y veteran)",
+          "Travis Kelce (TE, KC, 13y veteran)",
+          "Aaron Jones (RB, MIN, 9y veteran)",
+          "Jalen McMillan (WR, TB, 2y veteran)",
+          "Deebo Samuel (WR, SF, 7y veteran)",
+          "Chase McLaughlin (K, TB, 7y veteran)",
+          "MIN (DEF, MIN, Rookie)"
         ],
-        "projected": 120.3,
-        "win_prob": "52%"
+        "projected": 114.5,
+        "win_prob": "53%"
       },
       "team_b": {
         "roster_id": 6,
         "team_name": "Chicken Soup",
         "record": "0-0",
         "starters": [
-          "Lamar Jackson (QB)",
-          "Jahmyr Gibbs (RB)",
-          "Derrick Henry (RB)",
-          "A.J. Brown (WR)",
-          "Rashee Rice (WR)",
-          "George Kittle (TE)",
-          "Emeka Egbuka (WR)",
-          "Breece Hall (RB)",
-          "Malik Nabers (WR)",
-          "Cam Little (K)",
-          "SEA (DEF)"
+          "Lamar Jackson (QB, BAL, 8y veteran)",
+          "Jahmyr Gibbs (RB, DET, 3y veteran)",
+          "Derrick Henry (RB, BAL, 10y veteran)",
+          "A.J. Brown (WR, NE, 7y veteran)",
+          "Rashee Rice (WR, KC, 3y veteran)",
+          "George Kittle (TE, SF, 9y veteran)",
+          "Emeka Egbuka (WR, TB, 1y veteran)",
+          "Breece Hall (RB, NYJ, 4y veteran)",
+          "Malik Nabers (WR, NYG, 2y veteran)",
+          "Cam Little (K, JAX, 2y veteran)",
+          "SEA (DEF, SEA, Rookie)"
         ],
-        "projected": 118.1,
-        "win_prob": "48%"
+        "projected": 110.0,
+        "win_prob": "47%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nDayton\u2019s balanced attack\u2014led by a top\u2011tier TE and a star WR duo\u2014meets Chicken Soup\u2019s explosive backfield and Lamar Jackson\u2019s dynamic playmaking, setting the stage for a high\u2011scoring shootout.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- Dayton Degenerates : Travis Kelce  \n- Chicken Soup : Lamar Jackson  \n\n**\ud83d\udd2e The Verdict:**  \nDayton edges out Chicken Soup 120\u2011118, as Kelce\u2019s big\u2011play ceiling and Diggs\u2019 consistency tip the scales against Jackson\u2019s volatile but less reliable offense."
+      "preview": "Matchup preview pending lineup confirmation."
     },
     {
       "matchup_id": 3,
@@ -140,42 +140,42 @@
         "team_name": "noahsaint",
         "record": "0-0",
         "starters": [
-          "Brock Purdy (QB)",
-          "Bhayshul Tuten (RB)",
-          "Rhamondre Stevenson (RB)",
-          "Jaxon Smith-Njigba (WR)",
-          "Tee Higgins (WR)",
-          "Colston Loveland (TE)",
-          "Jaylen Waddle (WR)",
-          "Jameson Williams (WR)",
-          "Christian Watson (WR)",
-          "Cameron Dicker (K)",
-          "TEN (DEF)"
+          "Brock Purdy (QB, SF, 4y veteran)",
+          "Bhayshul Tuten (RB, JAX, 1y veteran)",
+          "Rhamondre Stevenson (RB, NE, 5y veteran)",
+          "Jaxon Smith-Njigba (WR, SEA, 3y veteran)",
+          "Tee Higgins (WR, CIN, 6y veteran)",
+          "Colston Loveland (TE, CHI, 1y veteran)",
+          "Jaylen Waddle (WR, DEN, 5y veteran)",
+          "Jameson Williams (WR, DET, 4y veteran)",
+          "Christian Watson (WR, GB, 4y veteran)",
+          "Cameron Dicker (K, LAC, 4y veteran)",
+          "TEN (DEF, TEN, Rookie)"
         ],
-        "projected": 122.5,
-        "win_prob": "58%"
+        "projected": 114.5,
+        "win_prob": "53%"
       },
       "team_b": {
         "roster_id": 10,
         "team_name": "spearson22",
         "record": "0-0",
         "starters": [
-          "Baker Mayfield (QB)",
-          "Ashton Jeanty (RB)",
-          "Tony Pollard (RB)",
-          "DJ Moore (WR)",
-          "Courtland Sutton (WR)",
-          "Pat Freiermuth (TE)",
-          "Rico Dowdle (RB)",
-          "Matthew Golden (WR)",
-          "Devaughn Vele (WR)",
-          "Evan McPherson (K)",
-          "CHI (DEF)"
+          "Baker Mayfield (QB, TB, 8y veteran)",
+          "Ashton Jeanty (RB, LV, 1y veteran)",
+          "Tony Pollard (RB, TEN, 7y veteran)",
+          "DJ Moore (WR, BUF, 8y veteran)",
+          "Courtland Sutton (WR, DEN, 8y veteran)",
+          "Pat Freiermuth (TE, PIT, 5y veteran)",
+          "Rico Dowdle (RB, PIT, 6y veteran)",
+          "Matthew Golden (WR, GB, 1y veteran)",
+          "Devaughn Vele (WR, NO, 2y veteran)",
+          "Evan McPherson (K, CIN, 5y veteran)",
+          "CHI (DEF, CHI, Rookie)"
         ],
-        "projected": 117.5,
-        "win_prob": "42%"
+        "projected": 110.0,
+        "win_prob": "47%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth squads boast a deep receiving corps, but noahsaint\u2019s roster edges out spearson22 thanks to a higher ceiling from a top-tier wide\u2011receiver group and a solid running back in Rhamondre Stevenson, giving them a slight edge in the early\u2011season power play.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- noahsaint: Jaylen Waddle \u2013 his explosive playmaking and high target volume can swing the game in a high\u2011scoring matchup.  \n- spearson22: Tony Pollard \u2013 his dynamic rushing ability and pass\u2011catching knack can keep the defense honest and provide a surge of points.\n\n**\ud83d\udd2e The Verdict:**  \nnoahsaint pulls ahead, with Waddle\u2019s big\u2011play potential tipping the scales for a 122\u2013118 win."
+      "preview": "Matchup preview pending lineup confirmation."
     },
     {
       "matchup_id": 6,
@@ -184,42 +184,42 @@
         "team_name": "MaxWeese25",
         "record": "0-0",
         "starters": [
-          "Jordan Love (QB)",
-          "Omarion Hampton (RB)",
-          "Chase Brown (RB)",
-          "Ja'Marr Chase (WR)",
-          "Puka Nacua (WR)",
-          "Sam LaPorta (TE)",
-          "Nico Collins (WR)",
-          "RJ Harvey (RB)",
-          "Carnell Tate (WR)",
-          "Tyler Loop (K)",
-          "LAR (DEF)"
+          "Jordan Love (QB, GB, 6y veteran)",
+          "Omarion Hampton (RB, LAC, 1y veteran)",
+          "Chase Brown (RB, CIN, 3y veteran)",
+          "Ja'Marr Chase (WR, CIN, 5y veteran)",
+          "Puka Nacua (WR, LAR, 3y veteran)",
+          "Sam LaPorta (TE, DET, 3y veteran)",
+          "Nico Collins (WR, HOU, 5y veteran)",
+          "RJ Harvey (RB, DEN, 1y veteran)",
+          "Carnell Tate (WR, TEN, Rookie)",
+          "Tyler Loop (K, BAL, 1y veteran)",
+          "LAR (DEF, LAR, Rookie)"
         ],
-        "projected": 108.2,
-        "win_prob": "48%"
+        "projected": 114.5,
+        "win_prob": "53%"
       },
       "team_b": {
         "roster_id": 8,
         "team_name": "Mr texas ",
         "record": "0-0",
         "starters": [
-          "Dak Prescott (QB)",
-          "Kenneth Walker (RB)",
-          "David Montgomery (RB)",
-          "Alec Pierce (WR)",
-          "Mike Evans (WR)",
-          "Harold Fannin (TE)",
-          "J.K. Dobbins (RB)",
-          "Tyler Warren (TE)",
-          "Kenny Gainwell (RB)",
-          "Trey Smack (K)",
-          "JAX (DEF)"
+          "Dak Prescott (QB, DAL, 10y veteran)",
+          "Kenneth Walker (RB, KC, 4y veteran)",
+          "David Montgomery (RB, HOU, 7y veteran)",
+          "Alec Pierce (WR, IND, 4y veteran)",
+          "Mike Evans (WR, SF, 12y veteran)",
+          "Harold Fannin (TE, CLE, 1y veteran)",
+          "J.K. Dobbins (RB, DEN, 6y veteran)",
+          "Tyler Warren (TE, IND, 1y veteran)",
+          "Kenny Gainwell (RB, TB, 5y veteran)",
+          "Trey Smack (K, GB, Rookie)",
+          "JAX (DEF, JAX, Rookie)"
         ],
-        "projected": 112.5,
-        "win_prob": "52%"
+        "projected": 110.0,
+        "win_prob": "47%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nMaxWeese25\u2019s star\u2011powered WR lineup faces Mr texas\u2019s balanced attack, but the rookie RB surge on the Texans side gives them a slight edge in depth and upside.\n\n**\ud83d\udd25 The X-Factors:**  \n- MaxWeese25: Ja'Marr Chase \u2013 his explosive playmaking can swing the game.  \n- Mr texas : Kenneth Walker \u2013 his rookie surge and 1,000\u2011yard potential can tip the scales.\n\n**\ud83d\udd2e The Verdict:**  \nMr texas edges out MaxWeese25, with Walker\u2019s breakout RB performance the decisive factor, 112.5 to 108.2."
+      "preview": "Matchup preview pending lineup confirmation."
     },
     {
       "matchup_id": 1,
@@ -228,42 +228,42 @@
         "team_name": "Worthy of my Chuba",
         "record": "0-0",
         "starters": [
-          "Drake Maye (QB)",
-          "Bijan Robinson (RB)",
-          "Saquon Barkley (RB)",
-          "Terry McLaurin (WR)",
-          "DK Metcalf (WR)",
-          "Mark Andrews (TE)",
-          "Travis Etienne (RB)",
-          "Chris Godwin (WR)",
-          "Michael Wilson (WR)",
-          "Brandon Aubrey (K)",
-          "PIT (DEF)"
+          "Drake Maye (QB, NE, 2y veteran)",
+          "Bijan Robinson (RB, ATL, 3y veteran)",
+          "Saquon Barkley (RB, PHI, 8y veteran)",
+          "Terry McLaurin (WR, WAS, 7y veteran)",
+          "DK Metcalf (WR, PIT, 7y veteran)",
+          "Mark Andrews (TE, BAL, 8y veteran)",
+          "Travis Etienne (RB, NO, 5y veteran)",
+          "Chris Godwin (WR, TB, 9y veteran)",
+          "Michael Wilson (WR, ARI, 3y veteran)",
+          "Brandon Aubrey (K, DAL, 3y veteran)",
+          "PIT (DEF, PIT, Rookie)"
         ],
-        "projected": 118.4,
-        "win_prob": "56%"
+        "projected": 114.5,
+        "win_prob": "53%"
       },
       "team_b": {
         "roster_id": 12,
         "team_name": "Amon Ra Akbar",
         "record": "0-0",
         "starters": [
-          "Jalen Hurts (QB)",
-          "Jordan Mason (RB)",
-          "Brian Robinson (RB)",
-          "Amon-Ra St. Brown (WR)",
-          "Justin Jefferson (WR)",
-          "Tucker Kraft (TE)",
-          "Drake London (WR)",
-          "Rome Odunze (WR)",
-          "Marvin Harrison (WR)",
-          "Ka'imi Fairbairn (K)",
-          "BAL (DEF)"
+          "Jalen Hurts (QB, PHI, 6y veteran)",
+          "Jordan Mason (RB, MIN, 4y veteran)",
+          "Brian Robinson (RB, ATL, 4y veteran)",
+          "Amon-Ra St. Brown (WR, DET, 5y veteran)",
+          "Justin Jefferson (WR, MIN, 6y veteran)",
+          "Tucker Kraft (TE, GB, 3y veteran)",
+          "Drake London (WR, ATL, 4y veteran)",
+          "Rome Odunze (WR, CHI, 2y veteran)",
+          "Marvin Harrison (WR, ARI, 2y veteran)",
+          "Ka'imi Fairbairn (K, HOU, 10y veteran)",
+          "BAL (DEF, BAL, Rookie)"
         ],
-        "projected": 112.8,
-        "win_prob": "44%"
+        "projected": 110.0,
+        "win_prob": "47%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nTeam A\u2019s bruising ground game will clash head\u2011to\u2011head with Amon Ra Akbar\u2019s high\u2011tempo offense that relies on Jalen Hurts\u2019 dual\u2011threat ability and a deep receiving corps.  \n\n**\ud83d\udd25 The X\u2011Factors:**  \n- Worthy of my Chuba: **Bijan Robinson** \u2013 his explosive rushing upside can swing the game.  \n- Amon Ra Akbar: **Jalen Hurts** \u2013 his ability to rack up yards and touchdowns on the ground and through the air will dictate the ceiling.  \n\n**\ud83d\udd2e The Verdict:**  \nWorthy of my Chuba pulls ahead on the ground and a stout defense, edging Amon Ra Akbar in a tight, 118\u2011112 finish."
+      "preview": "Matchup preview pending lineup confirmation."
     }
   ]
 }
