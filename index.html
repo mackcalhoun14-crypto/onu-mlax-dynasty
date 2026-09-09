@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ONU MLax Dynasty | Matchup Center & Season Outlook</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Load marked.js for AI Commissioner preview formatting -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
@@ -33,6 +37,18 @@
     .glass-inner { background: rgba(19, 30, 54, 0.65); border: 1px solid rgba(255, 255, 255, 0.05); }
     .glow-gold { box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.18); }
     .glow-rose { box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.18); }
+    
+    /* Styles for the parsed Markdown HTML */
+    .ai-preview-content p {
+      margin-bottom: 0.75rem;
+    }
+    .ai-preview-content p:last-child {
+      margin-bottom: 0;
+    }
+    .ai-preview-content strong {
+      color: #ffffff;
+      font-weight: 800;
+    }
   </style>
 </head>
 <body class="text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
@@ -420,7 +436,12 @@
 
     function renderCards(list) {
       const container = document.getElementById('matchups-container');
-      container.innerHTML = list.map(m => `
+      
+      container.innerHTML = list.map(m => {
+        // Use marked.js to convert markdown formatting (**bold**, etc.) into clean HTML
+        const parsedPreview = marked.parse(m.preview);
+        
+        return `
         <div class="glass rounded-3xl p-4 sm:p-6 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
             <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Matchup #${m.matchup_id}</span>
@@ -439,11 +460,15 @@
             </div>
           </div>
           <div class="bg-slate-950/60 rounded-2xl p-3 sm:p-3.5 border border-slate-800/80">
-            <div class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-1">🤖 AI Commissioner Breakdown:</div>
-            <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">${m.preview}</p>
+            <div class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-2">🤖 AI Commissioner Breakdown:</div>
+            
+            <!-- We replaced the raw <p> tag with a div that injects the parsed HTML and applies our new CSS class -->
+            <div class="text-xs text-slate-300 leading-relaxed ai-preview-content">${parsedPreview}</div>
+            
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     loadMatchups();
