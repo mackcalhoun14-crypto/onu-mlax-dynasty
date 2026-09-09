@@ -1,0 +1,113 @@
+{
+  "week": 1,
+  "standings": [
+    {
+      "roster_id": 1,
+      "name": "George PickHIMs",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "In The Hunt",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 2,
+      "name": "T-Mac Attack",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "In The Hunt",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 3,
+      "name": "Dayton Degenerates ",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "In The Hunt",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 4,
+      "name": "noahsaint",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "In The Hunt",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 5,
+      "name": "MaxWeese25",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "In The Hunt",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 6,
+      "name": "Chicken Soup",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "In The Hunt",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 7,
+      "name": "BabbyBare",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 8,
+      "name": "Mr texas ",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 9,
+      "name": "Syracuse Sandstorms",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 10,
+      "name": "spearson22",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 11,
+      "name": "Worthy of my Chuba",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 12,
+      "name": "Amon Ra Akbar",
+      "record": "0-0",
+      "fpts": 0.0,
+      "power_score": 0.0,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    }
+  ]
+}
