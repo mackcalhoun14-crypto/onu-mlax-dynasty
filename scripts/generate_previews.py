@@ -91,7 +91,7 @@ def run():
         games = {}
         
         # If Sleeper returns real matchups, parse them
-        if matchups and isinstance(matchups, list):
+        if matchups and isinstance(matchups, list) and len(matchups) > 0:
             for m in matchups:
                 m_id = m.get("matchup_id")
                 if not m_id:
@@ -115,7 +115,7 @@ def run():
                     "starters": starters
                 })
 
-        # Guaranteed Fallback: If Sleeper has no official matchups generated yet, pair up rosters sequentially
+        # Guaranteed Fallback: If Sleeper returns empty/0 matchups, pair up rosters sequentially
         if not games and roster_map:
             print("Sleeper returned 0 official matchups. Forcing default head-to-head pairings from rosters...")
             sorted_rosters = list(roster_map.items())
