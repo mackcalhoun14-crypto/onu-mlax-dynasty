@@ -8,7 +8,7 @@ GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
 
 def call_gemini(prompt):
     if not GEMINI_KEY:
-        print("Error: GEMINI_API_KEY is not set.")
+        print("CRITICAL ERROR: GEMINI_API_KEY environment variable is not set.")
         return None
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY.strip()}"
@@ -19,7 +19,10 @@ def call_gemini(prompt):
 
     for attempt in range(3):
         try:
+            print(f"Calling Gemini API (Attempt {attempt + 1})...")
             resp = requests.post(url, headers=headers, json=payload, timeout=25)
+            print(f"Gemini API Response Status: {resp.status_code}")
+            
             if resp.status_code == 200:
                 data = resp.json()
                 candidates = data.get("candidates", [])
@@ -27,27 +30,27 @@ def call_gemini(prompt):
                     parts = candidates[0]["content"].get("parts", [])
                     if parts and "text" in parts[0]:
                         return parts[0]["text"].strip()
+                print(f"Unexpected response structure: {data}")
             elif resp.status_code == 429:
                 print("Rate limited (429). Pausing 7s...")
                 time.sleep(7)
             else:
                 print(f"Gemini API Error [{resp.status_code}]: {resp.text}")
         except Exception as e:
-            print(f"Request exception: {e}")
+            print(f"Request exception encountered: {e}")
             time.sleep(3)
     return None
 
 def run():
-    print("Fetching Sleeper NFL State...")
+    print("1. Fetching Sleeper NFL State...")
     state = requests.get("https://api.sleeper.app/v1/state/nfl", timeout=15).json()
     week = state.get("week", 1)
+    print(f"Current active week: {week}")
 
-    print(f"Fetching League Data for Week {week}...")
+    print("2. Fetching League Users, Rosters, Matchups, and Players...")
     users = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/users", timeout=15).json()
     rosters = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/rosters", timeout=15).json()
     matchups = requests.get(f"https://api.sleeper.app/v1/league/{LEAGUE_ID}/matchups/{week}", timeout=15).json()
-    
-    print("Fetching master player list...")
     players = requests.get("https://api.sleeper.app/v1/players/nfl", timeout=30).json()
 
     user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
@@ -59,7 +62,7 @@ def run():
             "losses": (r.get("settings", {}) or {}).get("losses", 0)
         }
 
-    # --- PART 1: WEEKLY MATCHUPS ---
+    # --- PART 1: MATCHUPS ---
     games = {}
     for m in matchups:
         m_id = m.get("matchup_id")
@@ -84,12 +87,13 @@ def run():
             "starters": starters
         })
 
+    print(f"Found {len(games)} head-to-head matchups. Generating AI previews...")
     final_matchups = []
     for game_id, teams in games.items():
         if len(teams) != 2:
             continue
         t_a, t_b = teams[0], teams[1]
-        print(f"Generating preview for Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}...")
+        print(f"Processing Matchup #{game_id}: {t_a['team_name']} vs {t_b['team_name']}")
 
         prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
 Write a concise, high-energy 2-paragraph matchup preview for Week {week}.
@@ -106,21 +110,20 @@ Requirements:
 Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
 
         ai_text = call_gemini(prompt) or "Preview pending final lineup locks."
-        print(f"Matchup #{game_id} preview generated successfully.")
-
         final_matchups.append({
             "matchup_id": game_id,
             "team_a": t_a,
             "team_b": t_b,
             "preview": ai_text
         })
-        time.sleep(4)
+        time.sleep(2)
 
     os.makedirs("data", exist_ok=True)
     with open("data/matchups.json", "w") as f:
         json.dump({"week": week, "matchups": final_matchups}, f, indent=2)
+    print("Successfully wrote data/matchups.json")
 
-    # --- PART 2: IN-SEASON TRADES ---
+    # --- PART 2: TRADES ---
     print("Auditing completed trades...")
     executed_trades = []
     for w in range(1, week + 1):
@@ -153,7 +156,7 @@ Tone: Sharp, analytical fantasy analyst. No corporate fluff."""
                     elif pick.get("owner_id") == r2:
                         t2_receives.append(pick_desc)
 
-                print(f"Auditing Trade ID: {tx_id} ({t1_name} <-> {t2_name})...")
+                print(f"Auditing Trade ID: {tx_id} ({t1_name} <-> {t2_name})")
                 trade_prompt = f"""You are the sharp commissioner of the 'ONU MLax Dynasty League'.
 Audit this trade executed in Week {w}:
 
@@ -177,8 +180,6 @@ ANALYSIS:
 [Your 2-paragraph audit]"""
 
                 audit_text = call_gemini(trade_prompt) or "Trade audit pending review."
-                print(f"Trade ID: {tx_id} audit generated successfully.")
-
                 executed_trades.append({
                     "transaction_id": tx_id,
                     "week": w,
@@ -186,12 +187,12 @@ ANALYSIS:
                     "team_2": {"name": t2_name, "receives": t2_receives},
                     "audit": audit_text
                 })
-                time.sleep(4)
+                time.sleep(2)
 
     with open("data/trades.json", "w") as f:
         json.dump({"total_trades": len(executed_trades), "trades": executed_trades}, f, indent=2)
-
-    print("Pipeline run complete.")
+    print("Successfully wrote data/trades.json")
+    print("Pipeline script execution complete.")
 
 if __name__ == "__main__":
     run()
