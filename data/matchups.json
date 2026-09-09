@@ -20,8 +20,21 @@
           "Spencer Shrader (K, NFL: IND, 2y veteran)",
           "LAC (DEF, NFL: LAC, Rookie)"
         ],
-        "projected": 122.5,
-        "win_prob": "68%"
+        "starter_ids": [
+          "5849",
+          "9226",
+          "11586",
+          "8676",
+          "8144",
+          "8130",
+          "11604",
+          "11635",
+          "8137",
+          "12185",
+          "LAC"
+        ],
+        "projected": 127.7,
+        "win_prob": "72%"
       },
       "team_b": {
         "roster_id": 7,
@@ -40,10 +53,23 @@
           "Eddy Pineiro (K, NFL: SF, 8y veteran)",
           "PHI (DEF, NFL: PHI, Rookie)"
         ],
-        "projected": 108.3,
-        "win_prob": "32%"
+        "starter_ids": [
+          "11566",
+          "8138",
+          "11584",
+          "7525",
+          "9754",
+          "5022",
+          "8134",
+          "7002",
+          "9480",
+          "5189",
+          "PHI"
+        ],
+        "projected": 114.2,
+        "win_prob": "28%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**\nGeorge PickHIMs banks on a high\u2011octane, dual\u2011threat offense anchored by Kyler Murray and a deep WR corps, while BabbyBare leans on a balanced, run\u2011first approach with a stout TE anchor in Dallas Goedert.\n\n**\ud83d\udd25 The X-Factors:**\n- George PickHIMs: **Kyler Murray (QB, MIN, 7y veteran)** \u2013 Murray\u2019s ability to generate points on the ground and his improved chemistry with Chris\u202fOlave and George\u202fPickens lifts the ceiling well above 120 points on a good day.\n- BabbyBare: **Dallas Goedert (TE, PHI, 8y veteran)** \u2013 Goedert\u2019s consistent target share in a pass\u2011heavy Eagles offense makes him the most reliable high\u2011volume scorer on BabbyBare\u2019s roster.\n\n**\ud83d\udd2e The Verdict:**\nGeorge PickHIMs defeats BabbyBare, 122.5\u2011108.3, driven by Kyler Murray\u2019s rushing upside and the stacked WR upside of Olave and Pickens that outpaces BabbyBare\u2019s more modest offensive firepower."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nGeorge PickHIMs rolls into Week\u202f1 with a 127.7\u2011point projection, anchored by a high\u2011octane dual\u2011tight\u2011end set and a deep receiving corps. BabbyBare counters with a 114.2\u2011point slate, banking on a balanced run\u2011pass attack led by a mobile rookie quarterback.\n\n**\ud83d\udd25 The X-Factors:**  \n- **George PickHIMs:** *Kyler Murray (QB, NFL: MIN, 7y veteran)* \u2013 Murray\u2019s dual\u2011threat ability to rack up passing yards and scramble for touchdowns gives the PickHIMs a ceiling that can outpace any defense, especially with a supporting cast of elite receivers like Chris Olave and George\u202fPickens.  \n- **BabbyBare:** *Jayden Daniels (QB, NFL: WAS, 2y veteran)* \u2013 Daniels\u2019 improvisational skill set and willingness to take off\u2011script throws make him the engine for BabbyBare\u2019s offense; his upside spikes when paired with playmakers like DeVonta\u202fSmith and the emerging Quentin\u202fJohnston.\n\n**\ud83d\udd2e The Verdict:**  \nGeorge PickHIMs defeats BabbyBare, 127.7 to 114.2, driven by Kyler Murray\u2019s explosive dual\u2011threat ceiling that outmatches BabbyBare\u2019s more modest quarterback upside."
     },
     {
       "matchup_id": 2,
@@ -64,8 +90,21 @@
           "Will Reichard (K, NFL: MIN, 2y veteran)",
           "DET (DEF, NFL: DET, Rookie)"
         ],
-        "projected": 108.5,
-        "win_prob": "32%"
+        "starter_ids": [
+          "8161",
+          "12481",
+          "8228",
+          "12526",
+          "12519",
+          "8131",
+          "9756",
+          "5001",
+          "8132",
+          "11792",
+          "DET"
+        ],
+        "projected": 110.5,
+        "win_prob": "9%"
       },
       "team_b": {
         "roster_id": 9,
@@ -84,10 +123,23 @@
           "Jason Myers (K, NFL: SEA, 11y veteran)",
           "KC (DEF, NFL: KC, Rookie)"
         ],
-        "projected": 122.3,
-        "win_prob": "68%"
+        "starter_ids": [
+          "4984",
+          "6813",
+          "4034",
+          "6786",
+          "9997",
+          "7553",
+          "7588",
+          "12512",
+          "2133",
+          "2747",
+          "KC"
+        ],
+        "projected": 144.5,
+        "win_prob": "91%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe T-Mac Attack leans on a balanced but unproven mix of young skill players, while the Syracuse Sandstorms field a veteran\u2011heavy, high\u2011octane offense anchored by a premier dual\u2011threat quarterback and two elite running backs.\n\n**\ud83d\udd25 The X-Factors:**  \n- **T-Mac Attack:** Malik Willis (QB, NFL: MIA, 4y veteran) \u2013 Willis\u2019 mobility and improved decision\u2011making give the Attack a ceiling that can explode if he connects deep with Jordan Addison or finds a gap for Tyler Allgeier.  \n- **Syracuse Sandstorms:** Josh Allen (QB, NFL: BUF, 8y veteran) \u2013 Allen\u2019s arm strength, rushing upside, and chemistry with CeeDee Lamb and Davante Adams make him the engine that can outpace any defense.\n\n**\ud83d\udd2e The Verdict:**  \nSyracuse Sandstorms defeat T-Mac Attack, 122.3\u2011108.5, driven by Josh Allen\u2019s dual\u2011threat dominance that overwhelms the Attack\u2019s modest passing attack and forces the defense into impossible coverage assignments."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe Syracuse Sandstorms roll into Week\u202f1 with a stacked, veteran\u2011heavy lineup that eclipses the modestly projected firepower of the T\u2011Mac Attack. While both squads feature seasoned NFL talent, the Sandstorms\u2019 depth at RB and elite QB play give them a clear edge in total output.\n\n**\ud83d\udd25 The X-Factors:**  \n- **T\u2011Mac Attack:** *Malik Willis (QB, NFL: MIA, 4y veteran)* \u2013 Willis is the primary driver of the Attack\u2019s ceiling. As a four\u2011year veteran, his dual\u2011threat ability to extend plays and generate yardage with his arm makes him the linchpin for a roster that otherwise leans on younger, less proven pieces.  \n- **Syracuse Sandstorms:** *Josh Allen (QB, NFL: BUF, 8y veteran)* \u2013 Allen\u2019s eight\u2011year pedigree and proven production at the top of the fantasy charts anchor the Sandstorms. His combination of passing volume, rushing upside, and consistency against a variety of defenses makes him the most reliable source of points for the team.\n\n**\ud83d\udd2e The Verdict:**  \n*Syracuse Sandstorms* defeats *T\u2011Mac Attack*, 144.5 to 110.5, driven by superior quarterback play and a deeper, veteran\u2011laden running back corps that translates into a higher floor and ceiling across the board."
     },
     {
       "matchup_id": 4,
@@ -108,8 +160,21 @@
           "Chase McLaughlin (K, NFL: TB, 7y veteran)",
           "MIN (DEF, NFL: MIN, Rookie)"
         ],
-        "projected": 108.5,
-        "win_prob": "38%"
+        "starter_ids": [
+          "12508",
+          "13287",
+          "6790",
+          "5947",
+          "2449",
+          "1466",
+          "4199",
+          "11618",
+          "5872",
+          "6650",
+          "MIN"
+        ],
+        "projected": 106.3,
+        "win_prob": "8%"
       },
       "team_b": {
         "roster_id": 6,
@@ -128,10 +193,23 @@
           "Cam Little (K, NFL: JAX, 2y veteran)",
           "SEA (DEF, NFL: SEA, Rookie)"
         ],
-        "projected": 119.3,
-        "win_prob": "62%"
+        "starter_ids": [
+          "4881",
+          "9221",
+          "3198",
+          "5859",
+          "10229",
+          "4217",
+          "12514",
+          "8155",
+          "11632",
+          "11786",
+          "SEA"
+        ],
+        "projected": 140.7,
+        "win_prob": "92%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe Dayton Degenerates pile veteran production at RB/WR but lean on a one\u2011year QB, while Chicken Soup couples a dual\u2011threat quarterback with two elite rushers and a premier tight end, giving them a higher weekly ceiling.\n\n**\ud83d\udd25 The X-Factors:**  \n- **Dayton Degenerates:** *Travis Kelce (TE, KC, 13y veteran)* \u2013 Kelce remains a red\u2011zone magnet and a consistent 10\u201115 point engine, anchoring an otherwise QB\u2011limited offense.  \n- **Chicken Soup:** *Lamar Jackson (QB, BAL, 8y veteran)* \u2013 Jackson\u2019s dual\u2011threat upside can explode for 30+ points on a single play, and his ability to control the tempo amplifies the production of Henry and Gibbs.\n\n**\ud83d\udd2e The Verdict:**  \nChicken Soup defeats Dayton Degenerates , 119.3\u2011108.5, driven by Lamar Jackson\u2019s explosive dual\u2011threat play that unlocks the full potential of Derrick Henry and Jahmyr Gibbs."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nThe Dayton Degenerates \u2019 106.3\u2011point roster leans on a veteran\u2011heavy receiving corps anchored by Stefon Diggs (WR, WAS, 11y veteran) and a solid, though unproven, rookie RB in Jeremiyah Love (RB, ARI, Rookie). Chicken Soup\u2019s 140.7\u2011point lineup is turbo\u2011charged by dual\u2011threat RBs Jahmyr Gibbs (RB, DET, 3y veteran) and Derrick Henry (RB, BAL, 10y veteran) plus a high\u2011octane dual\u2011QB/dual\u2011WR attack led by Lamar\u202fJackson (QB, BAL, 8y veteran) and A.J.\u202fBrown (WR, NE, 7y veteran).\n\n**\ud83d\udd25 The X-Factors:**  \n- **Dayton Degenerates :** *Stefon Diggs* (WR, WAS, 11y veteran) \u2013 Diggs remains a consistent 100\u2011yard, high\u2011target option in Washington\u2019s passing attack; his volume and red\u2011zone presence give Dayton the ceiling to outscore any opponent that can\u2019t contain his route\u2011running and yards after catch.  \n- **Chicken Soup:** *Lamar Jackson* (QB, BAL, 8y veteran) \u2013 Jackson\u2019s dual\u2011threat ability to rack up passing yards and scramble for touchdowns makes him the engine of Chicken Soup\u2019s offense, especially against a defense that struggles against mobile quarterbacks.\n\n**\ud83d\udd2e The Verdict:**  \nChicken Soup defeats Dayton Degenerates , 140.7 to 106.3, driven by Lamar Jackson\u2019s dual\u2011threat production that overwhelms the Degenerates\u2019 veteran receiving core."
     },
     {
       "matchup_id": 3,
@@ -152,8 +230,21 @@
           "Cameron Dicker (K, NFL: LAC, 4y veteran)",
           "TEN (DEF, NFL: TEN, Rookie)"
         ],
-        "projected": 108.3,
-        "win_prob": "68%"
+        "starter_ids": [
+          "8183",
+          "12490",
+          "7611",
+          "9488",
+          "6801",
+          "12517",
+          "7526",
+          "8148",
+          "8167",
+          "8259",
+          "TEN"
+        ],
+        "projected": 136.4,
+        "win_prob": "90%"
       },
       "team_b": {
         "roster_id": 10,
@@ -172,10 +263,23 @@
           "Evan McPherson (K, NFL: CIN, 5y veteran)",
           "CHI (DEF, NFL: CHI, Rookie)"
         ],
-        "projected": 95.7,
-        "win_prob": "32%"
+        "starter_ids": [
+          "4892",
+          "12527",
+          "5967",
+          "4983",
+          "5045",
+          "7600",
+          "7021",
+          "12501",
+          "11834",
+          "7839",
+          "CHI"
+        ],
+        "projected": 104.4,
+        "win_prob": "10%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nnoahsaint boasts a deep, veteran\u2011laden receiving corps anchored by a dual\u2011threat QB in Brock Purdy, while spearson22 leans heavily on a single workhorse back in Tony Pollard and a modestly productive passing attack.\n\n**\ud83d\udd25 The X-Factors:**  \n- noahsaint: **Brock Purdy (QB, SF, 4y veteran)** \u2013 Purdy\u2019s efficient pocket presence and upside as a dual\u2011threat passer give him a floor of 15 points and a ceiling that can eclipse 25 when his receivers find space.  \n- spearson22: **Tony Pollard (RB, TEN, 7y veteran)** \u2013 Pollard is the engine of the offense; his blend of breakaway speed and goal\u2011line power makes him the only consistent 15\u2011point threat on the roster.\n\n**\ud83d\udd2e The Verdict:**  \nnoahsaint defeats spearson22, 108.3\u201195.7, driven by a superior passing attack that spreads the ball to multiple high\u2011volume WRs, overwhelming spearson22\u2019s single\u2011dimensional ground game."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nnoahsaint rolls into Week\u202f1 with a deep, veteran\u2011heavy receiving corps and a balanced two\u2011back attack, while spearson22 leans on a single\u2011star RB in Tony Pollard and a modest supporting cast. The projected gap\u2014136.4 vs. 104.4\u2014reflects the depth disparity at WR and the extra scoring upside from a high\u2011volume QB.\n\n**\ud83d\udd25 The X-Factors:**  \n- **noahsaint:** **Brock Purdy (QB, NFL: SF, 4y veteran)** \u2013 Purdy finally has a full\u2011season schedule and a stable offensive line in San\u202fFrancisco. His dual\u2011threat ability to extend plays and hit high\u2011percentage short passes should translate into a 20\u201130\u202fpoint floor, with upside if the 49ers\u2019 run game opens up the passing lanes.  \n- **spearson22:** **Tony Pollard (RB, NFL: TEN, 7y veteran)** \u2013 Pollard is the Titans\u2019 primary weapon in both the ground game and the passing attack. His explosiveness on outside runs and his role as a third\u2011down back give him a high ceiling, but his weekly ceiling is capped by the Titans\u2019 overall offensive volume.\n\n**\ud83d\udd2e The Verdict:**  \n**noahsaint** defeats **spearson22**, 136.4 to 104.4, driven by a superior receiving depth that turns Brock Purdy\u2019s passing volume into consistent fantasy points and a more balanced RB rotation that mitigates injury risk."
     },
     {
       "matchup_id": 6,
@@ -196,8 +300,21 @@
           "Tyler Loop (K, NFL: BAL, 1y veteran)",
           "LAR (DEF, NFL: LAR, Rookie)"
         ],
-        "projected": 112.5,
-        "win_prob": "57%"
+        "starter_ids": [
+          "6804",
+          "12507",
+          "9224",
+          "7564",
+          "9493",
+          "10859",
+          "7569",
+          "12489",
+          "13279",
+          "12711",
+          "LAR"
+        ],
+        "projected": 137.3,
+        "win_prob": "77%"
       },
       "team_b": {
         "roster_id": 8,
@@ -216,10 +333,23 @@
           "Trey Smack (K, NFL: GB, Rookie)",
           "JAX (DEF, NFL: JAX, Rookie)"
         ],
-        "projected": 108.3,
-        "win_prob": "43%"
+        "starter_ids": [
+          "3294",
+          "8151",
+          "5892",
+          "8142",
+          "2216",
+          "12506",
+          "6806",
+          "12518",
+          "7567",
+          "13545",
+          "JAX"
+        ],
+        "projected": 120.2,
+        "win_prob": "23%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nMaxWeese25 rolls into Week\u202f1 with a balanced attack\u2014steady veteran QB Jordan Love, a three\u2011deep RB corps, and a high\u2011upside WR duo anchored by Ja'Marr Chase. Mr texas counters with a seasoned Dak Prescott and a deep receiving corps led by Mike Evans, but its RB depth leans on aging veterans.\n\n**\ud83d\udd25 The X-Factors:**  \n- MaxWeese25: **Ja'Marr Chase (WR, CIN, 5y veteran)** \u2013 the league\u2019s most consistent deep\u2011ball threat; his route\u2011running and red\u2011zone presence can explode any week, pushing MaxWeese25\u2019s ceiling well above 120 points.  \n- Mr texas : **Dak Prescott (QB, DAL, 10y veteran)** \u2013 a dual\u2011threat quarterback who can generate both passing yards and rushing upside; his ability to thread the needle with his veteran WRs is the primary driver of Mr texas\u2019s scoring potential.\n\n**\ud83d\udd2e The Verdict:**  \nMaxWeese25 defeats Mr texas, 112.5\u2011108.3, driven by Ja'Marr Chase\u2019s elite big\u2011play ceiling that outpaces Mr texas\u2019s reliance on Dak Prescott\u2019s steady but less explosive production."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nMaxWeese25 rolls into Week\u202f1 with a 137.3\u2011point projection, anchored by a deep receiving corps and a balanced RB tandem, while Mr\u202ftexas\u202f brings a 120.2\u2011point outlook that leans heavily on veteran quarterback play and a top\u2011tier WR in Mike Evans.\n\n**\ud83d\udd25 The X-Factors:**  \n- **MaxWeese25:** **Ja'Marr Chase (WR, NFL: CIN, 5y veteran)** \u2013 The reigning MVP\u2011caliber receiver provides a massive weekly ceiling; his connection with quarterback Jordan Love could explode for 30+ points against a rookie LAR defense.  \n- **Mr texas :** **Dak Prescott (QB, NFL: DAL, 10y veteran)** \u2013 Prescott\u2019s experience and dual\u2011threat ability give him the edge to exploit MaxWeese25\u2019s relatively untested secondary, especially with a favorable matchup against the Lions\u2019 defense.\n\n**\ud83d\udd2e The Verdict:**  \n**MaxWeese25** defeats **Mr texas **, 137.3 to 120.2, driven by Ja'Marr Chase\u2019s high\u2011volume, big\u2011play potential that outpaces Mr\u202ftexas\u202f\u2019s reliance on a single quarterback performance."
     },
     {
       "matchup_id": 1,
@@ -240,8 +370,21 @@
           "Brandon Aubrey (K, NFL: DAL, 3y veteran)",
           "PIT (DEF, NFL: PIT, Rookie)"
         ],
-        "projected": 112.5,
-        "win_prob": "58%"
+        "starter_ids": [
+          "11564",
+          "9509",
+          "4866",
+          "5927",
+          "5846",
+          "5012",
+          "7543",
+          "4037",
+          "10232",
+          "11533",
+          "PIT"
+        ],
+        "projected": 130.4,
+        "win_prob": "70%"
       },
       "team_b": {
         "roster_id": 12,
@@ -260,10 +403,23 @@
           "Ka'imi Fairbairn (K, NFL: HOU, 10y veteran)",
           "BAL (DEF, NFL: BAL, Rookie)"
         ],
-        "projected": 108.3,
-        "win_prob": "42%"
+        "starter_ids": [
+          "6904",
+          "8408",
+          "8154",
+          "7547",
+          "6794",
+          "9484",
+          "8112",
+          "11620",
+          "11628",
+          "3451",
+          "BAL"
+        ],
+        "projected": 118.4,
+        "win_prob": "30%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**\nWorthy of my Chuba leans on a three\u2011head rush with Bijan Robinson, Saquon Barkley and Travis Etienne, while Amon Ra Akbar banks on a fireworks\u2011filled receiving corps anchored by Justin Jefferson and Amon\u2011Ra St.\u202fBrown plus Jalen Hurts\u2019 dual\u2011threat upside.\n\n**\ud83d\udd25 The X-Factors:**\n- Worthy of my Chuba: **Bijan Robinson (RB, ATL, 3y veteran)** \u2013 his blend of breakaway speed and volume in a run\u2011first offense gives the franchise the highest single\u2011player ceiling in the matchup.\n- Amon Ra Akbar: **Jalen Hurts (QB, PHI, 6y veteran)** \u2013 his rushing upside and improved passing efficiency make him the only quarterback capable of out\u2011scoring Worthy\u2019s top RBs on any given week.\n\n**\ud83d\udd2e The Verdict:**\nWorthy of my Chuba defeats Amon Ra Akbar, 112.5\u2011108.3, driven by superior RB depth that translates into a higher weekly floor and more consistent point production."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nWorthy of my Chuba rolls into Week\u202f1 with a 130.4\u2011point projection, anchored by a deep, veteran\u2011heavy skill set. Amon Ra Akbar counters with a 118.4\u2011point slate, leaning on a high\u2011octane dual\u2011QB attack and a stacked receiving corps.\n\n**\ud83d\udd25 The X-Factors:**  \n- **Worthy of my Chuba:** **Bijan Robinson (RB, NFL: ATL, 3y veteran)** \u2013 Robinson\u2019s blend of breakaway speed and pass\u2011catch ability makes him the linchpin of a three\u2011back rotation that can out\u2011produce any opponent\u2019s RB group, especially against defenses that struggle versus elite dual\u2011threat backs.  \n- **Amon Ra Akbar:** **Jalen Hurts (QB, NFL: PHI, 6y veteran)** \u2013 Hurts\u2019 rushing upside and improved pocket passing give Amon Ra Akbar a weekly ceiling that can eclipse the projected total, particularly when paired with a deep\u2011ball WR tandem.\n\n**\ud83d\udd2e The Verdict:**  \nWorthy of my Chuba defeats Amon Ra Akbar, 130.4 to 118.4, driven by the superior depth and upside at running back, which should outpace Amon Ra Akbar\u2019s reliance on a single high\u2011variance quarterback performance."
     }
   ]
 }
