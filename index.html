@@ -398,23 +398,27 @@
       const container = document.getElementById('matchups-container');
       const weekLabel = document.getElementById('current-week-label');
 
-      // Dynamically handle GitHub Pages subpath with cache-buster
       const pathPrefix = window.location.pathname.includes('/onu-mlax-dynasty/') ? '/onu-mlax-dynasty' : '';
       const jsonUrl = `${pathPrefix}/data/matchups.json?v=${Date.now()}`;
 
       try {
+        console.log("Attempting to fetch from:", jsonUrl);
         const res = await fetch(jsonUrl);
         if (res.ok) {
           const data = await res.json();
+          console.log("Successfully fetched data:", data);
           weekLabel.textContent = `Week ${data.week} Matchups`;
           renderCards(data.matchups);
           return;
+        } else {
+          console.log("Fetch response not OK:", res.status);
         }
       } catch (e) {
-        console.log("No matchups.json artifact found. Polling live Sleeper...");
+        console.error("Error fetching matchups.json:", e);
       }
 
       // Fallback
+      console.log("Falling back to live Sleeper API...");
       try {
         const [state, users, rosters] = await Promise.all([
           fetch('https://api.sleeper.app/v1/state/nfl').then(r => r.json()),
@@ -449,6 +453,7 @@
         }));
         renderCards(formatted);
       } catch (err) {
+        console.error("Sleeper fallback error:", err);
         container.innerHTML = `<div class="col-span-full text-center py-12 text-rose-400 font-mono text-xs">Error loading Sleeper matchups.</div>`;
       }
     }
