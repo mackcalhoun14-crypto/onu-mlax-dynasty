@@ -61,12 +61,12 @@ def run():
     matchups = matchups_res.json() if matchups_res.status_code == 200 else []
     players = players_res.json() if players_res.status_code == 200 else {}
 
-    # Safety fallback if matchups isn't a valid list
     if not isinstance(matchups, list):
         print(f"Warning: Matchups endpoint returned non-list data: {matchups}")
         matchups = []
 
-    user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name"] for u in users}
+    # Fixed syntax here: closed with ')' instead of ']'
+    user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
     roster_map = {}
     for r in rosters:
         roster_map[r["roster_id"]] = {
