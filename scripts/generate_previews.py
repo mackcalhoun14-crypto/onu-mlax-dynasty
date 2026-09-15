@@ -26,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, factual NFL fantasy football commissioner. Focus strictly on this week's matchup, active game script, weekly projections, and real-time news or injuries. Never write season-long player autobiographies or generic history."
+                "content": "You are a sharp, factual NFL fantasy football commissioner. Base your analysis strictly on the provided player performance stats, recent game stats from the news feed, injury timelines, and weekly projections. Never hallucinate player matchups or team dynamics."
             },
             {"role": "user", "content": prompt}
         ],
@@ -123,6 +123,7 @@ def run():
 
         if not isinstance(matchups, list): matchups = []
 
+        print("3. Fetching Detailed Player News & Performance Blurbs via RotoWire RSS...")
         global_news = []
         try:
             rss_res = requests.get("https://www.rotowire.com/rss/news.rss", timeout=10)
@@ -134,8 +135,8 @@ def run():
                     title = item.find('title').text if item.find('title') is not None else ""
                     desc = item.find('description').text if item.find('description') is not None else ""
                     global_news.append(f"{title}: {re.sub(r'<[^>]+>', '', desc)}")
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Failed to fetch RSS: {e}")
 
         user_map = {u["user_id"]: (u.get("metadata", {}) or {}).get("team_name") or u.get("display_name") for u in users}
         roster_map = {}
@@ -155,7 +156,7 @@ def run():
                     "name": name, 
                     "wins": wins, 
                     "losses": losses, 
-                    "fpts": fpts,
+                    "fpts": round(fpts, 1),
                     "players": r.get("players", [])
                 }
                 
@@ -195,6 +196,7 @@ def run():
                     "roster_id": m["roster_id"],
                     "team_name": t_name,
                     "record": f"{r_data.get('wins', 0)}-{r_data.get('losses', 0)}",
+                    "fpts": r_data.get("fpts", 0.0),
                     "starters": starters,
                     "starter_ids": starter_ids,
                     "roster_player_ids": r_players
@@ -210,7 +212,7 @@ def run():
             t_a["win_prob"] = f"{pct_a}%"
             t_b["win_prob"] = f"{pct_b}%"
 
-            # Scan rosters (starters + bench) for active news alerts
+            # Scan entire rosters (starters + bench) for performance news & injury reports
             all_matchup_pids = t_a["roster_player_ids"] + t_b["roster_player_ids"]
             matchup_news = []
             
@@ -228,29 +230,37 @@ def run():
 
             news_block = ""
             if matchup_news:
-                news_block = "\n[BREAKING PLAYER NEWS / INJURIES TO INCORPORATE]:\n" + "\n".join([f"- {n}" for n in matchup_news[:5]]) + "\n"
+                news_block = "\n[LIVE PLAYER PERFORMANCE & INJURY FEED - MUST CITE STATS/NEWS BELOW]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
 
-            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write a sharp, strictly weekly pregame preview for Week {week}.
+            prompt = f"""You are the lead fantasy football analyst and commissioner for the 'ONU MLax Dynasty League'. Write a sharp, data-driven pregame preview for Week {week}.
 
-Franchises:
-- '{t_a['team_name']}' ({t_a['record']}) | Proj: {t_a['projected']} pts | Starters: {', '.join(t_a['starters'])}
-- '{t_b['team_name']}' ({t_b['record']}) | Proj: {t_b['projected']} pts | Starters: {', '.join(t_b['starters'])}
+Franchise A: '{t_a['team_name']}'
+- Record: {t_a['record']} | Total Season FPts: {t_a['fpts']} | Week Proj: {t_a['projected']} pts
+- Starting Lineup: {', '.join(t_a['starters'])}
+
+Franchise B: '{t_b['team_name']}'
+- Record: {t_b['record']} | Total Season FPts: {t_b['fpts']} | Week Proj: {t_b['projected']} pts
+- Starting Lineup: {', '.join(t_b['starters'])}
+
 {news_block}
-STRICT EDITORIAL RULES:
-1. FOCUS EXCLUSIVELY ON THIS WEEK. Do not write season-long player histories, rookie draft summaries, or multi-year background filler.
-2. If any breaking player news or injuries (such as surgery or game statuses) are provided above, you MUST explicitly mention them and how they alter this week's outcome.
-3. Never use generic placeholders like Team A or Team B; always use '{t_a['team_name']}' and '{t_b['team_name']}'.
+
+CRITICAL MANDATORY RULES:
+1. PLAYER PERFORMANCE STATS: If any player has performance notes or recent game stats in the [LIVE PLAYER PERFORMANCE & INJURY FEED] above (e.g., targets, yards, touchdowns, efficiency), you MUST explicitly cite those stats and evaluate their current-year performance.
+2. INJURY TIMELINES: If a player like Brock Bowers or anyone else has an injury update or surgery status listed above, you MUST state their exact recovery timeline and how their absence changes this week's projection.
+3. SEASON MOMENTUM: Reference each team's record ({t_a['record']} vs {t_b['record']}) and total points to frame how their season is going so far.
+4. NO HALLUCINATIONS: Never state that an NFL player is playing against their own real-life NFL team. Focus entirely on fantasy scoring output and positional matchups.
+5. NAMES: Never use generic placeholders like Team A or Team B; always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
 Format Output Exactly As:
 **🥊 Tale of the Tape:**
-[1-2 punchy sentences focusing strictly on this week's projected lines and immediate injury impacts]
+[1-2 punchy sentences integrating team records, season scoring momentum, and key player performance/injury highlights]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Focus on a weekly matchup edge, weather, or active injury status]
-- {t_b['team_name']}: [Focus on a weekly matchup edge, weather, or active injury status]
+- {t_a['team_name']}: [Focus on a specific player's recent performance stats or active injury impact]
+- {t_b['team_name']}: [Focus on a specific player's recent performance stats or active injury impact]
 
 **🔮 The Verdict:**
-[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 immediate tactical reason for this week]."""
+[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 concrete tactical or player-performance reason]."""
 
             raw_ai = call_ai(prompt)
             clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
