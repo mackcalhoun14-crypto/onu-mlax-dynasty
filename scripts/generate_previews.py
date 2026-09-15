@@ -26,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, tactical fantasy football commissioner. Balance injury reporting with matchup analysis. STRICT RULES: 1) Only discuss injuries if verified news exists in the feed; never invent hypothetical injuries for healthy players. 2) If a player is healthy, focus their X-factor on pure matchup edges, target trends, or game script. 3) Never conflate players sharing a last name."
+                "content": "You are an uncompromising, highly analytical fantasy football commissioner and sharp tactician. Reject surface-level analysis, filler, and hypothetical scenarios. Force deep evaluations of high-value touch volume, target shares, defensive positional matchups, and game-script realities. \nSTRICT RULES:\n1) NEVER state that an NFL player is playing against their own real-life NFL team.\n2) Ignore historical, past-tense, or offseason recovery blurbs. Only discuss injuries if an active, current-week game designation (e.g., questionable, doubtful, IR) exists in the verified news feed.\n3) If a starting lineup is fully healthy, DO NOT invent hypothetical injury worries or bench replacement scenarios; dedicate the analysis entirely to real matchup advantages, target trends, and tactical scheme fits.\n4) Never conflate players sharing a last name.\n5) Focus strictly on rostered players."
             },
             {"role": "user", "content": prompt}
         ],
@@ -250,9 +250,9 @@ def run():
 
             news_block = ""
             if matchup_news:
-                news_block = "\n[VERIFIED PLAYER HEALTH & INJURY NEWS FOR THIS MATCHUP ONLY]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
+                news_block = "\n[VERIFIED CURRENT-WEEK PLAYER HEALTH & INJURY NEWS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
 
-            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write a data-driven Week {week} preview.
+            prompt = f"""You are an elite analytical fantasy football commissioner for the 'ONU MLax Dynasty League'. Write an uncompromising, highly tactical Week {week} preview.
 
 Franchise A: '{t_a['team_name']}'
 - Record: {t_a['record']} | Total Season FPts: {t_a['fpts']} | Week Proj: {t_a['projected']} pts
@@ -266,22 +266,22 @@ Franchise B: '{t_b['team_name']}'
 
 {news_block}
 
-CRITICAL MANDATORY RULES:
-1. DYNAMIC ANALYSIS (NO HYPOTHETICALS): If a starter has verified injury news in the news block above, analyze their health status and which specific player on that franchise's listed dynasty bench must step in. IF A STARTER HAS NO VERIFIED INJURY NEWS, DO NOT INVENT INJURIES OR DISCUSS BENCH REPLACEMENTS; instead, focus their X-factor entirely on a real matchup advantage, target trend, or game script.
-2. NO NAME CONFLATION: Never connect players who share a last name.
-3. NO GHOST PLAYERS: Do not mention any un-rostered players.
+CRITICAL ANALYTICAL RULES:
+1. RIGOROUS TACTICAL BREAKDOWN: Reject lazy boilerplate or hypothetical injury filler. Evaluate underlying leverage: high-value touch volume (red-zone usage), target share concentration, structural defensive weaknesses (e.g., slot coverage, run-funnel alignments), and game-script dynamics.
+2. CONDITIONAL INJURIES ONLY: Only discuss injuries if a verified current-week designation exists in the news block above. If a roster is clean and healthy, focus entirely on structural matchup edges, target trends, and scheme fits—do NOT invent "what-if" injury scenarios or speculative bench replacements.
+3. ABSOLUTE GUARDRAILS: Never state that a player is playing against their own real-life team. Never conflate last names or invent un-rostered players.
 4. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
 Format Output Exactly As:
 **🥊 Tale of the Tape:**
-[1-2 sentences framing matchup records and overall team outlook]
+[1-2 sharp sentences analyzing structural projection gaps and competitive landscape]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [If injured: address health & bench replacement. If healthy: focus on matchup edge, target share, or scheme fit]
-- {t_b['team_name']}: [If injured: address health & bench replacement. If healthy: focus on matchup edge, target share, or scheme fit]
+- {t_a['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target volume, or verified injury/bench contingency]
+- {t_b['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target volume, or verified injury/bench contingency]
 
 **🔮 The Verdict:**
-[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 concrete tactical or health-related reason]."""
+[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 elite tactical or efficiency-driven reason]."""
 
             raw_ai = call_ai(prompt)
             clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
