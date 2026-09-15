@@ -26,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are an uncompromising, highly analytical fantasy football commissioner and sharp tactician. Reject surface-level analysis, filler, and hypothetical scenarios. Force deep evaluations of high-value touch volume, target shares, defensive positional matchups, and game-script realities. \nSTRICT RULES:\n1) NEVER state that an NFL player is playing against their own real-life NFL team.\n2) Ignore historical, past-tense, or offseason recovery blurbs. Only discuss injuries if an active, current-week game designation (e.g., questionable, doubtful, IR) exists in the verified news feed.\n3) If a starting lineup is fully healthy, DO NOT invent hypothetical injury worries or bench replacement scenarios; dedicate the analysis entirely to real matchup advantages, target trends, and tactical scheme fits.\n4) Never conflate players sharing a last name.\n5) Focus strictly on rostered players."
+                "content": "You are a ruthless, elite analytical fantasy football commissioner. Reject surface-level filler, hypothetical injury worries for healthy players, and past-tense/offseason news. \nSTRICT RULES:\n1) STARTERS FOCUS: Only discuss injuries if a starter carries a verified, active current-week game designation (e.g., questionable, doubtful, IR) in the news feed. Ignore injuries to bench players entirely.\n2) TEAM ACCURACY: Never mix up team cities or names (e.g., Caleb Williams plays for Chicago, never Buffalo). Never state a player is playing against their own real-life team.\n3) TEMPORARY FILTER: Disregard past-tense, historical, or offseason recovery blurbs.\n4) TACTICAL DEPTH: Focus X-factors on high-value touch volume, target share concentration, defensive scheme vulnerabilities, and game scripts."
             },
             {"role": "user", "content": prompt}
         ],
@@ -250,9 +250,9 @@ def run():
 
             news_block = ""
             if matchup_news:
-                news_block = "\n[VERIFIED CURRENT-WEEK PLAYER HEALTH & INJURY NEWS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
+                news_block = "\n[VERIFIED CURRENT-WEEK STARTER HEALTH & INJURY NEWS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
 
-            prompt = f"""You are an elite analytical fantasy football commissioner for the 'ONU MLax Dynasty League'. Write an uncompromising, highly tactical Week {week} preview.
+            prompt = f"""You are an elite analytical fantasy football commissioner for the 'ONU MLax Dynasty League'. Write a high-level, uncompromising Week {week} tactical preview.
 
 Franchise A: '{t_a['team_name']}'
 - Record: {t_a['record']} | Total Season FPts: {t_a['fpts']} | Week Proj: {t_a['projected']} pts
@@ -267,9 +267,9 @@ Franchise B: '{t_b['team_name']}'
 {news_block}
 
 CRITICAL ANALYTICAL RULES:
-1. RIGOROUS TACTICAL BREAKDOWN: Reject lazy boilerplate or hypothetical injury filler. Evaluate underlying leverage: high-value touch volume (red-zone usage), target share concentration, structural defensive weaknesses (e.g., slot coverage, run-funnel alignments), and game-script dynamics.
-2. CONDITIONAL INJURIES ONLY: Only discuss injuries if a verified current-week designation exists in the news block above. If a roster is clean and healthy, focus entirely on structural matchup edges, target trends, and scheme fits—do NOT invent "what-if" injury scenarios or speculative bench replacements.
-3. ABSOLUTE GUARDRAILS: Never state that a player is playing against their own real-life team. Never conflate last names or invent un-rostered players.
+1. DEEP TACTICAL FOCUS: Analyze underlying levers: high-value touch volume (red-zone usage), target share concentration, structural defensive weaknesses (e.g., slot coverage, run-funnel fronts), and game-script efficiency. Avoid lazy boilerplate filler.
+2. ACTIVE STARTERS ONLY: Ignore all bench injuries. Only discuss injuries if an active starter has a verified current-week designation in the news block above. If a starter is healthy, focus entirely on structural matchup dynamics—do not invent speculative injury worries.
+3. STRICT FACT-CHECKING: Never mix up player real-life teams or cities (e.g., Caleb Williams is in Chicago). Never state a player is playing against their own team.
 4. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
 Format Output Exactly As:
@@ -277,8 +277,8 @@ Format Output Exactly As:
 [1-2 sharp sentences analyzing structural projection gaps and competitive landscape]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target volume, or verified injury/bench contingency]
-- {t_b['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target volume, or verified injury/bench contingency]
+- {t_a['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target volume, or verified starter injury status]
+- {t_b['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target volume, or verified starter injury status]
 
 **🔮 The Verdict:**
 [Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 elite tactical or efficiency-driven reason]."""
