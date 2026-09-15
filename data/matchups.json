@@ -21,6 +21,25 @@
           "Spencer Shrader (K, IND)",
           "LAC (DEF, LAC)"
         ],
+        "bench": [
+          "Jacob Saylors (RB, DET)",
+          "Michael Penix (QB, ATL)",
+          "Brock Bowers (TE, LV)",
+          "Xavier Legette (WR, CAR)",
+          "Jordan James (RB, SF)",
+          "Woody Marks (RB, HOU)",
+          "Tory Horton (WR, SEA)",
+          "Fernando Mendoza (QB, LV)",
+          "Germie Bernard (WR, PIT)",
+          "Chris Brazzell (WR, CAR)",
+          "Seth McGowan (RB, IND)",
+          "Darren Waller (TE, CAR)",
+          "Deshaun Watson (QB, CLE)",
+          "Kyler Murray (QB, MIN)",
+          "Daniel Jones (QB, IND)",
+          "Isiah Pacheco (RB, DET)",
+          "Zach Charbonnet (RB, SEA)"
+        ],
         "starter_ids": [
           "96",
           "9226",
@@ -85,6 +104,24 @@
           "Tyler Loop (K, BAL)",
           "LAR (DEF, LAR)"
         ],
+        "bench": [
+          "Jake Bates (K, DET)",
+          "Cade Stover (TE, HOU)",
+          "Kimani Vidal (RB, LAC)",
+          "Nate Boerkircher (TE, JAX)",
+          "Mike Washington (RB, LV)",
+          "Kenyon Sadiq (TE, NYJ)",
+          "James Conner (RB, ARI)",
+          "Samaje Perine (RB, CIN)",
+          "Sam Darnold (QB, SEA)",
+          "Tua Tagovailoa (QB, ATL)",
+          "Najee Harris (RB, NYG)",
+          "Rashod Bateman (WR, BAL)",
+          "DeMario Douglas (WR, NE)",
+          "IND (DEF, IND)",
+          "LV (DEF, LV)",
+          "NE (DEF, NE)"
+        ],
         "starter_ids": [
           "6804",
           "12507",
@@ -130,7 +167,7 @@
         "projected": 130.0,
         "win_prob": "68%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth squads sit 0\u20111, but the gap is already evident: Fire Haslam Into The Sun sits at 108.0 total points (projected 119.4 this week) while MaxWeese25 has 123.1 points (projected 130.0). The biggest tactical swing comes from a double\u2011hit on Fire\u2019s roster \u2013 Ladd\u202fMcConkey\u2019s day\u2011to\u2011day status and the loss of Myles\u202fGarrett on the LAC defense \u2013 which trims upside and floor alike.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **Fire Haslam Into The Sun:** *Ladd\u202fMcConkey (WR, LAC)* \u2013 The Chargers listed McConkey as day\u2011to\u2011day after a bruising Week\u202f1. If he\u2019s sidelined, the Chargers will lean heavily on veteran Jalen\u202fGuyton and rookie Jalin\u202fJackson, both of whom have sub\u201110\u2011target ceilings. That drops McConkey\u2019s projected 12.5\u202fpts to roughly 4\u20115\u202fpts and forces Fire to rely on a low\u2011volume WR3 (George\u202fPickens) for the bulk of the passing game.  \n- **MaxWeese25:** *Jordan\u202fLove (QB, GB)* \u2013 Green Bay\u2019s offensive line stayed healthy, but the Packers are still missing starter Aaron\u202fRodgers (now with Fire). Love will face a secondary that struggled against the Steelers in Week\u202f1, and with the Steelers\u2019 pass\u2011rush limited (no key injuries reported), Love\u2019s upside climbs to a solid 22\u201124\u202fpts. The combo of a healthy QB and a defense that avoided major injuries gives MaxWeese a reliable ceiling.\n\n**\ud83d\udd2e The Verdict:**  \n**MaxWeese25** defeats **Fire Haslam Into The Sun**, 130.0 to 119.4, driven by Fire\u2019s loss of Ladd\u202fMcConkey (downgrading WR depth) and the absence of Myles\u202fGarrett on the LAC defense, while MaxWeese enjoys a stable quarterback\u2011vs\u2011vulnerable secondary matchup."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth franchises sit 0\u20111, but Fire Haslam Into The Sun projects 119.4 points while MaxWeese25 projects 130.0 points. The key health question centers on Fire\u2019s WR Ladd\u202fMcConkey, who is listed as day\u2011to\u2011day.\n\n**\ud83d\udd25 The X-Factors:**  \n- **Fire Haslam Into The Sun:** Ladd\u202fMcConkey (WR, LAC) was reported day\u2011to\u2011day after Week\u202f1. If he is sidelined for Week\u202f2, the highest\u2011upside bench replacement is **Xavier\u202fLegette** (WR, CAR), who offers a solid target share in a pass\u2011heavy offense and is the most viable WR depth piece on the bench.  \n- **MaxWeese25:** No starters have injury reports entering Week\u202f2, so the starting lineup remains intact and no bench player is required to step in.\n\n**\ud83d\udd2e The Verdict:**  \nMaxWeese25 defeats Fire Haslam Into The Sun, 130.0 to 119.4, driven by MaxWeese25\u2019s fully healthy starting roster and higher projected point total."
     },
     {
       "matchup_id": 3,
@@ -151,6 +188,24 @@
           "Dalton Schultz (TE, HOU)",
           "Will Reichard (K, MIN)",
           "DEN (DEF, DEN)"
+        ],
+        "bench": [
+          "Bo Nix (QB, DEN)",
+          "Adonai Mitchell (WR, NYJ)",
+          "George Holani (RB, SEA)",
+          "Pat Bryant (WR, DEN)",
+          "Tre' Harris (WR, LAC)",
+          "Isaac TeSlaa (WR, DET)",
+          "Jordyn Tyson (WR, NO)",
+          "Makai Lemon (WR, PHI)",
+          "Chris Bell (WR, MIA)",
+          "Jonah Coleman (RB, DEN)",
+          "Eli Heidenreich (RB, PIT)",
+          "Matthew Stafford (QB, LAR)",
+          "Tyler Allgeier (RB, ARI)",
+          "Kayshon Boutte (WR, HOU)",
+          "Tyjae Spears (RB, TEN)",
+          "DET (DEF, DET)"
         ],
         "starter_ids": [
           "8161",
@@ -215,6 +270,23 @@
           "Cam Little (K, JAX)",
           "SEA (DEF, SEA)"
         ],
+        "bench": [
+          "Rashee Rice (WR, KC)",
+          "Jaylen Wright (RB, MIA)",
+          "Ryan Flournoy (WR, DAL)",
+          "Ollie Gordon (RB, MIA)",
+          "Tyler Shough (QB, NO)",
+          "Denzel Boston (WR, CLE)",
+          "Chris Boswell (K, PIT)",
+          "Tyreek Hill (WR, FA)",
+          "A.J. Brown (WR, NE)",
+          "Joe Burrow (QB, CIN)",
+          "Brandon Aiyuk (WR, SF)",
+          "Jauan Jennings (WR, MIN)",
+          "Greg Dulcich (TE, MIA)",
+          "Keaton Mitchell (RB, LAC)",
+          "CLE (DEF, CLE)"
+        ],
         "starter_ids": [
           "4881",
           "9221",
@@ -259,7 +331,7 @@
         "projected": 144.2,
         "win_prob": "92%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nT\u2011Mac Attack (0\u20111, 94.2\u202fpts) is scrambling for a bounce after a Week\u202f1 loss, while Chicken Soup (1\u20110, 179.6\u202fpts) is looking to extend its early\u2011season momentum. A season\u2011ending foot injury to Broncos backup QB **Bo\u202fNix** removes a potential offensive spark, which should keep Denver\u2019s defense on the field longer and raise its turnover\u2011creation upside for T\u2011Mac Attack\u2019s DEN unit.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **T\u2011Mac Attack:**  \n  * **Cam\u202fSkattebo (RB, NYG)** \u2013 Saquon\u202fBarkley\u2019s confirmed season\u2011ending foot injury thrusts Skattebo into the Giants\u2019 RB1 role. In Week\u202f1 he logged 12 carries for 68\u202fyds; with Barkley out he\u2019s now the primary bell\u2011cow, projected to see 15\u201118 carries per game plus goal\u2011line work, boosting his ceiling well above the 108.4\u202fpts weekly projection.  \n  * **DEN Defense** \u2013 Bo\u202fNix\u2019s loss means the Broncos\u2019 offense will likely be less efficient, forcing Denver into more three\u2011and\u2011outs and giving the defense extra snaps to hunt for sacks and turnovers. The DEN unit\u2019s Week\u202f2 matchup (vs. a mid\u2011tier offense) should translate into +4\u20116 fantasy points relative to baseline.\n\n- **Chicken Soup:**  \n  * **Jahmyr\u202fGibbs (RB, DET)** \u2013 With the Lions\u2019 RB depth chart static (no trade for Joey\u202fPorter\u202fJr. and no major injuries), Gibbs retains his three\u2011down role. He posted 21\u202fyds and a TD in Week\u202f1; his projected 18\u201120 carries plus heavy involvement in the passing game (\u22484 receptions) makes him a high\u2011volume, high\u2011floor play that can outpace T\u2011Mac\u2019s RB corps.  \n  * **Lamar\u202fJackson (QB, BAL)** \u2013 Jackson is fully healthy and continues to be a top\u201110 fantasy QB. His dual\u2011threat upside (\u224830\u202fpts per game) is amplified by a Bills defense that has allowed 6.5 passing TDs in the first two weeks, giving him a clear path to both air and ground points.\n\n**\ud83d\udd2e The Verdict:**  \n**Chicken Soup** defeats **T\u2011Mac Attack**, 144.2 to 108.4, driven by the surge in volume for Jahmyr\u202fGibbs (and the safety net of Derrick\u202fHenry) combined with Lamar\u202fJackson\u2019s dual\u2011threat production, while T\u2011Mac\u2019s only bright spot\u2014Cam\u202fSkattebo\u2019s elevated role\u2014cannot offset the overall lower RB depth and reliance on a defense that may only marginally benefit from Bo\u202fNix\u2019s injury."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nT\u2011Mac Attack (0\u20111) sits on a modest 108.4\u2011point Week\u202f2 projection, while Chicken Soup (1\u20110) rides a hefty 144.2\u2011point outlook. Both teams enter Week\u202f2 with all listed starters cleared to play; the only health headline involves bench QB Bo\u202fNix, who struggled and is rumored to have a season\u2011ending foot issue.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **T\u2011Mac Attack:** If starter QB Malik Willis were to miss time (unlikely based on current reports), the only viable replacement on the bench is Bo\u202fNix (DEN). Nix\u2019s recent turnover\u2011prone performance and foot\u2011injury chatter make him a risky plug\u2011and\u2011play.  \n- **Chicken Soup:** Should any starter go down (e.g., Lamar Jackson or Breece Hall), the bench offers solid depth: QB Joe\u202fBurrow (CIN) for Jackson, and RB Keaton\u202fMitchell (LAC) or RB Ollie\u202fGordon (MIA) for Hall. No current injury alerts affect these starters.\n\n**\ud83d\udd2e The Verdict:**  \nChicken Soup defeats T\u2011Mac Attack, 144.2 to 108.4, driven by a healthier, higher\u2011upside QB\u2011RB core (Lamar\u202fJackson and Derrick\u202fHenry) and the absence of any immediate injury concerns that could force T\u2011Mac Attack to rely on the shaky Bo\u202fNix."
     },
     {
       "matchup_id": 5,
@@ -280,6 +352,24 @@
           "Deebo Samuel (WR, SF)",
           "Chase McLaughlin (K, TB)",
           "MIN (DEF, MIN)"
+        ],
+        "bench": [
+          "Xavier Hutchinson (WR, HOU)",
+          "Chris Rodriguez (RB, JAX)",
+          "J.J. McCarthy (QB, MIN)",
+          "Braelon Allen (RB, NYJ)",
+          "Jalen McMillan (WR, TB)",
+          "Tez Johnson (WR, TB)",
+          "Dont'e Thornton (WR, LV)",
+          "Dohnte Meyers (WR, CIN)",
+          "Nicholas Singleton (RB, TEN)",
+          "Eli Raridon (TE, NE)",
+          "Geno Smith (QB, NYJ)",
+          "Odell Beckham (WR, NYG)",
+          "Dawson Knox (TE, BUF)",
+          "Ty Johnson (RB, BUF)",
+          "Jalen Nailor (WR, LV)",
+          "Dontayvion Wicks (WR, PHI)"
         ],
         "starter_ids": [
           "12508",
@@ -344,6 +434,23 @@
           "Trey Smack (K, GB)",
           "JAX (DEF, JAX)"
         ],
+        "bench": [
+          "Cam Ward (QB, TEN)",
+          "Kyle Monangai (RB, CHI)",
+          "Carson Beck (QB, ARI)",
+          "Malachi Fields (WR, NYG)",
+          "Cade Klubnik (QB, NYJ)",
+          "Kaytron Allen (RB, WAS)",
+          "Keenan Allen (WR, IND)",
+          "Hunter Henry (TE, NE)",
+          "Alvin Kamara (RB, NO)",
+          "Harrison Butker (K, KC)",
+          "Calvin Ridley (WR, TEN)",
+          "Jerry Jeudy (WR, CLE)",
+          "J.K. Dobbins (RB, DEN)",
+          "Kenny Gainwell (RB, TB)",
+          "Tank Bigsby (RB, PHI)"
+        ],
         "starter_ids": [
           "3294",
           "8151",
@@ -388,7 +495,7 @@
         "projected": 123.8,
         "win_prob": "80%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nDayton Degenerates\u202f(0\u20111, 163.3\u202fpts) head into Week\u202f2 looking to claw back after a rough opening loss, while Mr\u202ftexas\u202f(1\u20110, 158.4\u202fpts) rides a win and a modest points edge. The biggest storyline isn\u2019t a headline injury \u2013 it\u2019s the **volume cascade** triggered by the Bears\u2019 recent move of Ty\u202fJohnson to IR, which reshapes D\u2019Andre\u202fSwift\u2019s role and indirectly caps the Degenerates\u2019 upside.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **Dayton Degenerates:** *D\u2019Andre\u202fSwift (RB, CHI)* \u2013 With Ty\u202fJohnson now on IR, Chicago has officially elevated Swift to the primary backfield bell\u2011cow. However, the Bears are still integrating a new offensive line scheme, and Swift\u2019s early\u2011season snap count (\u2248\u202f45\u202f% of carries) suggests a **limited ceiling** this week. The real X\u2011factor is whether Swift can break past the 10\u2011carry threshold against a stout Vikings front seven; otherwise, his fantasy floor sits near 7\u202fpts.  \n- **Mr\u202ftexas:** *Kenneth\u202fWalker\u202fIII (RB, KC)* \u2013 Walker is the clear workhorse in a Kansas City offense that leans heavily on the ground against a vulnerable Jacksonville defense. With no injury concerns at RB, Walker is projected to see **\u2248\u202f20\u201122 carries** and a red\u2011zone target share of 3\u20114, positioning him as the highest\u2011volume back on the board this week. His upside is amplified by the lack of any backup\u2011step\u2011in scenario that could dilute his workload.\n\n**\ud83d\udd2e The Verdict:**  \n**Mr\u202ftexas** defeats **Dayton Degenerates**, 123.8\u202fto\u202f104.0, driven by **Kenneth\u202fWalker\u2019s full\u2011volume workload** in a favorable matchup, while **D\u2019Andre\u202fSwift\u2019s ceiling is throttled** by the Bears\u2019 still\u2011evolving backfield after Ty\u202fJohnson\u2019s injury cascade."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nDayton Degenerates\u202f(0\u20111, 163.3 pts) enter Week\u202f2 with a projected 104.0 points, while Mr\u202ftexas\u202f(1\u20110, 158.4 pts) projects 123.8 points. All listed starters are currently listed as healthy; the focus shifts to who would fill in if a starter were to miss time.\n\n**\ud83d\udd25 The X-Factors:**  \n- **Dayton Degenerates** : If RB\u202fD\u2019Andre\u202fSwift (CHI) were to miss Week\u202f2, the next viable dynasty bench option is **Nicholas\u202fSingleton (RB, TEN)**, who offers upside as a handcuff and has a favorable matchup.  \n- **Mr texas** : Should TE\u202fHarold\u202fFannin (CLE) be unavailable, the bench provides **Hunter\u202fHenry (TE, NE)** as the direct replacement, giving a reliable target pool and red\u2011zone upside.\n\n**\ud83d\udd2e The Verdict:**  \nMr\u202ftexas defeats Dayton Degenerates, 104.0 to 123.8, driven by a higher projected output and the safety net of Hunter\u202fHenry stepping in for any TE injury, preserving their TE production edge."
     },
     {
       "matchup_id": 2,
@@ -409,6 +516,23 @@
           "Christian Watson (WR, GB)",
           "Cameron Dicker (K, LAC)",
           "TEN (DEF, TEN)"
+        ],
+        "bench": [
+          "Jayden Reed (WR, GB)",
+          "Jonathon Brooks (RB, CAR)",
+          "Terrance Ferguson (TE, LAR)",
+          "Oronde Gadsden (TE, LAC)",
+          "Gunnar Helm (TE, TEN)",
+          "Travis Hunter (DB, JAX)",
+          "Jaylin Noel (WR, HOU)",
+          "Ty Simpson (QB, LAR)",
+          "KC Concepcion (WR, CLE)",
+          "Zachariah Branch (WR, ATL)",
+          "Emmett Johnson (RB, KC)",
+          "Cyrus Allen (WR, KC)",
+          "Jacoby Brissett (QB, ARI)",
+          "Rachaad White (RB, WAS)",
+          "C.J. Stroud (QB, HOU)"
         ],
         "starter_ids": [
           "8183",
@@ -472,6 +596,24 @@
           "Ka'imi Fairbairn (K, HOU)",
           "BAL (DEF, BAL)"
         ],
+        "bench": [
+          "Tre Tucker (WR, LV)",
+          "Trey Benson (RB, ARI)",
+          "AJ Barner (TE, SEA)",
+          "Marvin Harrison (WR, ARI)",
+          "Tyrone Tracy (RB, NYG)",
+          "Jaydon Blue (RB, PHI)",
+          "Shedeur Sanders (QB, CLE)",
+          "Max Klare (TE, LAR)",
+          "Drew Allar (QB, PIT)",
+          "Ted Hurst (WR, TB)",
+          "Deion Burks (WR, IND)",
+          "Skyler Bell (WR, BUF)",
+          "T.J. Hockenson (TE, MIN)",
+          "Justin Herbert (QB, LAC)",
+          "Brian Robinson (RB, ATL)",
+          "Josh Downs (WR, IND)"
+        ],
         "starter_ids": [
           "6904",
           "8408",
@@ -517,7 +659,7 @@
         "projected": 123.3,
         "win_prob": "49%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nNoah\u202fsaint (0\u20111, 125.9\u202fpts) is still feeling the sting of a Week\u202f1 loss, while Amon\u202fRa\u202fAkbar (1\u20110, 142.1\u202fpts) rides a hot start. The biggest storyline is New England\u2019s RB1 Rhamondre Stevenson, who was listed as \u201cdown\u201d in the latest stock\u2011watch feed \u2013 a potential cascade that could cripple Noah\u202fsaint\u2019s backfield upside and hand the ball to the Patriots\u2019 untested RB2.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **noahsaint:** *Rhamondre Stevenson\u2019s health.*  If Stevenson is limited or out, the Patriots will thrust their RB2 (currently the bench\u2011eligible **J.\u202f...** \u2013 the next\u2011man\u2011up who averaged 4.2\u202fcarries per game in 2023) into a lead\u2011role. That shift drops Brock\u202fPurdy\u2019s pass\u2011catcher ceiling (especially Jaxon\u202fSmith\u2011Njigba, who thrives on RB\u2011screen volume) and forces Noah\u202fsaint to rely on a low\u2011volume RB2 for the bulk of his rushing points. The net effect is a projected 12\u2011point hit to Noah\u202fsaint\u2019s Week\u202f2 total.  \n\n- **Amon\u202fRa\u202fAkbar:** *Christian Watson\u2019s quarterback upgrade.*  The Browns confirmed Deshaun\u202fWatson will start Week\u202f2, giving WR Christian Watson a more aggressive down\u2011field passing attack than the previous starter. Watson\u2019s target share is projected to jump from 4.5 to 7.2 per game, translating to an extra 8\u20119 fantasy points. This QB\u2011WR synergy is the biggest upside on Amon\u202fRa\u202fAkbar\u2019s roster.\n\n**\ud83d\udd2e The Verdict:**  \n**Amon\u202fRa\u202fAkbar** defeats **noahsaint**, 124.1\u202fto\u202f123.3, driven by the **Watson\u2011Deshaun Watson connection** that lifts the Browns\u2019 WR ceiling while Noah\u202fsaint\u2019s RB1 injury cascade drags down his backfield production."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nNoah\u2019s franchise (noahsaint) sits 0\u20111 while Amon Ra Akbar (Amon Ra Akbar) is 1\u20110. The only health flag on the slate is a \u201cdown\u201d note for Rhamondre\u202fStevenson (NE) in the stock\u2011watch feed; all other starters appear cleared for Week\u202f2.\n\n**\ud83d\udd25 The X-Factors:**  \n- **noahsaint:** Should Stevenson be ruled out, the RB depth on the bench points to **Rachaad\u202fWhite (RB, WAS)** as the most reliable plug\u2011in (consistent target share and a favorable matchup).  \n- **Amon Ra Akbar:** All starters are listed as healthy; no bench player needs to be elevated at this time.\n\n**\ud83d\udd2e The Verdict:**  \nnoahsaint defeats Amon Ra Akbar, 124.1 to 123.3, driven by the ability to replace a potentially unavailable Stevenson with solid RB depth (Rachaad\u202fWhite) and maintain projected scoring."
     },
     {
       "matchup_id": 4,
@@ -538,6 +680,24 @@
           "Brenton Strange (TE, JAX)",
           "Eddy Pineiro (K, SF)",
           "PHI (DEF, PHI)"
+        ],
+        "bench": [
+          "Andrei Iosivas (WR, CIN)",
+          "Jayden Daniels (QB, WAS)",
+          "Luke McCaffrey (WR, WAS)",
+          "Elic Ayomanor (WR, TEN)",
+          "Elijah Sarratt (WR, BAL)",
+          "Ja'Kobi Lane (WR, BAL)",
+          "Matt Hibner (TE, BAL)",
+          "Wil Lutz (K, DEN)",
+          "David Njoku (TE, LAC)",
+          "Josh Jacobs (RB, GB)",
+          "Trevor Lawrence (QB, JAX)",
+          "Wan'Dale Robinson (WR, TEN)",
+          "Marvin Mims (WR, DEN)",
+          "Tank Dell (WR, HOU)",
+          "Sean Tucker (RB, TB)",
+          "HOU (DEF, HOU)"
         ],
         "starter_ids": [
           "11560",
@@ -602,6 +762,26 @@
           "Evan McPherson (K, CIN)",
           "CHI (DEF, CHI)"
         ],
+        "bench": [
+          "Theo Johnson (TE, NYG)",
+          "Troy Franklin (WR, DEN)",
+          "Keon Coleman (WR, BUF)",
+          "Kirk Cousins (QB, LV)",
+          "Dylan Sampson (RB, CLE)",
+          "Jayden Higgins (WR, HOU)",
+          "Tai Felton (WR, MIN)",
+          "Mason Taylor (TE, NYJ)",
+          "Tahj Brooks (RB, CIN)",
+          "Caleb Douglas (WR, MIA)",
+          "Adam Randall (RB, BAL)",
+          "Zavion Thomas (WR, CHI)",
+          "Jalon Daniels (QB, TB)",
+          "Christian Kirk (WR, SF)",
+          "Mike Gesicki (TE, CIN)",
+          "Olamide Zaccheaus (WR, ATL)",
+          "Darnell Mooney (WR, NYG)",
+          "Pat Freiermuth (TE, PIT)"
+        ],
         "starter_ids": [
           "4892",
           "12527",
@@ -649,7 +829,7 @@
         "projected": 99.9,
         "win_prob": "28%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth franchises enter Week\u202f2 at 1\u20110, but BabbyBare already sits atop the league (148.9\u202fpts total vs. 143.5\u202fpts for spearson22) and carries a heftier weekly projection (113.1\u202fpts vs. 99.9\u202fpts).  The only league\u2011wide injury ripple this week is the loss of Browns RB\u202fDylan\u202fSampson, which opens up snaps for the Browns\u2019 backup RB\u2014but that shift has no direct bearing on either roster.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **BabbyBare:** *DeVonta\u202fSmith* is the true floor.  He faces a Bears secondary that ranks in the bottom\u2011quartile against the pass (allowing\u202f>\u202f250\u202frec\u202f/\u202fgame).  With the Eagles\u2019 TE\u202fDallas\u202fGoedert also targeting the same weak unit, Smith has a clear path to 120+\u202fpts if he secures a few deep shots.  Caleb\u202fWilliams\u2019 rookie status means any early\u2011game pressure from the Eagles\u2019 pass rush could cap his ceiling, making Smith\u2019s matchup the decisive advantage.  \n- **spearson22:** *Tony\u202fPollard* remains the lead bell\u2011cow in Tennessee, but the X\u2011factor is *Baker\u202fMayfield*.  The Buccaneers will lean on Mayfield\u2019s ability to extend plays against a Steelers\u2011ranked\u2011mid\u2011tier pass rush, giving him modest upside on scrambles and short TD passes.  The only external injury impact is the Browns\u2019 Sampson out, which bumps the backup RB into a larger share of carries for Buffalo\u2014potentially inflating DJ\u202fMoore\u2019s red\u2011zone target share, though that benefit is indirect.\n\n**\ud83d\udd2e The Verdict:**  \n**BabbyBare** defeats **spearson22**, 113.1\u202fto\u202f99.9, driven by DeVonta\u202fSmith\u2019s elite matchup against a porous Bears secondary that outweighs any quarterback volatility from Caleb\u202fWilliams."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nBoth franchises sit 1\u20110, but BabbyBare carries a clean bill of health for all starters, while spearson22\u2019s bench has taken a hit with RB Dylan\u202fSampson ruled out for an extended period.\n\n**\ud83d\udd25 The X-Factors:**  \n- **BabbyBare:** All starters are active. Should an unexpected issue arise with TE Juwan\u202fJohnson (NO), the next viable TE on the bench is Matt\u202fHibner (BAL).  \n- **spearson22:** RB Dylan\u202fSampson (CLE) is expected to miss significant time, leaving the team with essentially no true RB depth on the bench. The only plausible fill\u2011in would be to shuffle a non\u2011RB (e.g., WR Tahj\u202fBrooks) into a flex slot, but that sacrifices positional balance.\n\n**\ud83d\udd2e The Verdict:**  \nBabbyBare defeats spearson22, 113.1 to 99.9, driven by BabbyBare\u2019s fully healthy starting roster and spearson22\u2019s depleted RB bench after Sampson\u2019s injury."
     },
     {
       "matchup_id": 1,
@@ -670,6 +850,24 @@
           "Davante Adams (WR, LAR)",
           "Jason Myers (K, SEA)",
           "KC (DEF, KC)"
+        ],
+        "bench": [
+          "MarShawn Lloyd (RB, GB)",
+          "Brian Thomas (WR, JAX)",
+          "Ricky Pearsall (WR, SF)",
+          "Elijah Arroyo (TE, SEA)",
+          "Omar Cooper (WR, NYJ)",
+          "Jadarian Price (RB, SEA)",
+          "Antonio Williams (WR, WAS)",
+          "Eli Stowers (TE, PHI)",
+          "Kaelon Black (RB, SF)",
+          "Jared Goff (QB, DET)",
+          "Justice Hill (RB, BAL)",
+          "Kyle Pitts (TE, ATL)",
+          "Cade Otton (TE, TB)",
+          "Jahan Dotson (WR, ATL)",
+          "Bryce Young (QB, CAR)",
+          "Zay Flowers (WR, BAL)"
         ],
         "starter_ids": [
           "4984",
@@ -734,6 +932,24 @@
           "Brandon Aubrey (K, DAL)",
           "PIT (DEF, PIT)"
         ],
+        "bench": [
+          "Emari Demercado (RB, DAL)",
+          "Ray Davis (RB, BUF)",
+          "Xavier Worthy (WR, KC)",
+          "Kaleb Johnson (RB, GB)",
+          "Jalen Milroe (QB, SEA)",
+          "LeQuint Allen (RB, JAX)",
+          "Kevin Coleman (WR, MIA)",
+          "Demond Claiborne (RB, MIN)",
+          "De'Zhaun Stribling (WR, SF)",
+          "Patrick Mahomes (QB, KC)",
+          "Chuba Hubbard (RB, CAR)",
+          "Jake Ferguson (TE, DAL)",
+          "Romeo Doubs (WR, NE)",
+          "Chig Okonkwo (TE, WAS)",
+          "Malik Davis (RB, DAL)",
+          "SF (DEF, SF)"
+        ],
         "starter_ids": [
           "11564",
           "9509",
@@ -779,7 +995,7 @@
         "projected": 123.4,
         "win_prob": "19%"
       },
-      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nSyracuse\u202fSandstorms sit 1\u20110 with a 170.8\u2011point season total, while Worthy\u202fof\u202fmy\u202fChuba sits 0\u20111 with 126.1 points. The biggest cascade heading into Week\u202f2 is the **potential backup\u2011QB drag on New England** \u2013 if Drake\u202fMaye runs into trouble, his rookie backup (Bo\u202fNix) offers far less upside for McLaurin and Metcalf, while Buffalo\u2019s Josh\u202fAllen stays fully healthy and primed to keep his high\u2011volume weapons on the field.\n\n**\ud83d\udd25 The X\u2011Factors:**  \n- **Syracuse Sandstorms:** *Josh\u202fAllen\u2019s \u201call\u2011in\u201d health* \u2013 Allen is 100\u202f% and faces a Kansas City defense that has struggled against mobile QBs. That keeps CeeDee\u202fLamb\u2019s (DAL) deep\u2011ball ceiling and Parker\u202fWashington\u2019s (JAX) red\u2011zone targets intact, while McCaffrey continues to split carries and catches, giving the Sandstorms a dual\u2011threat RB advantage.  \n- **Worthy of my Chuba:** *Drake\u202fMaye\u2019s rookie volatility* \u2013 Maye is a Week\u202f1 starter but carries a high turnover risk. A sack or injury would thrust Bo\u202fNix into the mix, sharply lowering the upside of Terry\u202fMcLaurin and DK\u202fMetcalf. Meanwhile, Bijan\u202fRobinson and Saquon\u202fBarkley are solid, but without a stable QB the WR ceiling collapses.\n\n**\ud83d\udd2e The Verdict:**  \n**Syracuse Sandstorms** defeat **Worthy of my Chuba**, 144.6 to 123.4, driven by Josh\u202fAllen\u2019s full\u2011health, high\u2011volume offense that safeguards his WRs\u2019 ceilings while New England\u2019s rookie QB situation threatens to throttle the Chuba lineup\u2019s top\u2011end production."
+      "preview": "**\ud83e\udd4a Tale of the Tape:**  \nSyracuse Sandstorms sit 1\u20110, while Worthy of my Chuba sits 0\u20111. All listed starters are cleared to play in Week\u202f2, leaving health a non\u2011issue for the opening lineups.\n\n**\ud83d\udd25 The X-Factors:**  \n- **Syracuse Sandstorms:** Should WR Parker Washington (JAX) become unavailable, the next man in line is bench WR **Brian Thomas (JAX)**, who offers a comparable target share in Jacksonville\u2019s passing attack.  \n- **Worthy of my Chuba:** If RB Saquon\u202fBarkley (PHI) is sidelined, the bench RB **Emari\u202fDemercado (DAL)** is the designated fill\u2011in, providing a solid floor in a high\u2011volume Dallas backfield.\n\n**\ud83d\udd2e The Verdict:**  \nSyracuse Sandstorms defeat Worthy of my Chuba, 144.6 to 123.4, driven by the Sandstorms\u2019 deeper, injury\u2011resilient RB corps anchored by Josh\u202fAllen\u2019s elite QB play."
     }
   ]
 }
