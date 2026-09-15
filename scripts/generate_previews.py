@@ -26,11 +26,11 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, tactical fantasy football commissioner. Focus strictly on fantasy health status and roster decisions. STRICT RULE: Never connect or conflate players just because they share a last name (e.g., Christian Watson and Deshaun Watson are completely different players on different NFL teams). Never waste analysis on how real-life backup players benefit."
+                "content": "You are a sharp, tactical fantasy football commissioner. Focus strictly on fantasy health status and roster decisions. STRICT RULES: 1) Never connect or conflate different players who share a last name (e.g., Christian Watson and Deshaun Watson). 2) Only discuss players explicitly listed in the starting lineups or bench options provided. Do not invent or bring in un-rostered players from general news. 3) Respect current NFL team abbreviations."
             },
             {"role": "user", "content": prompt}
         ],
-        "temperature": 0.25
+        "temperature": 0.20
     }
 
     for attempt in range(3):
@@ -244,18 +244,16 @@ def run():
                 p_full_name = p_obj.get("full_name", "")
                 if not p_full_name: continue
                 
-                parts = p_full_name.split()
-                last_name = parts[-1] if parts else p_full_name
-
+                # STRICT FULL-NAME MATCHING ONLY (Prevents last-name conflation like Watson)
                 for news in global_news:
-                    if (p_full_name.lower() in news.lower() or (len(last_name) > 3 and last_name.lower() in news.lower())) and news not in matchup_news:
+                    if p_full_name.lower() in news.lower() and news not in matchup_news:
                         matchup_news.append(f"[{p_full_name}]: {news}")
 
             news_block = ""
             if matchup_news:
-                news_block = "\n[LIVE PLAYER HEALTH & INJURY NEWS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
+                news_block = "\n[VERIFIED PLAYER HEALTH & INJURY NEWS FOR THIS MATCHUP ONLY]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
 
-            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write a data-driven Week {week} preview.
+            prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write a strictly factual Week {week} preview.
 
 Franchise A: '{t_a['team_name']}'
 - Record: {t_a['record']} | Total Season FPts: {t_a['fpts']} | Week Proj: {t_a['projected']} pts
@@ -270,10 +268,10 @@ Franchise B: '{t_b['team_name']}'
 {news_block}
 
 CRITICAL MANDATORY RULES:
-1. FANTASY MANAGER PERSPECTIVE: If a starter (such as Ladd McConkey or Sam Darnold) is injured or ruled out, focus strictly on whether they will play and **which specific player on that franchise's actual dynasty bench** must step in to start instead.
-2. NO NAME-COLLISION CONFLATIONS: Never connect players who share a last name (e.g., Christian Watson and Deshaun Watson). Verify their exact real-life team abbreviation from the roster text before linking any news or stats.
-3. NO REAL-LIFE FLUFF: Never analyze how anonymous real-life backup players or third-string wide receivers benefit real-life NFL teams. Keep analysis centered entirely on fantasy starter health and roster bench replacements.
-4. CURRENT TEAM ACCURACY: Respect modern team abbreviations in player tags (e.g., Aaron Rodgers is on PIT).
+1. STRICT INJURY MATCHING: Only use injury or news items explicitly listed in the [VERIFIED PLAYER HEALTH & INJURY NEWS] section above for the exact player named. Do not invent or assume injuries for players without listed news.
+2. NO NAME CONFLATION: Never connect players who share a last name (e.g., Christian Watson and Deshaun Watson are completely unrelated).
+3. NO GHOST PLAYERS: Do not mention any un-rostered players or invent backup roles for players not found in the starting lineups or bench options above.
+4. FANTASY MANAGER PERSPECTIVE: If a starter has a verified injury update above, focus strictly on whether they play and **which specific player on that franchise's listed dynasty bench** can step in.
 5. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
 Format Output Exactly As:
@@ -281,8 +279,8 @@ Format Output Exactly As:
 [1-2 sentences framing matchup records and key starter health status]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Focus on a starter's injury status and which specific bench player must step up if they miss time]
-- {t_b['team_name']}: [Focus on a starter's injury status and which specific bench player must step up if they miss time]
+- {t_a['team_name']}: [Focus on a rostered player's status and bench alternatives]
+- {t_b['team_name']}: [Focus on a rostered player's status and bench alternatives]
 
 **🔮 The Verdict:**
 [Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 concrete tactical or health-related reason]."""
