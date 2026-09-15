@@ -26,7 +26,7 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a sharp, tactical NFL fantasy football commissioner. Focus heavily on injury cascades and depth chart shifts (e.g., how a backup quarterback impacts pass-catcher ceilings, or how an injured RB1 shifts heavy volume to the backup). Base analysis strictly on current stats, projections, and real-world RSS injury reports."
+                "content": "You are a sharp, tactical fantasy football commissioner. Focus strictly on fantasy health status and roster decisions. STRICT RULE: Never connect or conflate players just because they share a last name (e.g., Christian Watson and Deshaun Watson are completely different players on different NFL teams). Never waste analysis on how real-life backup players benefit."
             },
             {"role": "user", "content": prompt}
         ],
@@ -81,6 +81,18 @@ def format_starters(starter_ids, players):
         p_team = p.get("team") or "FA"
         starters.append(f"{p_name} ({p_pos}, {p_team})")
     return starters if starters else ["Starters pending"]
+
+def format_bench(roster_player_ids, starter_ids, players):
+    bench = []
+    starter_set = set(str(sid) for sid in starter_ids)
+    for pid in roster_player_ids:
+        if str(pid) in starter_set or str(pid) == "0": continue
+        p = players.get(str(pid)) or {}
+        p_name = p.get("full_name") or str(pid)
+        p_pos = p.get("position") or "FLEX"
+        p_team = p.get("team") or "FA"
+        bench.append(f"{p_name} ({p_pos}, {p_team})")
+    return bench if bench else ["No bench players listed"]
 
 def parse_ai_forecast(ai_text, team_a_name, team_b_name):
     if not ai_text:
@@ -201,6 +213,7 @@ def run():
                 r_data = roster_map.get(m["roster_id"], {})
                 t_name = r_data.get("name", f"Team {m['roster_id']}")
                 r_players = r_data.get("players", [])
+                bench = format_bench(r_players, starter_ids, players)
 
                 games[m_id].append({
                     "roster_id": m["roster_id"],
@@ -208,6 +221,7 @@ def run():
                     "record": f"{r_data.get('wins', 0)}-{r_data.get('losses', 0)}",
                     "fpts": r_data.get("fpts", 0.0),
                     "starters": starters,
+                    "bench": bench,
                     "starter_ids": starter_ids,
                     "roster_player_ids": r_players
                 })
@@ -239,36 +253,39 @@ def run():
 
             news_block = ""
             if matchup_news:
-                news_block = "\n[CRITICAL INJURY & BACKUP VOLUME SHIFTS - MUST ANALYZE IMPACT]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
+                news_block = "\n[LIVE PLAYER HEALTH & INJURY NEWS]:\n" + "\n".join([f"- {n}" for n in matchup_news[:6]]) + "\n"
 
             prompt = f"""You are the lead fantasy football analyst for the 'ONU MLax Dynasty League'. Write a data-driven Week {week} preview.
 
 Franchise A: '{t_a['team_name']}'
 - Record: {t_a['record']} | Total Season FPts: {t_a['fpts']} | Week Proj: {t_a['projected']} pts
 - Starting Lineup: {', '.join(t_a['starters'])}
+- Dynasty Bench Options: {', '.join(t_a['bench'])}
 
 Franchise B: '{t_b['team_name']}'
 - Record: {t_b['record']} | Total Season FPts: {t_b['fpts']} | Week Proj: {t_b['projected']} pts
 - Starting Lineup: {', '.join(t_b['starters'])}
+- Dynasty Bench Options: {', '.join(t_b['bench'])}
 
 {news_block}
 
 CRITICAL MANDATORY RULES:
-1. INJURY CASCADES & BACKUP SHIFTS: If a starter (such as Sam Darnold or an RB1) is injured or ruled out in the news feed above, you MUST explicitly detail how it impacts their teammates (e.g., backup quarterback step-in lowering wide receiver ceilings, or an RB2 picking up heavy volume).
-2. SEASON CONTEXT: Reference team records ({t_a['record']} vs {t_b['record']}) and total points to frame momentum.
-3. NO HALLUCINATIONS: Never claim a player is playing against their own real-life team. Focus purely on fantasy output and depth chart movement.
-4. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
+1. FANTASY MANAGER PERSPECTIVE: If a starter (such as Ladd McConkey or Sam Darnold) is injured or ruled out, focus strictly on whether they will play and **which specific player on that franchise's actual dynasty bench** must step in to start instead.
+2. NO NAME-COLLISION CONFLATIONS: Never connect players who share a last name (e.g., Christian Watson and Deshaun Watson). Verify their exact real-life team abbreviation from the roster text before linking any news or stats.
+3. NO REAL-LIFE FLUFF: Never analyze how anonymous real-life backup players or third-string wide receivers benefit real-life NFL teams. Keep analysis centered entirely on fantasy starter health and roster bench replacements.
+4. CURRENT TEAM ACCURACY: Respect modern team abbreviations in player tags (e.g., Aaron Rodgers is on PIT).
+5. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
 Format Output Exactly As:
 **🥊 Tale of the Tape:**
-[1-2 sentences framing the matchup records and any major injury cascade/backup volume shifts]
+[1-2 sentences framing matchup records and key starter health status]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Focus on a specific player, injury impact, or backup opportunity shift]
-- {t_b['team_name']}: [Focus on a specific player, injury impact, or backup opportunity shift]
+- {t_a['team_name']}: [Focus on a starter's injury status and which specific bench player must step up if they miss time]
+- {t_b['team_name']}: [Focus on a starter's injury status and which specific bench player must step up if they miss time]
 
 **🔮 The Verdict:**
-[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 concrete tactical or injury-driven reason]."""
+[Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 concrete tactical or health-related reason]."""
 
             raw_ai = call_ai(prompt)
             clean_preview = parse_ai_forecast(raw_ai, t_a['team_name'], t_b['team_name'])
