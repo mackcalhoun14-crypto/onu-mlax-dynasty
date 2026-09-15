@@ -26,11 +26,19 @@ def call_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a ruthless, elite analytical fantasy football commissioner and sharp tactician. Reject surface-level filler, hypothetical injury worries for healthy players, and past-tense/offseason news.\nSTRICT ABSOLUTE RULES:\n1) POSITIONAL INTEGRITY: Never assign receiving target shares, slot stats, or pass-catching metrics to Quarterbacks (QBs throw passes; they do not command target shares). Never assign absurd wide-receiver slot metrics (e.g., 55% slot share) to Running Backs.\n2) TEAM ACCURACY: NEVER state that an NFL player is playing against their own real-life NFL team. Verify actual player real-life teams from their roster tags and match them strictly against opposing defenses.\n3) ACTIVE STARTERS ONLY: Ignore all bench injuries. Only discuss injuries if an active starting lineup player has a verified, current-week active designation (questionable, doubtful, IR) in the news feed. Disregard past-tense, historical, or offseason recovery blurbs entirely.\n4) NO CONFLATION: Never connect players who share a last name. Focus strictly on rostered players."
+                "content": (
+                    "You are a ruthless, elite analytical fantasy football commissioner and sharp tactician. "
+                    "Reject surface-level filler, hypothetical injury worries, and past-tense/offseason news.\n"
+                    "ABSOLUTE STRICT RULES:\n"
+                    "1) POSITIONAL ACCURACY & ROLES: Quarterbacks (QBs) are passers and scramblers; they NEVER command receiving target shares, slot stats, or pass-catching metrics. Running Backs (RBs) handle backfield touches and carries; they do NOT command wide receiver slot shares or slot target metrics.\n"
+                    "2) OPPONENT VERIFICATION: NEVER state or imply that an NFL player is playing against their own real-life NFL team. Cross-reference the player's real-life team abbreviation with the opposing defense they are facing. A player on team X can never play against team X.\n"
+                    "3) ACTIVE STARTERS ONLY: Ignore bench injuries entirely. Only discuss injuries if an active starting lineup player has a verified, active current-week game designation (questionable, doubtful, IR) in the news feed. Disregard all historical or past-tense blurbs.\n"
+                    "4) NO CONFLATION: Never connect players who share a last name. Focus strictly on rostered players."
+                )
             },
             {"role": "user", "content": prompt}
         ],
-        "temperature": 0.20
+        "temperature": 0.10
     }
 
     for attempt in range(3):
@@ -267,19 +275,18 @@ Franchise B: '{t_b['team_name']}'
 {news_block}
 
 CRITICAL ANALYTICAL RULES:
-1. TACTICAL METRICS: Evaluate leverage based on true positional roles: high-value touch volume (red-zone usage), target share concentration for pass-catchers, passing volume/efficiency for QBs, structural defensive weaknesses, and game-script efficiency. 
-2. STRICT POSITIONAL REALITY: Ensure QBs are discussed as passers/scramblers (never receiving target shares), and RBs/WRs are discussed in their proper offensive roles. 
-3. ACTIVE STARTERS & CLEAN ROSTERS: Ignore bench injuries. Only discuss injuries if an active starter has a verified current-week game designation in the news block above. If a starter is healthy, focus entirely on structural matchup dynamics—do not invent speculative injury worries.
-4. TEAM ALIGNMENT CHECK: Verify player real-life team abbreviations from the starter lists. Never state a player is playing against their own real-life team.
-5. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
+1. STRICT POSITIONAL ROLES: Discuss QBs strictly as passers and rushers (never assign them target shares or pass-catching metrics). Discuss RBs strictly through backfield touch volume and rushing efficiency (never assign them wide receiver slot metrics).
+2. TEAM ALIGNMENT & OPPONENTS: Strictly verify player team abbreviations from the starting lineup strings. Never place a player against their own real-life NFL team.
+3. ACTIVE STARTERS ONLY: Ignore bench injuries. Only discuss injuries if an active starter has a verified current-week game designation in the news block above.
+4. NAMES: Always use '{t_a['team_name']}' and '{t_b['team_name']}'.
 
 Format Output Exactly As:
 **🥊 Tale of the Tape:**
 [1-2 sharp sentences analyzing structural projection gaps and competitive landscape]
 
 **🔥 The X-Factors:**
-- {t_a['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target/touch volume, or verified starter injury status]
-- {t_b['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, target/touch volume, or verified starter injury status]
+- {t_a['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, touch/target volume, or verified starter injury status]
+- {t_b['team_name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, touch/target volume, or verified starter injury status]
 
 **🔮 The Verdict:**
 [Winner] defeats [Loser], {t_a['projected']} to {t_b['projected']}, driven by [1 elite tactical or efficiency-driven reason]."""
