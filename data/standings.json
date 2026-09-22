@@ -1,111 +1,111 @@
 {
-  "week": 2,
+  "week": 3,
   "standings": [
+    {
+      "roster_id": 9,
+      "name": "Syracuse Sandstorms",
+      "record": "2-0",
+      "fpts": 403.8,
+      "power_score": 24.2,
+      "playoff_status": "In The Hunt",
+      "magic_number": 7
+    },
     {
       "roster_id": 6,
       "name": "Chicken Soup",
-      "record": "1-0",
-      "fpts": 179.6,
-      "power_score": 11.0,
+      "record": "2-0",
+      "fpts": 323.4,
+      "power_score": 20.2,
+      "playoff_status": "In The Hunt",
+      "magic_number": 7
+    },
+    {
+      "roster_id": 7,
+      "name": "BabbyBare",
+      "record": "2-0",
+      "fpts": 252.1,
+      "power_score": 16.6,
+      "playoff_status": "In The Hunt",
+      "magic_number": 7
+    },
+    {
+      "roster_id": 3,
+      "name": "Dayton Degenerates ",
+      "record": "1-1",
+      "fpts": 279.0,
+      "power_score": 15.9,
       "playoff_status": "In The Hunt",
       "magic_number": 8
     },
     {
-      "roster_id": 9,
-      "name": "Syracuse Sandstorms",
-      "record": "1-0",
-      "fpts": 170.8,
-      "power_score": 10.5,
+      "roster_id": 4,
+      "name": "noahsaint",
+      "record": "1-1",
+      "fpts": 273.7,
+      "power_score": 15.7,
       "playoff_status": "In The Hunt",
       "magic_number": 8
     },
     {
       "roster_id": 8,
       "name": "Mr texas ",
-      "record": "1-0",
-      "fpts": 158.4,
-      "power_score": 9.9,
-      "playoff_status": "In The Hunt",
-      "magic_number": 8
-    },
-    {
-      "roster_id": 7,
-      "name": "BabbyBare",
-      "record": "1-0",
-      "fpts": 148.9,
-      "power_score": 9.4,
-      "playoff_status": "In The Hunt",
-      "magic_number": 8
-    },
-    {
-      "roster_id": 10,
-      "name": "spearson22",
-      "record": "1-0",
-      "fpts": 143.5,
-      "power_score": 9.2,
+      "record": "1-1",
+      "fpts": 273.5,
+      "power_score": 15.7,
       "playoff_status": "In The Hunt",
       "magic_number": 8
     },
     {
       "roster_id": 12,
       "name": "Amon Ra Akbar",
-      "record": "1-0",
-      "fpts": 142.1,
-      "power_score": 9.1,
-      "playoff_status": "In The Hunt",
+      "record": "1-1",
+      "fpts": 258.6,
+      "power_score": 14.9,
+      "playoff_status": "Chasing",
       "magic_number": 8
-    },
-    {
-      "roster_id": 3,
-      "name": "Dayton Degenerates ",
-      "record": "0-1",
-      "fpts": 163.3,
-      "power_score": 8.2,
-      "playoff_status": "Chasing",
-      "magic_number": 9
-    },
-    {
-      "roster_id": 4,
-      "name": "noahsaint",
-      "record": "0-1",
-      "fpts": 125.9,
-      "power_score": 6.3,
-      "playoff_status": "Chasing",
-      "magic_number": 9
-    },
-    {
-      "roster_id": 11,
-      "name": "Worthy of my Chuba",
-      "record": "0-1",
-      "fpts": 126.1,
-      "power_score": 6.3,
-      "playoff_status": "Chasing",
-      "magic_number": 9
     },
     {
       "roster_id": 5,
       "name": "MaxWeese25",
-      "record": "0-1",
-      "fpts": 123.1,
-      "power_score": 6.2,
+      "record": "1-1",
+      "fpts": 247.2,
+      "power_score": 14.4,
       "playoff_status": "Chasing",
-      "magic_number": 9
+      "magic_number": 8
     },
     {
-      "roster_id": 1,
-      "name": "Fire Haslam Into The Sun",
-      "record": "0-1",
-      "fpts": 108.0,
-      "power_score": 5.4,
+      "roster_id": 10,
+      "name": "spearson22",
+      "record": "1-1",
+      "fpts": 228.2,
+      "power_score": 13.4,
+      "playoff_status": "Chasing",
+      "magic_number": 8
+    },
+    {
+      "roster_id": 11,
+      "name": "Worthy of my Chuba",
+      "record": "0-2",
+      "fpts": 229.1,
+      "power_score": 11.5,
       "playoff_status": "Chasing",
       "magic_number": 9
     },
     {
       "roster_id": 2,
       "name": "T-Mac Attack",
-      "record": "0-1",
-      "fpts": 94.2,
-      "power_score": 4.7,
+      "record": "0-2",
+      "fpts": 216.2,
+      "power_score": 10.8,
+      "playoff_status": "Chasing",
+      "magic_number": 9
+    },
+    {
+      "roster_id": 1,
+      "name": "Fire Haslam Into The Sun",
+      "record": "0-2",
+      "fpts": 212.9,
+      "power_score": 10.6,
       "playoff_status": "Chasing",
       "magic_number": 9
     }
