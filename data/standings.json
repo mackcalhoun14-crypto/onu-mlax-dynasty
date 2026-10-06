@@ -1,111 +1,111 @@
 {
-  "week": 4,
+  "week": 5,
   "standings": [
     {
-      "roster_id": 6,
-      "name": "Chicken Soup",
-      "record": "3-0",
-      "fpts": 515.1,
-      "power_score": 31.8,
+      "roster_id": 9,
+      "name": "Syracuse Sandstorms",
+      "record": "3-1",
+      "fpts": 727.3,
+      "power_score": 42.4,
       "playoff_status": "In The Hunt",
       "magic_number": 6
     },
     {
-      "roster_id": 9,
-      "name": "Syracuse Sandstorms",
-      "record": "2-1",
-      "fpts": 546.7,
-      "power_score": 31.3,
+      "roster_id": 6,
+      "name": "Chicken Soup",
+      "record": "4-0",
+      "fpts": 679.5,
+      "power_score": 42.0,
       "playoff_status": "In The Hunt",
-      "magic_number": 7
+      "magic_number": 5
     },
     {
       "roster_id": 4,
       "name": "noahsaint",
-      "record": "2-1",
-      "fpts": 424.9,
-      "power_score": 25.2,
+      "record": "3-1",
+      "fpts": 578.4,
+      "power_score": 34.9,
+      "playoff_status": "In The Hunt",
+      "magic_number": 6
+    },
+    {
+      "roster_id": 5,
+      "name": "MaxWeese25",
+      "record": "2-2",
+      "fpts": 559.4,
+      "power_score": 32.0,
       "playoff_status": "In The Hunt",
       "magic_number": 7
     },
     {
+      "roster_id": 10,
+      "name": "spearson22",
+      "record": "3-1",
+      "fpts": 489.6,
+      "power_score": 30.5,
+      "playoff_status": "In The Hunt",
+      "magic_number": 6
+    },
+    {
       "roster_id": 7,
       "name": "All Gas No Bench",
-      "record": "3-0",
-      "fpts": 374.4,
-      "power_score": 24.7,
+      "record": "3-1",
+      "fpts": 484.6,
+      "power_score": 30.2,
       "playoff_status": "In The Hunt",
       "magic_number": 6
     },
     {
       "roster_id": 8,
       "name": "Mr texas ",
-      "record": "2-1",
-      "fpts": 414.8,
-      "power_score": 24.7,
-      "playoff_status": "In The Hunt",
-      "magic_number": 7
-    },
-    {
-      "roster_id": 3,
-      "name": "Dayton Degenerates ",
-      "record": "1-2",
-      "fpts": 417.6,
-      "power_score": 22.9,
-      "playoff_status": "In The Hunt",
-      "magic_number": 8
-    },
-    {
-      "roster_id": 10,
-      "name": "spearson22",
-      "record": "2-1",
-      "fpts": 373.6,
-      "power_score": 22.7,
+      "record": "2-2",
+      "fpts": 524.6,
+      "power_score": 30.2,
       "playoff_status": "Chasing",
       "magic_number": 7
-    },
-    {
-      "roster_id": 5,
-      "name": "MaxWeese25",
-      "record": "1-2",
-      "fpts": 375.6,
-      "power_score": 20.8,
-      "playoff_status": "Chasing",
-      "magic_number": 8
     },
     {
       "roster_id": 12,
       "name": "Amon Ra Akbar",
-      "record": "1-2",
-      "fpts": 364.2,
-      "power_score": 20.2,
+      "record": "1-3",
+      "fpts": 520.2,
+      "power_score": 28.0,
+      "playoff_status": "Chasing",
+      "magic_number": 8
+    },
+    {
+      "roster_id": 3,
+      "name": "Dayton Degenerates ",
+      "record": "1-3",
+      "fpts": 504.6,
+      "power_score": 27.2,
       "playoff_status": "Chasing",
       "magic_number": 8
     },
     {
       "roster_id": 1,
       "name": "Fire Haslam Into The Sun",
-      "record": "1-2",
-      "fpts": 360.1,
-      "power_score": 20.0,
+      "record": "1-3",
+      "fpts": 496.2,
+      "power_score": 26.8,
+      "playoff_status": "Chasing",
+      "magic_number": 8
+    },
+    {
+      "roster_id": 2,
+      "name": "T-Mac Attack",
+      "record": "1-3",
+      "fpts": 494.4,
+      "power_score": 26.7,
       "playoff_status": "Chasing",
       "magic_number": 8
     },
     {
       "roster_id": 11,
       "name": "Worthy of my Chuba",
-      "record": "0-3",
-      "fpts": 372.8,
-      "power_score": 18.6,
-      "playoff_status": "Chasing",
-      "magic_number": 9
-    },
-    {
-      "roster_id": 2,
-      "name": "T-Mac Attack",
-      "record": "0-3",
-      "fpts": 348.6,
-      "power_score": 17.4,
+      "record": "0-4",
+      "fpts": 522.2,
+      "power_score": 26.1,
       "playoff_status": "Chasing",
       "magic_number": 9
     }
