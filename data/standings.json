@@ -1,111 +1,111 @@
 {
-  "week": 9,
+  "week": 10,
   "standings": [
-    {
-      "roster_id": 6,
-      "name": "Chicken Soup",
-      "record": "6-2",
-      "fpts": 1331.2,
-      "power_score": 78.6,
-      "playoff_status": "In The Hunt",
-      "magic_number": 3
-    },
     {
       "roster_id": 9,
       "name": "Syracuse Sandstorms",
-      "record": "6-2",
-      "fpts": 1322.0,
-      "power_score": 78.1,
-      "playoff_status": "In The Hunt",
-      "magic_number": 3
-    },
-    {
-      "roster_id": 4,
-      "name": "noahsaint",
-      "record": "7-1",
-      "fpts": 1264.5,
-      "power_score": 77.2,
+      "record": "7-2",
+      "fpts": 1481.2,
+      "power_score": 88.1,
       "playoff_status": "In The Hunt",
       "magic_number": 2
     },
     {
-      "roster_id": 7,
-      "name": "All Gas No Bench",
-      "record": "6-2",
-      "fpts": 1062.4,
-      "power_score": 65.1,
+      "roster_id": 4,
+      "name": "noahsaint",
+      "record": "8-1",
+      "fpts": 1422.2,
+      "power_score": 87.1,
+      "playoff_status": "In The Hunt",
+      "magic_number": 1
+    },
+    {
+      "roster_id": 6,
+      "name": "Chicken Soup",
+      "record": "6-3",
+      "fpts": 1473.1,
+      "power_score": 85.7,
       "playoff_status": "In The Hunt",
       "magic_number": 3
     },
     {
       "roster_id": 5,
       "name": "MaxWeese25",
-      "record": "4-4",
-      "fpts": 1100.3,
-      "power_score": 63.0,
+      "record": "5-4",
+      "fpts": 1287.1,
+      "power_score": 74.4,
       "playoff_status": "In The Hunt",
-      "magic_number": 5
+      "magic_number": 4
     },
     {
-      "roster_id": 1,
-      "name": "Fire Haslam Into The Sun",
-      "record": "4-4",
-      "fpts": 1073.0,
-      "power_score": 61.6,
+      "roster_id": 7,
+      "name": "All Gas No Bench",
+      "record": "6-3",
+      "fpts": 1188.3,
+      "power_score": 71.4,
       "playoff_status": "In The Hunt",
-      "magic_number": 5
+      "magic_number": 3
     },
     {
       "roster_id": 10,
       "name": "spearson22",
-      "record": "5-3",
-      "fpts": 1027.7,
-      "power_score": 61.4,
-      "playoff_status": "Chasing",
-      "magic_number": 4
+      "record": "6-3",
+      "fpts": 1141.6,
+      "power_score": 69.1,
+      "playoff_status": "In The Hunt",
+      "magic_number": 3
     },
     {
-      "roster_id": 2,
-      "name": "T-Mac Attack",
-      "record": "3-5",
-      "fpts": 1003.1,
-      "power_score": 56.2,
+      "roster_id": 1,
+      "name": "Fire Haslam Into The Sun",
+      "record": "4-5",
+      "fpts": 1184.7,
+      "power_score": 67.2,
       "playoff_status": "Chasing",
-      "magic_number": 6
+      "magic_number": 5
     },
     {
       "roster_id": 11,
       "name": "Worthy of my Chuba",
-      "record": "2-6",
-      "fpts": 1004.6,
-      "power_score": 54.2,
+      "record": "3-6",
+      "fpts": 1141.6,
+      "power_score": 63.1,
       "playoff_status": "Chasing",
-      "magic_number": 7
+      "magic_number": 6
+    },
+    {
+      "roster_id": 2,
+      "name": "T-Mac Attack",
+      "record": "3-6",
+      "fpts": 1127.2,
+      "power_score": 62.4,
+      "playoff_status": "Chasing",
+      "magic_number": 6
     },
     {
       "roster_id": 8,
       "name": "Mr texas ",
-      "record": "2-6",
-      "fpts": 975.0,
-      "power_score": 52.8,
+      "record": "3-6",
+      "fpts": 1096.7,
+      "power_score": 60.8,
       "playoff_status": "Chasing",
-      "magic_number": 7
+      "magic_number": 6
     },
     {
       "roster_id": 12,
       "name": "Justin Jefferfather",
-      "record": "2-6",
-      "fpts": 907.9,
-      "power_score": 49.4,
+      "record": "2-7",
+      "fpts": 988.5,
+      "power_score": 53.4,
       "playoff_status": "Chasing",
       "magic_number": 7
     },
     {
       "roster_id": 3,
       "name": "Dayton Degenerates ",
-      "record": "1-7",
-      "fpts": 908.7,
-      "power_score": 47.4,
+      "record": "1-8",
+      "fpts": 1012.9,
+      "power_score": 52.6,
       "playoff_status": "Chasing",
       "magic_number": 8
     }
