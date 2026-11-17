@@ -1,113 +1,113 @@
 {
-  "week": 10,
+  "week": 11,
   "standings": [
     {
       "roster_id": 9,
       "name": "Syracuse Sandstorms",
-      "record": "7-2",
-      "fpts": 1481.2,
-      "power_score": 88.1,
-      "playoff_status": "In The Hunt",
-      "magic_number": 2
-    },
-    {
-      "roster_id": 4,
-      "name": "noahsaint",
-      "record": "8-1",
-      "fpts": 1422.2,
-      "power_score": 87.1,
+      "record": "8-2",
+      "fpts": 1675.2,
+      "power_score": 99.8,
       "playoff_status": "In The Hunt",
       "magic_number": 1
     },
     {
+      "roster_id": 4,
+      "name": "noahsaint",
+      "record": "9-1",
+      "fpts": 1586.6,
+      "power_score": 97.3,
+      "playoff_status": "In The Hunt",
+      "magic_number": 0
+    },
+    {
       "roster_id": 6,
       "name": "Chicken Soup",
-      "record": "6-3",
-      "fpts": 1473.1,
-      "power_score": 85.7,
+      "record": "7-3",
+      "fpts": 1666.1,
+      "power_score": 97.3,
       "playoff_status": "In The Hunt",
-      "magic_number": 3
+      "magic_number": 2
     },
     {
       "roster_id": 5,
       "name": "MaxWeese25",
-      "record": "5-4",
-      "fpts": 1287.1,
-      "power_score": 74.4,
+      "record": "5-5",
+      "fpts": 1433.3,
+      "power_score": 81.7,
       "playoff_status": "In The Hunt",
       "magic_number": 4
     },
     {
-      "roster_id": 7,
-      "name": "All Gas No Bench",
-      "record": "6-3",
-      "fpts": 1188.3,
-      "power_score": 71.4,
-      "playoff_status": "In The Hunt",
-      "magic_number": 3
-    },
-    {
       "roster_id": 10,
       "name": "spearson22",
-      "record": "6-3",
-      "fpts": 1141.6,
-      "power_score": 69.1,
+      "record": "7-3",
+      "fpts": 1273.2,
+      "power_score": 77.7,
+      "playoff_status": "In The Hunt",
+      "magic_number": 2
+    },
+    {
+      "roster_id": 7,
+      "name": "All Gas No Bench",
+      "record": "6-4",
+      "fpts": 1284.7,
+      "power_score": 76.2,
       "playoff_status": "In The Hunt",
       "magic_number": 3
     },
     {
       "roster_id": 1,
       "name": "Fire Haslam Into The Sun",
-      "record": "4-5",
-      "fpts": 1184.7,
-      "power_score": 67.2,
+      "record": "5-5",
+      "fpts": 1293.8,
+      "power_score": 74.7,
+      "playoff_status": "Chasing",
+      "magic_number": 4
+    },
+    {
+      "roster_id": 2,
+      "name": "T-Mac Attack",
+      "record": "4-6",
+      "fpts": 1267.7,
+      "power_score": 71.4,
       "playoff_status": "Chasing",
       "magic_number": 5
     },
     {
       "roster_id": 11,
       "name": "Worthy of my Chuba",
-      "record": "3-6",
-      "fpts": 1141.6,
-      "power_score": 63.1,
-      "playoff_status": "Chasing",
-      "magic_number": 6
-    },
-    {
-      "roster_id": 2,
-      "name": "T-Mac Attack",
-      "record": "3-6",
-      "fpts": 1127.2,
-      "power_score": 62.4,
+      "record": "3-7",
+      "fpts": 1256.8,
+      "power_score": 68.8,
       "playoff_status": "Chasing",
       "magic_number": 6
     },
     {
       "roster_id": 8,
       "name": "Mr texas ",
-      "record": "3-6",
-      "fpts": 1096.7,
-      "power_score": 60.8,
+      "record": "3-7",
+      "fpts": 1211.9,
+      "power_score": 66.6,
       "playoff_status": "Chasing",
       "magic_number": 6
     },
     {
-      "roster_id": 12,
-      "name": "Justin Jefferfather",
-      "record": "2-7",
-      "fpts": 988.5,
-      "power_score": 53.4,
-      "playoff_status": "Chasing",
-      "magic_number": 7
-    },
-    {
       "roster_id": 3,
       "name": "Dayton Degenerates ",
-      "record": "1-8",
-      "fpts": 1012.9,
-      "power_score": 52.6,
+      "record": "1-9",
+      "fpts": 1143.0,
+      "power_score": 59.1,
       "playoff_status": "Chasing",
       "magic_number": 8
+    },
+    {
+      "roster_id": 12,
+      "name": "Justin Jefferfather",
+      "record": "2-8",
+      "fpts": 1059.1,
+      "power_score": 57.0,
+      "playoff_status": "Chasing",
+      "magic_number": 7
     }
   ]
 }
