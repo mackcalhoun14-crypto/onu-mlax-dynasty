@@ -437,7 +437,7 @@
       const container = document.getElementById('matchups-container');
       
       container.innerHTML = list.map(m => {
-        const parsedPreview = marked.parse(m.preview || "");
+        const parsedPreview = marked.parse(m.analysis || "");
 
         return `
           <div class="glass rounded-3xl p-4 sm:p-6 border border-slate-800 space-y-4">
@@ -452,13 +452,13 @@
                 <div>
                   <div class="flex items-center justify-between gap-1">
                     <span class="font-bold text-white text-xs sm:text-sm truncate">${m.team_a.team_name}</span>
-                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">${m.team_a.win_prob || '50%'}</span>
+                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">${m.team_a.win_pct != null ? m.team_a.win_pct + '%' : '—'}</span>
                   </div>
                   <div class="text-[10px] text-slate-400 font-mono mt-0.5">Rec: ${m.team_a.record}</div>
                 </div>
                 <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-baseline justify-between">
                   <span class="text-[9px] uppercase tracking-wider text-slate-400 font-mono">Projected</span>
-                  <span class="text-base sm:text-lg font-black font-mono text-cyan-400">${m.team_a.projected || '114.5'} <span class="text-[10px] font-normal text-slate-400">pts</span></span>
+                  <span class="text-base sm:text-lg font-black font-mono text-cyan-400">${m.team_a.projected ?? '—'}</span>
                 </div>
               </div>
 
@@ -467,13 +467,13 @@
                 <div>
                   <div class="flex items-center justify-between gap-1">
                     <span class="font-bold text-white text-xs sm:text-sm truncate">${m.team_b.team_name}</span>
-                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">${m.team_b.win_prob || '50%'}</span>
+                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">${m.team_b.win_pct != null ? m.team_b.win_pct + '%' : '—'}</span>
                   </div>
                   <div class="text-[10px] text-slate-400 font-mono mt-0.5">Rec: ${m.team_b.record}</div>
                 </div>
                 <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-baseline justify-between">
                   <span class="text-[9px] uppercase tracking-wider text-slate-400 font-mono">Projected</span>
-                  <span class="text-base sm:text-lg font-black font-mono text-purple-400">${m.team_b.projected || '110.0'} <span class="text-[10px] font-normal text-slate-400">pts</span></span>
+                  <span class="text-base sm:text-lg font-black font-mono text-purple-400">${m.team_b.projected ?? '—'}</span>
                 </div>
               </div>
             </div>
