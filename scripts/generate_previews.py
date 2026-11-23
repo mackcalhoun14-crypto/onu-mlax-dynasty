@@ -68,13 +68,13 @@ def calculate_team_projection(starter_ids, projections):
         else:
             pts = p_data.get("pts_half_ppr") or p_data.get("pts_ppr") or p_data.get("pts_std") or 0.0
         total += float(pts)
-    if total == 0.0 and starter_ids:
-        total = 110.0 + (len(starter_ids) * 0.1)
+    if total == 0.0:
+        return None
     return round(total, 1)
 
 def get_win_prob(proj_a, proj_b):
-    if proj_a == 0 and proj_b == 0:
-        return 50, 50
+    if proj_a is None or proj_b is None:
+        return None, None
     prob_a = 1 / (1 + 10 ** ((proj_b - proj_a) / 33))
     pct_a = round(prob_a * 100)
     pct_b = 100 - pct_a
@@ -225,7 +225,7 @@ def _trade_fallback_audit(team1_name, team1_assets, team2_name, team2_assets):
             f"ANALYSIS:\n{analysis}")
 
 
-def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_player_names):
+def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_player_names, player_facts=None):
     """Parse and strictly validate a trade audit.
 
     Required shape (no extra lines):
@@ -237,9 +237,9 @@ def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_pl
     The winner must hold the better grade (or grades must be equal for
     Even Trade), the text must contain no "pending" placeholder, and the
     analysis must not name any player who was not part of the trade. It must
-    also not call any player a rookie or state a player's age: the model
-    gets both wrong too often, so those claims are rejected and the audit is
-    retried or replaced by the factual fallback.
+    also not name a player at a wrong position, call a non-rookie a
+    rookie, state a wrong age, or use unsupported hype: such claims are
+    checked against the Sleeper facts for the traded players.
     Returns (grade1, grade2, winner, analysis) or None when invalid.
     """
     if not audit or not isinstance(audit, str):
@@ -272,15 +272,15 @@ def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_pl
     if not lines[3].startswith("ANALYSIS:"):
         return None
     analysis = (lines[3][len("ANALYSIS:"):].strip() + "\n" + "\n".join(lines[4:])).strip()
-    if not analysis or "GRADE_" in analysis or "pending" in analysis.lower():
+    if not analysis or "GRADE_" in analysis or "pending" in analysis.lower() or any(p in analysis.lower() for p in ("significant long-term upside", "emerged as a primary rusher", "clear asset", "superior piece", "franchise quarterback", "elite", "clear winner", "team control", "contract year")):
         return None
-    # The model repeatedly mislabels veterans as rookies and invents ages.
-    # Reject those claims outright: a retry (or the factual fallback)
-    # replaces the audit rather than publishing a wrong one.
-    if "rookie" in analysis.lower():
+    # Positions, ages, and experience are checked against the Sleeper
+    # facts for the traded players. A wrong position, a "rookie" who is
+    # not one, or an age no traded player has rejects the audit.
+    if ("rookie" in analysis.lower() and 0 not in {f.get("years_exp") for f in (player_facts or {}).values() if isinstance(f.get("years_exp"), int)}) or [pos for pos, words in {"QB": ["quarterback", "passer"], "RB": ["running back", "tailback", "halfback", "rusher"], "WR": ["wide receiver", "wideout", "receiver"], "TE": ["tight end"], "K": ["kicker"]}.items() if pos not in {f.get("position") for f in (player_facts or {}).values() if f.get("position")} and any(w in analysis.lower() for w in words)]:
         return None
     flat = analysis.lower().replace("\u2011", "-").replace("\u2010", "-")
-    if re.search(r"\b\d{1,2}(-year-old| years? old)\b", flat):
+    if [int(a) for a in re.findall(r"\b(\d{1,2})(?:-year-old| years? old)\b", flat) if int(a) not in {f.get("age") for f in (player_facts or {}).values() if isinstance(f.get("age"), int)}]:
         return None
     # No invented players: every full player name in the analysis must be a
     # player who actually changed teams in this trade.
@@ -290,7 +290,7 @@ def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_pl
     return g1, g2, winner, analysis
 
 
-def generate_trade_audit(team1_name, team1_assets, team2_name, team2_assets, traded_player_names, all_player_names):
+def generate_trade_audit(team1_name, team1_assets, team2_name, team2_assets, traded_player_names, all_player_names, player_facts=None):
     """Generate one validated trade audit (AI with retries, factual fallback)."""
     assets1 = ", ".join(team1_assets) if team1_assets else "nothing"
     assets2 = ", ".join(team2_assets) if team2_assets else "nothing"
@@ -313,11 +313,11 @@ def generate_trade_audit(team1_name, team1_assets, team2_name, team2_assets, tra
         "- Never write \"Evaluation pending\", \"pending review\", or any placeholder. Always give real grades.\n"
         "- Never invent players or picks. A side that received only draft picks received only draft picks.\n"
         "- The current NFL season is 2026. Do not call a player a rookie unless he entered the NFL in 2026. "
-        "A 2027 draft pick is about one year away and a 2028 pick about two years away; never describe a future pick as four years away."
+        f"A 2027 draft pick is about one year away, a 2028 pick about two years away, and a 2029 pick about three years away; never describe a future pick as four years away. Player facts from Sleeper (ground truth JSON; use ONLY these facts for each player): {json.dumps(player_facts or {})} Note: 'years_exp' counts completed NFL seasons. A player with years_exp 0 is a rookie in the 2026 season; years_exp 2 means he is in his 3rd season. GROUND RULES: Describe each player ONLY with the Sleeper facts in this prompt (position, NFL team, age, completed NFL seasons). Do not assign a role or depth-chart status (starter, backup, depth, primary, rotational, franchise, proven starter). Do not state contract years, years of team control, free-agency timing, stats, rankings, target shares, or snap counts. Do not use hype: no 'significant long-term upside', 'emerged as a primary rusher', 'clear asset', 'superior piece', 'franchise quarterback', 'elite', or 'clear winner'. Prefer measured, factual phrasing."
     )
     for _attempt in range(3):
         raw = call_ai(prompt)
-        parsed = parse_trade_audit(raw, team1_name, team2_name, traded_player_names, all_player_names) if raw else None
+        parsed = parse_trade_audit(raw, team1_name, team2_name, traded_player_names, all_player_names, player_facts) if raw else None
         if parsed:
             g1, g2, winner, analysis = parsed
             return (f"GRADE_{team1_name}: {g1}\n"
@@ -368,13 +368,13 @@ def fetch_completed_trades(league_id, max_week, roster_map, players):
             name2 = (roster_map.get(r2, {}).get("name") or f"Team {r2}").strip()
             assets1 = _trade_receives(txn, r1, players)
             assets2 = _trade_receives(txn, r2, players)
-            traded_names = {a for a in assets1 + assets2 if not _trade_is_pick_label(a)}
+            traded_names = {a for a in assets1 + assets2 if not _trade_is_pick_label(a)}; traded_facts = {p.get("full_name"): {"position": p.get("position"), "team": p.get("team"), "age": p.get("age"), "years_exp": p.get("years_exp")} for p in players.values() if isinstance(p, dict) and p.get("full_name") in traded_names}
             trades.append({
                 "transaction_id": tid,
                 "week": wk,
                 "team_1": {"name": name1, "receives": assets1},
                 "team_2": {"name": name2, "receives": assets2},
-                "_traded_player_names": traded_names,
+                "_traded_player_names": traded_names, "_traded_player_facts": traded_facts,
             })
     trades.sort(key=lambda t: (t["week"], t["transaction_id"]))
     return trades, all_player_names
@@ -390,7 +390,7 @@ def generate_trade_audits(max_week, roster_map, players):
         t2 = trade["team_2"]
         audit = generate_trade_audit(
             t1["name"], t1["receives"], t2["name"], t2["receives"],
-            trade["_traded_player_names"], all_player_names,
+            trade["_traded_player_names"], all_player_names, trade.get("_traded_player_facts", {}),
         )
         time.sleep(1)
         out_trades.append({
@@ -482,7 +482,7 @@ def run():
 {news_block}
 
 Matchup:
-{t_a['name']} ({t_a['record']}) [projected {proj_a} pts, {pct_a}% win chance] vs {t_b['name']} ({t_b['record']}) [projected {proj_b} pts, {pct_b}% win chance]
+{(t_a['name'] + ' (' + t_a['record'] + ') [projected ' + str(proj_a) + ' pts, ' + str(pct_a) + '% win chance] vs ' + t_b['name'] + ' (' + t_b['record'] + ') [projected ' + str(proj_b) + ' pts, ' + str(pct_b) + '% win chance]') if proj_a is not None and proj_b is not None else 'No projected scores are available for this matchup. Do not invent, estimate, or cite a projected score or a win chance.'}
 
 {t_a['name']} starters:
 {a_starters_str}
@@ -497,20 +497,20 @@ CRITICAL ANALYTICAL RULES:
 1. STRICT POSITIONAL ROLES: Discuss QBs strictly as passers and rushers (never assign them target share or pass-catching metrics). RBs handle backfield touches and carries; they do NOT command wide receiver slot stats or target share metrics. WRs are pass-catchers, TEs handle tight end targets.
 2. TEAM ALIGNMENT & OPPONENTS: Strictly verify player team abbreviations from the starting lineups and roster tags. Never state a player is playing against their own NFL team. Never discuss players not rostered.
 3. ACTIVE STARTERS ONLY: Ignore bench injuries. Only discuss injuries if an active starter has a verified, active current-week game designation (questionable, doubtful, IR) in the news feed. Disregard all historical or past-tense blurbs.
-4. NAMES: Always use '{t_a['name']}' and '{t_b['name']}'.
+4. NAMES: Always use '{t_a['name']}' and '{t_b['name']}'. 5. ONLY USE SUPPLIED FACTS: Use only the starters, records, and news items above. Never invent a player's stats, ranking, target share, snap count, depth-chart status, or a projected score. If a fact is not supplied, do not state it.
 
 Format Output Exactly As:
 **🥊 Tale of the Tape:**
-[1-2 sharp sentences analyzing structural projection gaps and competitive landscape]
+[1-2 sharp sentences on how the two starting lineups compare and where the matchup will be decided]
 
 **🔥 The X-Factors:**
-- {t_a['name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, touch/target volume, and how the opponent's defensive weakness plays into it.]
-- {t_b['name']}: [Deliver a tactical breakdown of a core starter's matchup advantage, touch/target volume, and how the opponent's defensive weakness plays into it.]
+- {t_a['name']}: [A tactical breakdown of a core starter's matchup, using only the starters and records above.]
+- {t_b['name']}: [A tactical breakdown of a core starter's matchup, using only the starters and records above.]
 
 **🔮 The Verdict:**
-[Winner] defeats [Loser], {proj_a} to {proj_b}, driven by [1 elite tactical or efficiency-based reason]."""
+{f'[Winner] defeats [Loser], {proj_a} to {proj_b}, driven by [1 elite tactical or efficiency-based reason].' if proj_a is not None and proj_b is not None else '[Winner] has the edge over [Loser], driven by [1 factual reason drawn only from the starters and records above].'}"""
 
-            analysis = call_ai(prompt)
+            analysis = call_ai(prompt) or f"{t_a['name']} ({t_a['record']}) faces {t_b['name']} ({t_b['record']}) in Week {week}. Starters: {a_starters_str} vs {b_starters_str}. No preview text was generated for this matchup."
             time.sleep(1)
             results.append({
                 "matchup_id": mid,
@@ -532,7 +532,7 @@ Format Output Exactly As:
                     "starters": format_starters(t_b["starters"], players),
                     "bench": format_roster_players(t_b["players"], players),
                 },
-                "analysis": analysis or "Analysis pending."
+                "analysis": analysis
             })
 
         with open("data/matchups.json", "w") as f:
