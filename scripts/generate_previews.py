@@ -236,7 +236,10 @@ def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_pl
         <2-3 sentences mentioning only traded players/picks>
     The winner must hold the better grade (or grades must be equal for
     Even Trade), the text must contain no "pending" placeholder, and the
-    analysis must not name any player who was not part of the trade.
+    analysis must not name any player who was not part of the trade. It must
+    also not call any player a rookie or state a player's age: the model
+    gets both wrong too often, so those claims are rejected and the audit is
+    retried or replaced by the factual fallback.
     Returns (grade1, grade2, winner, analysis) or None when invalid.
     """
     if not audit or not isinstance(audit, str):
@@ -270,6 +273,14 @@ def parse_trade_audit(audit, team1_name, team2_name, traded_player_names, all_pl
         return None
     analysis = (lines[3][len("ANALYSIS:"):].strip() + "\n" + "\n".join(lines[4:])).strip()
     if not analysis or "GRADE_" in analysis or "pending" in analysis.lower():
+        return None
+    # The model repeatedly mislabels veterans as rookies and invents ages.
+    # Reject those claims outright: a retry (or the factual fallback)
+    # replaces the audit rather than publishing a wrong one.
+    if "rookie" in analysis.lower():
+        return None
+    flat = analysis.lower().replace("\u2011", "-").replace("\u2010", "-")
+    if re.search(r"\b\d{1,2}(-year-old| years? old)\b", flat):
         return None
     # No invented players: every full player name in the analysis must be a
     # player who actually changed teams in this trade.
