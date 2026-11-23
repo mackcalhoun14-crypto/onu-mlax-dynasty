@@ -1,6 +1,252 @@
 {
-  "total_trades": 8,
+  "total_trades": 21,
   "trades": [
+    {
+      "transaction_id": "1430649818136449024",
+      "week": 11,
+      "team_1": {
+        "name": "Dayton Degenerates",
+        "receives": [
+          "Jonathon Brooks"
+        ]
+      },
+      "team_2": {
+        "name": "noahsaint",
+        "receives": [
+          "Chris Rodriguez Jr."
+        ]
+      },
+      "audit": "GRADE_Dayton Degenerates: C-\nGRADE_noahsaint: B-\nWINNER: noahsaint\nANALYSIS:\nJonathon Brooks is a rookie running back with limited NFL experience and a low ceiling in dynasty contexts, offering minimal immediate and future upside. Chris Rodriguez\u202fJr., while still early in his career, has demonstrated greater production potential and a clearer path to a larger role, making him a more valuable dynasty asset. Consequently, noahsaint received the superior piece."
+    },
+    {
+      "transaction_id": "1430646332443353088",
+      "week": 11,
+      "team_1": {
+        "name": "Chicken Soup",
+        "receives": [
+          "Patrick Mahomes",
+          "Chuba Hubbard",
+          "2028 Round 1"
+        ]
+      },
+      "team_2": {
+        "name": "Worthy of my Chuba",
+        "receives": [
+          "Anthony Richardson Sr.",
+          "2027 Round 1",
+          "2027 Round 1",
+          "2028 Round 3"
+        ]
+      },
+      "audit": "GRADE_Chicken Soup: A\nGRADE_Worthy of my Chuba: B+\nWINNER: Chicken Soup\nANALYSIS:\nChicken Soup acquires elite QB Patrick Mahomes, a proven franchise cornerstone, plus a modest RB in Chuba Hubbard and a 2028 first\u2011rounder. Worthy receives a high\u2011upside rookie QB Anthony Richardson Sr., two 2027 first\u2011round picks and a 2028 third\u2011rounder, offering substantial future capital but no proven star. While Worthy gains depth of draft assets, the immediate and long\u2011term franchise value of Mahomes outweighs the package, making Chicken Soup the clear winner."
+    },
+    {
+      "transaction_id": "1430643999177216000",
+      "week": 11,
+      "team_1": {
+        "name": "Fire Haslam Into The Sun",
+        "receives": [
+          "Joe Burrow",
+          "2027 Round 3",
+          "2029 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "Chicken Soup",
+        "receives": [
+          "Brock Bowers"
+        ]
+      },
+      "audit": "GRADE_Fire Haslam Into The Sun: A-\nGRADE_Chicken Soup: C+\nWINNER: Fire Haslam Into The Sun\nANALYSIS:\nJoe Burrow is an established elite quarterback with a high ceiling for years, making him a cornerstone asset in dynasty formats. Brock Bowers, while a promising rookie tight end, remains unproven and his value is still developing, and the two future third\u2011round picks are modest. Consequently, Fire Haslam Into The Sun receives the superior package."
+    },
+    {
+      "transaction_id": "1428800477474070528",
+      "week": 11,
+      "team_1": {
+        "name": "MaxWeese25",
+        "receives": [
+          "Bryce Young",
+          "2028 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "Sam Darnold",
+          "2028 Round 1"
+        ]
+      },
+      "audit": "GRADE_MaxWeese25: A-\nGRADE_Syracuse Sandstorms: B\nWINNER: MaxWeese25\nANALYSIS:\nBryce Young is a young, high\u2011upside quarterback with starter potential, giving MaxWeese a premium asset. Sam Darnold is a veteran backup with limited upside, and while Syracuse gains a 2028 first\u2011round pick, the pick\u2019s future value does not offset the loss of a franchise QB. Consequently MaxWeese receives greater dynasty value."
+    },
+    {
+      "transaction_id": "1421604617350889472",
+      "week": 8,
+      "team_1": {
+        "name": "Chicken Soup",
+        "receives": [
+          "2029 Round 1"
+        ]
+      },
+      "team_2": {
+        "name": "spearson22",
+        "receives": [
+          "2028 Round 1"
+        ]
+      },
+      "audit": "GRADE_Chicken Soup: B\nGRADE_spearson22: A-\nWINNER: spearson22\nANALYSIS:\nChicken Soup acquired a 2029 first\u2011round pick, which will be a later selection and thus carries less future value. spearson22 obtained a 2028 first\u2011round pick, an earlier draft slot that is more valuable in a dynasty context. Consequently spearson22 secured the superior asset."
+    },
+    {
+      "transaction_id": "1421581244344307712",
+      "week": 8,
+      "team_1": {
+        "name": "Dayton Degenerates",
+        "receives": [
+          "AJ Barner",
+          "T.J. Hockenson",
+          "2029 Round 4"
+        ]
+      },
+      "team_2": {
+        "name": "Justin Jefferfather",
+        "receives": [
+          "2028 Round 4",
+          "2029 Round 4",
+          "2027 Round 3"
+        ]
+      },
+      "audit": "GRADE_Dayton Degenerates: B+\nGRADE_Justin Jefferfather: B-\nWINNER: Dayton Degenerates\nANALYSIS:\nDayton acquired a proven, high\u2011upside TE in T.J. Hockenson and a rookie TE with potential in AJ Barner, plus a low\u2011value 2029 4th\u2011round pick. Justin received three future mid\u2011round picks (2027 3rd, 2028 4th, 2029 4th), which are valuable but lack the immediate impact of Hockenson. The immediate elite talent outweighs the future pick package, giving Dayton the better side of the trade."
+    },
+    {
+      "transaction_id": "1418300918213906432",
+      "week": 6,
+      "team_1": {
+        "name": "T-Mac Attack",
+        "receives": [
+          "Jordan Mason",
+          "2027 Round 4"
+        ]
+      },
+      "team_2": {
+        "name": "Justin Jefferfather",
+        "receives": [
+          "2027 Round 3",
+          "2027 Round 4"
+        ]
+      },
+      "audit": "GRADE_T-Mac Attack: C\nGRADE_Justin Jefferfather: B+\nWINNER: Justin Jefferfather\nANALYSIS:\nJordan Mason is a low\u2011tier rookie RB with limited upside, and the 2027 4th\u2011round pick is a modest future asset. In contrast, Justin receives a 2027 3rd\u2011round pick, which holds significantly higher potential value, plus an identical 4th\u2011rounder. Therefore Justin's side captures more dynasty capital."
+    },
+    {
+      "transaction_id": "1416542421608640512",
+      "week": 6,
+      "team_1": {
+        "name": "noahsaint",
+        "receives": [
+          "Josh Downs"
+        ]
+      },
+      "team_2": {
+        "name": "Justin Jefferfather",
+        "receives": [
+          "2027 Round 2"
+        ]
+      },
+      "audit": "GRADE_noahsaint: A-\nGRADE_Justin Jefferfather: D+\nWINNER: noahsaint\nANALYSIS:\nJosh Downs is a young wide receiver with early NFL experience and upside, offering immediate roster value. A 2027 second\u2011round pick is four years away and unlikely to produce a starter before then, making it a low\u2011value future asset. Therefore Noahsaint received the superior return."
+    },
+    {
+      "transaction_id": "1414300225358557184",
+      "week": 5,
+      "team_1": {
+        "name": "Dayton Degenerates",
+        "receives": [
+          "2027 Round 2",
+          "2027 Round 2"
+        ]
+      },
+      "team_2": {
+        "name": "All Gas No Bench",
+        "receives": [
+          "D'Andre Swift"
+        ]
+      },
+      "audit": "GRADE_Dayton Degenerates: D\nGRADE_All Gas No Bench: B+\nWINNER: All Gas No Bench\nANALYSIS:\nAll Gas No Bench acquired a proven, starting\u2011level RB in D'Andre Swift, offering immediate and multi\u2011year fantasy value. Dayton Degenerates only received two 2027 second\u2011round picks, assets that are speculative and far in the future. The proven player outweighs the distant draft capital, giving All Gas No Bench the clear advantage."
+    },
+    {
+      "transaction_id": "1413728270360272896",
+      "week": 5,
+      "team_1": {
+        "name": "All Gas No Bench",
+        "receives": [
+          "Emanuel Wilson"
+        ]
+      },
+      "team_2": {
+        "name": "Justin Jefferfather",
+        "receives": [
+          "2028 Round 3"
+        ]
+      },
+      "audit": "GRADE_All Gas No Bench: B-\nGRADE_Justin Jefferfather: D+\nWINNER: All Gas No Bench\nANALYSIS:\nEmanuel Wilson provides a current NFL roster spot and upside as a depth RB, offering immediate dynasty relevance. A 2028 third\u2011round pick is a distant, low\u2011probability asset with minimal impact on a dynasty roster. Therefore the trade heavily favors All Gas No Bench."
+    },
+    {
+      "transaction_id": "1413603668418162688",
+      "week": 5,
+      "team_1": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "Amon-Ra St. Brown",
+          "2028 Round 4",
+          "2027 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "Justin Jefferfather",
+        "receives": [
+          "De'Von Achane",
+          "2027 Round 2",
+          "2027 Round 1"
+        ]
+      },
+      "audit": "GRADE_Syracuse Sandstorms: B\nGRADE_Justin Jefferfather: A-\nWINNER: Justin Jefferfather\nANALYSIS:\nSyracuse receives established WR Amon\u2011Ra St.\u202fBrown, a top\u201115 fantasy asset, but only a 2027 third\u2011round and 2028 fourth\u2011round pick, which are modest future assets. Justin gets high\u2011upside RB De'Von Achane plus a 2027 first\u2011round and second\u2011round pick, giving him both immediate positional upside and premium draft capital. The combination of higher picks and a potential cornerstone RB gives Justin Jefferfather the superior return."
+    },
+    {
+      "transaction_id": "1408272298879848448",
+      "week": 2,
+      "team_1": {
+        "name": "MaxWeese25",
+        "receives": [
+          "Tre Tucker"
+        ]
+      },
+      "team_2": {
+        "name": "Justin Jefferfather",
+        "receives": [
+          "2028 Round 3",
+          "2028 Round 4"
+        ]
+      },
+      "audit": "GRADE_MaxWeese25: A-\nGRADE_Justin Jefferfather: D+\nWINNER: MaxWeese25\nANALYSIS:\nTre Tucker is a young, high-upside wide receiver entering his rookie season with a clear path to a significant role, offering immediate and future dynasty value. The 2028 third- and fourth-round picks are four years away and represent low-probability assets, providing minimal impact to a dynasty roster. Consequently, MaxWeese25 receives the superior return."
+    },
+    {
+      "transaction_id": "1406419168584085504",
+      "week": 2,
+      "team_1": {
+        "name": "Fire Haslam Into The Sun",
+        "receives": [
+          "Quinshon Judkins",
+          "Jadarian Price",
+          "2028 Round 2"
+        ]
+      },
+      "team_2": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "De'Von Achane",
+          "2029 Round 3",
+          "2027 Round 2"
+        ]
+      },
+      "audit": "GRADE_Fire Haslam Into The Sun: C+\nGRADE_Syracuse Sandstorms: B+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nFire Haslam receives rookie RB Quinshon Judkins and rookie WR Jadarian Price, both unproven, plus a 2028 second\u2011round pick. Syracuse gets proven RB De'Von Achane, a 2027 second\u2011round pick (one year earlier), and a 2029 third\u2011round pick, providing higher immediate and future value. Consequently, Syracuse captured the superior assets."
+    },
     {
       "transaction_id": "1400485828521648128",
       "week": 1,
@@ -17,13 +263,13 @@
           "2026 Round 4"
         ]
       },
-      "audit": "GRADE_noahsaint: C  \nGRADE_spearson22: A  \nWINNER: spearson22  \nANALYSIS:  \nThe trade is heavily skewed in favor of spearson22, who receives two early\u2011round picks while noahsaint only gets one. Unless noahsaint is surrendering a valuable player or future asset, the deal is lopsided and clearly benefits spearson22. Therefore spearson22 wins the audit."
+      "audit": "GRADE_noahsaint: C\nGRADE_spearson22: B+\nWINNER: spearson22\nANALYSIS:\nSpearson22 acquired both a 2026 third\u2011round and a fourth\u2011round pick, giving them two future assets versus Noahsaint\u2019s single third\u2011rounder. The additional fourth\u2011round pick adds meaningful depth and upside, making spearson22\u2019s side clearly more valuable. Consequently, the trade heavily favors spearson22."
     },
     {
       "transaction_id": "1400295410559414272",
       "week": 1,
       "team_1": {
-        "name": "BabbyBare",
+        "name": "All Gas No Bench",
         "receives": [
           "2026 Round 2"
         ]
@@ -35,13 +281,13 @@
           "2026 Round 2"
         ]
       },
-      "audit": "GRADE_BabbyBare: 2  \nGRADE_Syracuse Sandstorms: 8  \nWINNER: Syracuse Sandstorms  \nANALYSIS:  \nThe trade is a clear 2\u2011for\u20111 deal where BabbyBare gives up two 2026 Round\u202f2 picks and receives only one in return, resulting in a net loss of a draft asset. Syracuse, on the other hand, nets an extra second\u2011round pick, improving their depth for the upcoming draft. Thus, Syracuse gains a decisive advantage while BabbyBare is left worse off."
+      "audit": "GRADE_All Gas No Bench: F\nGRADE_Syracuse Sandstorms: A\nWINNER: Syracuse Sandstorms\nANALYSIS:\nAll Gas No Bench gave up two 2026 second\u2011round picks and received only one, losing a valuable future asset. Syracuse Sandstorms acquired an extra 2026 second\u2011round pick, gaining additional draft capital. The trade heavily favors Syracuse, giving them a clear dynasty advantage."
     },
     {
       "transaction_id": "1400138088730140672",
       "week": 1,
       "team_1": {
-        "name": "George PickHIMs",
+        "name": "Fire Haslam Into The Sun",
         "receives": [
           "2026 Round 2",
           "2028 Round 2"
@@ -53,15 +299,15 @@
           "2026 Round 1"
         ]
       },
-      "audit": "GRADE_George PickHIMs: C  \nGRADE_T-Mac Attack: A  \nWINNER: T-Mac Attack  \nANALYSIS:  \nTeam 2 secured a higher\u2011value player for a first\u2011round pick, while Team 1 swapped a mid\u2011tier player for two second\u2011round picks. The trade slightly favors Team 2, making it a marginally better deal for them."
+      "audit": "GRADE_Fire Haslam Into The Sun: C+\nGRADE_T-Mac Attack: B+\nWINNER: T-Mac Attack\nANALYSIS:\nFire Haslam received two mid\u2011round future picks (2026 2nd, 2028 2nd) which are modest assets, while T\u2011Mac secured a 2026 1st\u2011rounder, a high\u2011impact, earlier\u2011year asset. The 1st\u2011round pick outweighs the combined value of two 2nd\u2011rounders, especially given the 2028 pick\u2019s distance. Therefore T\u2011Mac Attack got the superior return."
     },
     {
       "transaction_id": "1399936600359575552",
       "week": 1,
       "team_1": {
-        "name": "Dayton Degenerates ",
+        "name": "Dayton Degenerates",
         "receives": [
-          "Deebo Samuel"
+          "Deebo Samuel Sr."
         ]
       },
       "team_2": {
@@ -70,7 +316,7 @@
           "2027 Round 3"
         ]
       },
-      "audit": "GRADE_Dayton Degenerates : A  \nGRADE_Worthy of my Chuba : D  \nWINNER: Dayton Degenerates  \nANALYSIS:  \nDayton\u2019s haul of Deebo Samuel far outweighs the modest 2027 third\u2011round pick they surrendered. Samuel\u2019s elite talent, proven production, and upside make him a top\u2011tier asset, whereas a late\u2011round pick in a future draft is a low\u2011risk, low\u2011reward trade\u2011piece. The deal is heavily skewed in Dayton\u2019s favor, giving them a clear advantage in the upcoming season."
+      "audit": "GRADE_Dayton Degenerates: A-\nGRADE_Worthy of my Chuba: D+\nWINNER: Dayton Degenerates\nANALYSIS:\nDeebo Samuel Sr. provides immediate WR production and a proven track record, representing a high\u2011value asset in a dynasty context. A 2027 third\u2011round pick is a distant, low\u2011probability asset with limited impact on current roster building. Therefore Dayton Degenerates receive substantially more dynasty value."
     },
     {
       "transaction_id": "1399816305309184000",
@@ -83,22 +329,22 @@
         ]
       },
       "team_2": {
-        "name": "Mr texas ",
+        "name": "Mr texas",
         "receives": [
           "Hunter Henry",
           "David Montgomery",
-          "Michael Pittman",
+          "Michael Pittman Jr.",
           "2027 Round 1",
           "2026 Round 3"
         ]
       },
-      "audit": "GRADE_MaxWeese25: 9\nGRADE_Mr texas : 2\nWINNER: MaxWeese25\nANALYSIS:\nTeam 1 has clearly outbid Team 2, acquiring two high\u2011tier 2026 draft picks for a single player, while Team 2 gave up three proven receivers and two future picks. The trade is heavily skewed in favor of MaxWeese25, making it a lopsided win for that side."
+      "audit": "GRADE_MaxWeese25: B+\nGRADE_Mr texas: B-\nWINNER: MaxWeese25\nANALYSIS:\nMaxWeese25 receives a 2026 first\u2011round and second\u2011round pick, giving him two high\u2011value assets in the same draft, which are premium in dynasty building. Mr texas gets three established players (Hunter Henry, David Montgomery, Michael Pittman\u202fJr.) plus a 2027 first\u2011round and a 2026 third\u2011round pick, but the later first\u2011round and third\u2011round are less valuable than a current second\u2011round, and the players are not elite. Consequently, MaxWeese25\u2019s side holds greater long\u2011term upside."
     },
     {
       "transaction_id": "1399808502368587776",
       "week": 1,
       "team_1": {
-        "name": "Mr texas ",
+        "name": "Mr texas",
         "receives": [
           "Kenny Gainwell",
           "2026 Round 1",
@@ -112,7 +358,7 @@
           "2027 Round 1"
         ]
       },
-      "audit": "GRADE_Mr texas : B\nGRADE_Syracuse Sandstorms: B\nWINNER: Even Trade\nANALYSIS:\nEvaluation pending."
+      "audit": "GRADE_Mr texas: D\nGRADE_Syracuse Sandstorms: A\nWINNER: Syracuse Sandstorms\nANALYSIS:\nKenny Gainwell is a depth running back with limited upside, and the 2028 third\u2011round pick adds only marginal future value. Syracuse receives two consecutive first\u2011round picks (2026 and 2027), which are premium assets in a dynasty league. Consequently, Syracuse gains substantially more dynasty value than Mr texas."
     },
     {
       "transaction_id": "1399138359141474304",
@@ -132,26 +378,26 @@
           "2027 Round 2"
         ]
       },
-      "audit": "GRADE_Syracuse Sandstorms: A  \nGRADE_spearson22: C  \nWINNER: Syracuse Sandstorms  \nANALYSIS:  \nSyracuse Sandstorms secured a 2026 first\u2011round pick and a 2028 second\u2011round pick for Courtland Sutton and Rico Dowdle. The first\u2011rounder is a high\u2011value asset that can yield a franchise player, while the second\u2011rounder adds depth. In contrast, spearson22 gave up those picks for two mid\u2011tier players who, while solid, are unlikely to match the upside of a first\u2011round selection. Overall, the trade favors Syracuse, making it the clear winner."
+      "audit": "GRADE_Syracuse Sandstorms: A-\nGRADE_spearson22: C+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nSyracuse secured a 2026 first\u2011round pick, a premium asset that far outweighs any current player value, and added a modest 2028 second\u2011rounder. spearson22 received Courtland Sutton, a solid but aging WR, depth RB Rico Dowdle, and a 2027 second\u2011round pick, which together do not match the future top\u2011round capital Syracuse obtained. Consequently, Syracuse captured the superior dynasty value."
     },
     {
       "transaction_id": "1382434099502792704",
       "week": 1,
       "team_1": {
-        "name": "George PickHIMs",
+        "name": "Fire Haslam Into The Sun",
         "receives": [
           "De'Von Achane",
           "2027 Round 3"
         ]
       },
       "team_2": {
-        "name": "BabbyBare",
+        "name": "All Gas No Bench",
         "receives": [
           "DeVonta Smith",
           "2027 Round 2"
         ]
       },
-      "audit": "GRADE_George PickHIMs: D  \nGRADE_BabbyBare: A  \nWINNER: BabbyBare  \nANALYSIS:  \nThe trade is heavily skewed in favor of BabbyBare. DeVonta Smith is a proven, high\u2011impact wide receiver, while De'Von Achane is a rookie with uncertain upside. Coupled with the 2027 Round 2 pick versus a Round 3 pick, George PickHIMs is giving up significantly more value for less. This imbalance makes the deal lopsided and clearly benefits BabbyBare."
+      "audit": "GRADE_Fire Haslam Into The Sun: B-\nGRADE_All Gas No Bench: B+\nWINNER: All Gas No Bench\nANALYSIS:\nDe'Von Achane offers high upside as a young, dynamic RB but remains unproven long\u2011term, and the 2027 third\u2011round pick adds modest future value. DeVonta Smith is a proven elite WR with several years of top\u2011tier production, and the 2027 second\u2011round pick provides a clearly superior draft asset. Combined, the WR and higher pick give All Gas No Bench a clear dynasty advantage."
     }
   ]
 }
