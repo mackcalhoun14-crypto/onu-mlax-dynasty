@@ -300,7 +300,9 @@ def generate_trade_audit(team1_name, team1_assets, team2_name, team2_assets, tra
         "- Each grade line must be formatted exactly as shown, with NO space before the colon.\n"
         "- The WINNER must be the team with the better (higher) grade. Use Even Trade only when the grades are equal.\n"
         "- Never write \"Evaluation pending\", \"pending review\", or any placeholder. Always give real grades.\n"
-        "- Never invent players or picks. A side that received only draft picks received only draft picks."
+        "- Never invent players or picks. A side that received only draft picks received only draft picks.\n"
+        "- The current NFL season is 2026. Do not call a player a rookie unless he entered the NFL in 2026. "
+        "A 2027 draft pick is about one year away and a 2028 pick about two years away; never describe a future pick as four years away."
     )
     for _attempt in range(3):
         raw = call_ai(prompt)
