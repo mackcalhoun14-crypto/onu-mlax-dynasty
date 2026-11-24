@@ -1,6 +1,60 @@
 {
-  "total_trades": 21,
+  "total_trades": 24,
   "trades": [
+    {
+      "transaction_id": "1430953652784201728",
+      "week": 11,
+      "team_1": {
+        "name": "MaxWeese25",
+        "receives": [
+          "Cam Ward"
+        ]
+      },
+      "team_2": {
+        "name": "Mr texas",
+        "receives": [
+          "2027 Round 3"
+        ]
+      },
+      "audit": "GRADE_MaxWeese25: B+\nGRADE_Mr texas: B\nWINNER: MaxWeese25\nANALYSIS:\nCam Ward is a 24\u2011year\u2011old quarterback with one completed season for TEN, offering potential upside at a young age. A 2027 third\u2011round pick represents a future prospect but carries less immediate impact than a player already on an NFL roster. Consequently, MaxWeese25 received the higher\u2011value asset."
+    },
+    {
+      "transaction_id": "1430710886581932032",
+      "week": 11,
+      "team_1": {
+        "name": "Dayton Degenerates",
+        "receives": [
+          "Jahan Dotson",
+          "2027 Round 2",
+          "2029 Round 3"
+        ]
+      },
+      "team_2": {
+        "name": "Syracuse Sandstorms",
+        "receives": [
+          "Travis Kelce",
+          "2029 Round 2"
+        ]
+      },
+      "audit": "GRADE_Dayton Degenerates: B+\nGRADE_Syracuse Sandstorms: C\nWINNER: Dayton Degenerates\nANALYSIS:\nDayton receives WR Jahan Dotson (age 26, 4 completed seasons) plus a 2027 2nd\u2011round and a 2029 3rd\u2011round pick. Syracuse receives TE Travis Kelce (age 37, 13 completed seasons) and a 2029 2nd\u2011round pick. The younger player and the earlier 2027 pick give Dayton greater dynasty value."
+    },
+    {
+      "transaction_id": "1430671568576466944",
+      "week": 11,
+      "team_1": {
+        "name": "Fire Haslam Into The Sun",
+        "receives": [
+          "Stefon Diggs"
+        ]
+      },
+      "team_2": {
+        "name": "Dayton Degenerates",
+        "receives": [
+          "2028 Round 2"
+        ]
+      },
+      "audit": "GRADE_Fire Haslam Into The Sun: B\nGRADE_Dayton Degenerates: C+\nWINNER: Fire Haslam Into The Sun\nANALYSIS:\nStefon Diggs is a 32\u2011year\u2011old, 11\u2011season wide receiver from Washington, providing immediate, proven production but limited future upside. The 2028 second\u2011round pick is a two\u2011year\u2011away asset with uncertain value and no guarantee of impact. The veteran WR outweighs the speculative future pick, giving Fire Haslam Into The Sun the better side of the trade."
+    },
     {
       "transaction_id": "1430649818136449024",
       "week": 11,
@@ -16,7 +70,7 @@
           "Chris Rodriguez Jr."
         ]
       },
-      "audit": "GRADE_Dayton Degenerates: A-\nGRADE_noahsaint: B+\nWINNER: Dayton Degenerates\nANALYSIS:\nJonathon Brooks is a 23\u2011year\u2011old RB for CAR with two completed seasons, while Chris Rodriguez Jr. is a 27\u2011year\u2011old RB for JAX with three completed seasons. The younger age and earlier career stage of Brooks generally provide higher long\u2011term dynasty upside compared to the older, more experienced Rodriguez. Consequently, Dayton received the more valuable asset."
+      "audit": "GRADE_Dayton Degenerates: A-\nGRADE_noahsaint: B+\nWINNER: Dayton Degenerates\nANALYSIS:\nJonathon Brooks is a 23\u2011year\u2011old RB for Carolina with two completed seasons, offering youthful upside in a dynasty context. Chris Rodriguez Jr. is a 27\u2011year\u2011old RB for Jacksonville with three completed seasons, providing more proven production but limited upside. Consequently, Dayton receives the higher\u2011upside asset, giving them the better side of the trade."
     },
     {
       "transaction_id": "1430646332443353088",
@@ -38,7 +92,7 @@
           "2028 Round 3"
         ]
       },
-      "audit": "GRADE_Chicken Soup: C-\nGRADE_Worthy of my Chuba: B+\nWINNER: Worthy of my Chuba\nANALYSIS:\nChicken Soup acquired veteran QB Patrick Mahomes (KC, 31, 9 seasons), RB Chuba Hubbard (CAR, 27, 5 seasons) and a 2028 first\u2011round pick. Worthy of my Chuba received younger QB Anthony Richardson Sr. (IND, 24, 3 seasons) plus two 2027 first\u2011round picks and a 2028 third\u2011round pick. The two 2027 first\u2011round selections and the younger quarterback provide greater long\u2011term dynasty upside than the single 2028 first and the older veteran assets."
+      "audit": "GRADE_Chicken Soup: C+\nGRADE_Worthy of my Chuba: B+\nWINNER: Worthy of my Chuba\nANALYSIS:\nChicken Soup acquired veteran QB Patrick Mahomes (KC, 31, 9 seasons) and RB Chuba Hubbard (CAR, 27, 5 seasons) plus a 2028 first\u2011round pick. Worthy of my Chuba received a younger QB Anthony Richardson Sr. (IND, 24, 3 seasons) and two 2027 first\u2011round picks plus a 2028 third\u2011round pick. The combination of multiple near\u2011term first\u2011round assets and a younger quarterback outweighs the immediate star value of Mahomes and Hubbard, giving Worthy the superior dynasty return."
     },
     {
       "transaction_id": "1430643999177216000",
@@ -57,7 +111,7 @@
           "Brock Bowers"
         ]
       },
-      "audit": "GRADE_Fire Haslam Into The Sun: A-\nGRADE_Chicken Soup: B+\nWINNER: Fire Haslam Into The Sun\nANALYSIS:\nFire Haslam received a 29\u2011year\u2011old quarterback with six completed seasons and two future third\u2011round picks (2027 and 2029), providing both immediate and future dynasty value. Chicken Soup received a 23\u2011year\u2011old tight end with two completed seasons, offering upside but less proven production. The combination of a proven QB and two picks outweighs the single TE, making the trade favorable to Fire Haslam Into The Sun."
+      "audit": "GRADE_Fire Haslam Into The Sun: A-\nGRADE_Chicken Soup: B\nWINNER: Fire Haslam Into The Sun\nANALYSIS:\nFire Haslam received quarterback Joe Burrow, a 29\u2011year\u2011old with six completed seasons, along with third\u2011round picks in 2027 and 2029. Chicken Soup received tight end Brock Bowers, a 23\u2011year\u2011old with two completed seasons. The combination of an established quarterback and two future mid\u2011round selections outweighs the value of a young tight end, giving Fire Haslam the superior return."
     },
     {
       "transaction_id": "1428800477474070528",
@@ -76,7 +130,7 @@
           "2028 Round 1"
         ]
       },
-      "audit": "GRADE_MaxWeese25: C+\nGRADE_Syracuse Sandstorms: B+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nBryce Young is a 25\u2011year\u2011old quarterback with three completed NFL seasons for Carolina, while Sam Darnold is a 29\u2011year\u2011old quarterback with eight completed seasons for Seattle. The 2028 first\u2011round pick Syracuse receives far exceeds the value of the 2028 third\u2011round pick MaxWeese receives, and Darnold\u2019s age limits his long\u2011term upside compared with Young\u2019s potential. Consequently, Syracuse gains the higher draft asset and a veteran quarterback, giving them the better side of the trade."
+      "audit": "GRADE_MaxWeese25: B-\nGRADE_Syracuse Sandstorms: A-\nWINNER: Syracuse Sandstorms\nANALYSIS:\nBryce Young (QB, CAR, 25, 3 seasons) and a 2028 third\u2011round pick go to MaxWeese25, while Sam Darnold (QB, SEA, 29, 8 seasons) and a 2028 first\u2011round pick go to Syracuse Sandstorms. The younger quarterback offers longer potential upside, but the first\u2011round pick provides a higher guaranteed future asset, giving Syracuse a net advantage in dynasty value."
     },
     {
       "transaction_id": "1421604617350889472",
@@ -93,7 +147,7 @@
           "2028 Round 1"
         ]
       },
-      "audit": "GRADE_Chicken Soup: B+\nGRADE_spearson22: A-\nWINNER: spearson22\nANALYSIS:\nChicken Soup acquired a 2029 first\u2011round draft pick, which will be made three seasons from now. spearson22 received a 2028 first\u2011round draft pick, occurring two seasons from now. The 2028 pick is one year earlier and therefore carries greater dynasty value, giving spearson22 the advantage."
+      "audit": "GRADE_Chicken Soup: B+\nGRADE_spearson22: A-\nWINNER: spearson22\nANALYSIS:\nChicken Soup received a 2029 first\u2011round pick, which will be three seasons away and therefore holds less immediate dynasty value. spearson22 obtained a 2028 first\u2011round pick, only two seasons away, making it a higher\u2011valued asset. The earlier pick gives spearson22 the advantage in this trade."
     },
     {
       "transaction_id": "1421581244344307712",
@@ -114,7 +168,7 @@
           "2027 Round 3"
         ]
       },
-      "audit": "GRADE_Dayton Degenerates: C\nGRADE_Justin Jefferfather: B\nWINNER: Justin Jefferfather\nANALYSIS:\nDayton received tight ends AJ Barner (24, 2 completed seasons) and T.J. Hockenson (29, 7 completed seasons) along with a 2029 4th\u2011round pick. Justin received a 2027 3rd\u2011round pick plus 2028 and 2029 4th\u2011round picks, giving him greater future upside and overall dynasty value."
+      "audit": "GRADE_Dayton Degenerates: C\nGRADE_Justin Jefferfather: B+\nWINNER: Justin Jefferfather\nANALYSIS:\nDayton received TE AJ Barner (age 24, 2 completed seasons) and TE T.J. Hockenson (age 29, 7 completed seasons) plus a 2029 4th\u2011round pick. Justin received a 2027 3rd\u2011round pick, a 2028 4th\u2011round pick and a 2029 4th\u2011round pick. The three mid\u2011round future picks give Justin more flexible, long\u2011term upside than the two tight ends Dayton acquired."
     },
     {
       "transaction_id": "1418300918213906432",
@@ -133,7 +187,7 @@
           "2027 Round 4"
         ]
       },
-      "audit": "GRADE_T-Mac Attack: C\nGRADE_Justin Jefferfather: B\nWINNER: Justin Jefferfather\nANALYSIS:\nJordan Mason is a 27\u2011year\u2011old RB with four completed seasons for Minnesota, providing limited upside at this stage of his career. The 2027 Round 3 pick that Justin receives sits one round higher than the Round 4 pick T\u2011Mac gets, giving Justin two draft assets versus T\u2011Mac\u2019s single player and a later pick. Therefore Justin\u2019s side captures more dynasty value."
+      "audit": "GRADE_T-Mac Attack: C\nGRADE_Justin Jefferfather: B\nWINNER: Justin Jefferfather\nANALYSIS:\nJordan Mason is a 27\u2011year\u2011old RB with four completed seasons and provides limited immediate upside, while the 2027 4th\u2011round pick is a modest future asset. Justin Jefferfather receives a 2027 3rd\u2011round and a 4th\u2011round pick, which together represent higher draft capital than the player\u2011plus\u20114th combination. Therefore the trade favors Justin Jefferfather."
     },
     {
       "transaction_id": "1416542421608640512",
@@ -150,7 +204,7 @@
           "2027 Round 2"
         ]
       },
-      "audit": "GRADE_noahsaint: A-\nGRADE_Justin Jefferfather: B\nWINNER: noahsaint\nANALYSIS:\nNoahsaint acquired Josh Downs, a 25\u2011year\u2011old wide receiver for Kansas City with three completed seasons. Justin Jefferfather received a 2027 second\u2011round draft pick, a future asset with uncertain placement. The immediate, known production potential of Downs outweighs the speculative value of a next\u2011year pick, giving Noahsaint the better side of the trade."
+      "audit": "GRADE_noahsaint: B+\nGRADE_Justin Jefferfather: C+\nWINNER: noahsaint\nANALYSIS:\nNoahsaint acquired WR Josh Downs, a 25\u2011year\u2011old player with three completed seasons for the Kansas City Chiefs. Justin Jefferfather received a 2027 second\u2011round draft pick, a future asset that will not be available until the following year. The known production and immediate roster impact of Downs outweigh the speculative value of a single future second\u2011rounder, giving Noahsaint the better side of the trade."
     },
     {
       "transaction_id": "1414300225358557184",
@@ -168,7 +222,7 @@
           "D'Andre Swift"
         ]
       },
-      "audit": "GRADE_Dayton Degenerates: A-\nGRADE_All Gas No Bench: B\nWINNER: Dayton Degenerates\nANALYSIS:\nDayton Degenerates acquire two 2027 second\u2011round selections, each roughly one year from the draft and offering potential high\u2011upside talent. All Gas No Bench receives D'Andre Swift, a 27\u2011year\u2011old running back with six completed seasons for Chicago. The two future second\u2011rounders provide greater long\u2011term dynasty value than a single veteran RB, making the trade favorable to Dayton."
+      "audit": "GRADE_Dayton Degenerates: C\nGRADE_All Gas No Bench: B+\nWINNER: All Gas No Bench\nANALYSIS:\nDayton Degenerates receive two 2027 second\u2011round selections, which are future mid\u2011round assets roughly one year away from the draft. All Gas No Bench acquires D'Andre Swift, a 27\u2011year\u2011old RB with six completed seasons for Chicago, providing immediate proven production. The veteran RB offers substantially higher current dynasty value than two future second\u2011round picks, giving All Gas the advantage."
     },
     {
       "transaction_id": "1413728270360272896",
@@ -185,7 +239,7 @@
           "2028 Round 3"
         ]
       },
-      "audit": "GRADE_All Gas No Bench: C\nGRADE_Justin Jefferfather: B+\nWINNER: Justin Jefferfather\nANALYSIS:\nEmanuel Wilson is a 27\u2011year\u2011old RB with three completed seasons for Seattle. The 2028 third\u2011round pick represents a future mid\u2011round selection roughly two drafts away. The pick offers higher long\u2011term upside than the current RB, giving Justin Jefferfather the better side of the trade."
+      "audit": "GRADE_All Gas No Bench: C\nGRADE_Justin Jefferfather: B+\nWINNER: Justin Jefferfather\nANALYSIS:\nEmanuel Wilson is a 27\u2011year\u2011old RB with three completed seasons for Seattle, offering limited upside at this stage of his career. A 2028 third\u2011round pick represents a two\u2011year\u2011away asset with potential to develop into a valuable roster piece. Consequently, the future pick provides greater dynasty value than the veteran RB, giving Justin Jefferfather the advantage."
     },
     {
       "transaction_id": "1413603668418162688",
@@ -206,7 +260,7 @@
           "2027 Round 1"
         ]
       },
-      "audit": "GRADE_Syracuse Sandstorms: C+\nGRADE_Justin Jefferfather: B+\nWINNER: Justin Jefferfather\nANALYSIS:\nSyracuse received WR Amon\u2011Ra St.\u202fBrown, a 27\u2011year\u2011old with five completed seasons, plus a 2027 third\u2011round and a 2028 fourth\u2011round pick. Justin received RB De'Von Achane, a 25\u2011year\u2011old with three completed seasons, along with a 2027 first\u2011round and second\u2011round pick. The combination of a younger running back and two high\u2011value 2027 picks outweighs the veteran receiver and later picks, giving Justin the better side of the trade."
+      "audit": "GRADE_Syracuse Sandstorms: C\nGRADE_Justin Jefferfather: B+\nWINNER: Justin Jefferfather\nANALYSIS:\nSyracuse received WR Amon\u2011Ra St. Brown (DET, 27, 5 seasons) plus a 2027 third\u2011round and a 2028 fourth\u2011round pick. Justin received RB De'Von Achane (MIA, 25, 3 seasons) and a 2027 first\u2011round and second\u2011round pick. The combination of a younger back and higher\u2011valued draft capital gives Justin more dynasty upside."
     },
     {
       "transaction_id": "1408272298879848448",
@@ -224,7 +278,7 @@
           "2028 Round 4"
         ]
       },
-      "audit": "GRADE_MaxWeese25: B+\nGRADE_Justin Jefferfather: C+\nWINNER: MaxWeese25\nANALYSIS:\nMaxWeese25 acquired Tre Tucker, a 25\u2011year\u2011old wide receiver with three completed seasons for the Las Vegas Raiders. Justin Jefferfather received a 2028 third\u2011round and a 2028 fourth\u2011round pick, both roughly two years away and mid\u2011round in value. The immediate roster asset of Tucker outweighs two future mid\u2011round selections, giving MaxWeese25 the better side of the trade."
+      "audit": "GRADE_MaxWeese25: B+\nGRADE_Justin Jefferfather: B-\nWINNER: MaxWeese25\nANALYSIS:\nMaxWeese25 received Tre Tucker. Justin Jefferfather received 2028 Round 3, 2028 Round 4. On the assets exchanged, MaxWeese25 comes out ahead."
     },
     {
       "transaction_id": "1406419168584085504",
@@ -245,7 +299,7 @@
           "2027 Round 2"
         ]
       },
-      "audit": "GRADE_Fire Haslam Into The Sun: C+\nGRADE_Syracuse Sandstorms: B+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nFire Haslam Into The Sun acquired two young RBs, Quinshon Judkins (23, 1 season) and rookie Jadarian Price (23, 0 seasons), plus a 2028 second\u2011round pick. Syracuse Sandstorms received a more NFL\u2011experienced RB, De'Von Achane (25, 3 seasons), along with a 2027 second\u2011round pick and a 2029 third\u2011round pick. The combination of a proven back and an earlier second\u2011rounder gives Syracuse higher dynasty value."
+      "audit": "GRADE_Fire Haslam Into The Sun: B-\nGRADE_Syracuse Sandstorms: B+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nFire received RB Quinshon Judkins (CLE, 23, 1 season), RB Jadarian Price (SEA, 23, rookie) and a 2028 2nd\u2011round pick. Syracuse received RB De'Von Achane (MIA, 25, 3 seasons) plus a 2027 2nd\u2011round and a 2029 3rd\u2011round pick. The proven RB and the higher\u2011valued, nearer\u2011term picks give Syracuse more dynasty value than the two younger backs and the later pick."
     },
     {
       "transaction_id": "1400485828521648128",
@@ -263,7 +317,7 @@
           "2026 Round 4"
         ]
       },
-      "audit": "GRADE_noahsaint: C\nGRADE_spearson22: B\nWINNER: spearson22\nANALYSIS:\nSpearson22 received a 2026 third\u2011round pick plus an additional 2026 fourth\u2011round pick, while noahsaint only obtained the 2026 third\u2011round pick. The extra fourth\u2011round selection gives spearson22 more draft capital and future roster flexibility, making the trade favorable to spearson22."
+      "audit": "GRADE_noahsaint: C-\nGRADE_spearson22: B+\nWINNER: spearson22\nANALYSIS:\nnoahsaint received a single 2026 third\u2011round pick, while spearson22 received both a 2026 third\u2011round and a 2026 fourth\u2011round pick. The extra fourth\u2011round selection provides spearson22 with additional draft capital and future roster flexibility, making the trade favorable to spearson22."
     },
     {
       "transaction_id": "1400295410559414272",
@@ -281,7 +335,7 @@
           "2026 Round 2"
         ]
       },
-      "audit": "GRADE_All Gas No Bench: A\nGRADE_Syracuse Sandstorms: D\nWINNER: All Gas No Bench\nANALYSIS:\nAll Gas No Bench received two 2026 second\u2011round picks while giving up only one, netting an additional future draft asset. Syracuse Sandstorms gave up two 2026 second\u2011round picks for a single one, losing a valuable draft slot. The extra second\u2011rounder makes the trade heavily in favor of All Gas No Bench."
+      "audit": "GRADE_All Gas No Bench: C+\nGRADE_Syracuse Sandstorms: A-\nWINNER: Syracuse Sandstorms\nANALYSIS:\nAll Gas No Bench receives only a single 2026 second\u2011round pick, while Syracuse Sandstorms acquire two 2026 second\u2011round picks. The extra second\u2011rounder gives Syracuse substantially more dynasty value and future roster\u2011building flexibility."
     },
     {
       "transaction_id": "1400138088730140672",
@@ -299,7 +353,7 @@
           "2026 Round 1"
         ]
       },
-      "audit": "GRADE_Fire Haslam Into The Sun: B+\nGRADE_T-Mac Attack: B-\nWINNER: Fire Haslam Into The Sun\nANALYSIS:\nFire Haslam Into The Sun received 2026 Round 2, 2028 Round 2. T-Mac Attack received 2026 Round 1. On the assets exchanged, Fire Haslam Into The Sun comes out ahead."
+      "audit": "GRADE_Fire Haslam Into The Sun: B\nGRADE_T-Mac Attack: A-\nWINNER: T-Mac Attack\nANALYSIS:\nFire Haslam Into The Sun received a 2026 second\u2011round pick and a 2028 second\u2011round pick, providing one immediate mid\u2011round asset and a future mid\u2011round asset. T\u2011Mac Attack received a 2026 first\u2011round pick, which historically offers higher upside and draft capital than a single second\u2011round. Consequently, T\u2011Mac Attack\u2019s side holds greater dynasty value."
     },
     {
       "transaction_id": "1399936600359575552",
@@ -316,7 +370,7 @@
           "2027 Round 3"
         ]
       },
-      "audit": "GRADE_Dayton Degenerates: D+\nGRADE_Worthy of my Chuba: B-\nWINNER: Worthy of my Chuba\nANALYSIS:\nDeebo Samuel Sr. is a 30\u2011year\u2011old WR from San\u202fFrancisco with seven completed seasons. A 2027 third\u2011round pick represents a draft asset roughly one year away with potential upside. The pick offers more long\u2011term dynasty value than the aging veteran, so Worthy of my Chuba received the better side."
+      "audit": "GRADE_Dayton Degenerates: C+\nGRADE_Worthy of my Chuba: B+\nWINNER: Worthy of my Chuba\nANALYSIS:\nDeebo Samuel Sr. is a 30\u2011year\u2011old wide receiver with seven completed seasons for San\u202fFrancisco, offering limited upside in a dynasty context. A 2027 third\u2011round pick provides a year\u2011ahead asset with potential long\u2011term value, making Worthy of my Chuba\u2019s return superior."
     },
     {
       "transaction_id": "1399816305309184000",
@@ -338,7 +392,7 @@
           "2026 Round 3"
         ]
       },
-      "audit": "GRADE_MaxWeese25: B\nGRADE_Mr texas: B+\nWINNER: Mr texas\nANALYSIS:\nMaxWeese25 receives a 2026 first\u2011round and a 2026 second\u2011round pick, which provide high upside in the upcoming draft. Mr texas receives TE Hunter Henry (NE, 31, 10 seasons), RB David Montgomery (HOU, 29, 7 seasons), WR Michael Pittman\u202fJr. (PIT, 29, 6 seasons) plus a 2027 first\u2011round and a 2026 third\u2011round pick. The combination of three experienced position players and a future first\u2011round pick outweighs the immediate two high picks, giving Mr texas the better dynasty value."
+      "audit": "GRADE_MaxWeese25: C+\nGRADE_Mr texas: B+\nWINNER: Mr texas\nANALYSIS:\nMaxWeese25 receives a 2026 first\u2011round and a 2026 second\u2011round pick, providing high future draft value but no current roster contributors. Mr texas receives TE Hunter Henry (NE, 31, 10 seasons), RB David Montgomery (HOU, 29, 7 seasons), WR Michael Pittman Jr. (PIT, 29, 6 seasons) along with a 2027 first\u2011round and a 2026 third\u2011round pick, adding proven players and additional draft capital. The trio of established veterans plus two picks outweighs the two early 2026 picks, giving Mr texas the superior side of the trade."
     },
     {
       "transaction_id": "1399808502368587776",
@@ -358,7 +412,7 @@
           "2027 Round 1"
         ]
       },
-      "audit": "GRADE_Mr texas: C\nGRADE_Syracuse Sandstorms: B+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nMr texas acquired RB Kenny Gainwell (TB, age 27, 5 completed seasons) along with a 2026 first\u2011round pick and a 2028 third\u2011round pick. Syracuse Sandstorms received two first\u2011round picks in 2026 and 2027. The two first\u2011round selections provide greater long\u2011term dynasty value than the veteran RB and the later third\u2011round pick."
+      "audit": "GRADE_Mr texas: C+\nGRADE_Syracuse Sandstorms: A-\nWINNER: Syracuse Sandstorms\nANALYSIS:\nMr texas received RB Kenny Gainwell (TB, 27, 5 seasons) plus a 2026 first\u2011round and a 2028 third\u2011round pick. Syracuse Sandstorms received two first\u2011round picks (2026 and 2027). The two first\u2011round selections provide higher long\u2011term upside than a veteran RB and a later third\u2011rounder, giving Syracuse the better side of the trade."
     },
     {
       "transaction_id": "1399138359141474304",
@@ -378,7 +432,7 @@
           "2027 Round 2"
         ]
       },
-      "audit": "GRADE_Syracuse Sandstorms: A-\nGRADE_spearson22: B+\nWINNER: Syracuse Sandstorms\nANALYSIS:\nSyracuse receives a 2026 first\u2011round pick and a 2028 second\u2011round pick, providing high\u2011value assets in the near and mid term. spearson22 receives WR Courtland Sutton (DEN, 31, 8 seasons), RB Rico Dowdle (PIT, 28, 6 seasons), and a 2027 second\u2011round pick. The first\u2011round selection gives Syracuse a greater dynasty advantage than the veteran package and later pick received by spearson22."
+      "audit": "GRADE_Syracuse Sandstorms: A-\nGRADE_spearson22: B\nWINNER: Syracuse Sandstorms\nANALYSIS:\nSyracuse received a 2026 first\u2011round pick and a 2028 second\u2011round pick, both valuable future assets for acquiring young talent or leveraging in trades. Spearson received Courtland Sutton, a 31\u2011year\u2011old WR with eight completed seasons, and Rico Dowdle, a 28\u2011year\u2011old RB with six completed seasons, both of which are aging veterans with limited upside. The combination of a near\u2011term first\u2011rounder and a later second\u2011rounder outweighs the veteran package, giving Syracuse the superior dynasty return."
     },
     {
       "transaction_id": "1382434099502792704",
@@ -397,7 +451,7 @@
           "2027 Round 2"
         ]
       },
-      "audit": "GRADE_Fire Haslam Into The Sun: C+\nGRADE_All Gas No Bench: B+\nWINNER: All Gas No Bench\nANALYSIS:\nFire Haslam Into The Sun acquired RB De'Von Achane (MIA, 25, 3 seasons) and a 2027 third\u2011round pick. All Gas No Bench received WR DeVonta Smith (PHI, 28, 5 seasons) and a 2027 second\u2011round pick. The combination of a higher\u2011valued second\u2011round pick and a veteran WR provides more immediate and long\u2011term dynasty value than the younger RB and later pick."
+      "audit": "GRADE_Fire Haslam Into The Sun: C\nGRADE_All Gas No Bench: B\nWINNER: All Gas No Bench\nANALYSIS:\nFire Haslam Into The Sun acquired RB De'Von Achane (MIA, 25, 3 seasons) and a 2027 third\u2011round pick. All Gas No Bench received WR DeVonta Smith (PHI, 28, 5 seasons) and a 2027 second\u2011round pick. The second\u2011rounder and the older, proven WR provide more immediate and long\u2011term dynasty value than the younger RB and a later pick."
     }
   ]
 }
